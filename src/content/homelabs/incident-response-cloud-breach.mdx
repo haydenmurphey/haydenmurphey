@@ -1,0 +1,118 @@
+---
+title: "Incident Response Lab: Azure Storage Breach Containment"
+description: "Investigate and contain credential abuse against Azure Storage accounts, pivoting from unified audit logs to live containment with Logic Apps and Defender for Cloud."
+date: "2025-09-22"
+difficulty: "Advanced"
+duration: "4 hours"
+status: "Runbook with containment"
+focusArea: "Incident Response"
+category: "Cloud Security"
+coverImage: "/images/site/blog-cover2.webp"
+tools:
+  - "Azure CLI"
+  - "Kusto Query Language"
+  - "Microsoft Sentinel"
+  - "Logic Apps"
+objectives:
+  - "Collect incident artifacts from Azure Activity and Storage logs"
+  - "Replay the intrusion timeline entirely with KQL queries"
+  - "Deploy a Logic App playbook that locks compromised storage keys"
+  - "Document root cause and preventive guardrails"
+requirements:
+  - "Azure subscription with Microsoft Sentinel enabled"
+  - "One Storage Account and one Log Analytics workspace"
+  - "Contributor access to deploy Logic Apps"
+tags:
+  - "azure"
+  - "sentinel"
+  - "kql"
+  - "incident-response"
+  - "logic-apps"
+---
+
+# Incident Response Lab: Azure Storage Breach Containment
+
+You will relive a real-world credential abuse incident I handled in a production Azure tenant. The goal: piece together how a leaked Shared Access Signature led to data exfiltration, then build an automated containment workflow.
+
+## 🧩 Lab Scenario
+
+- A developer accidentally published a Storage Account connection string in a public repository.
+- An attacker enumerated containers and exfiltrated sensitive blobs over 30 minutes.
+- Defender for Cloud raised an anomaly but no automated response was configured.
+
+## 🗺️ Phase 1 — Evidence Collection
+
+1. Configure Diagnostic Settings in the Storage Account:
+   ```bash
+   az monitor diagnostic-settings create \
+     --name storage-ir \
+     --resource $(az storage account show --name <storageName> --query id -o tsv) \
+     --logs '[{"category":"StorageRead","enabled":true}]' \
+     --metrics '[{"category":"Transaction","enabled":true}]' \
+     --workspace <logAnalyticsResourceId>
+   ```
+2. Run the pre-built KQL notebook `kql/storage_sas_breach.kql` inside Sentinel to load baseline queries.
+3. Export a copy of the unified audit log to your evidence folder (`./evidence/raw`).
+
+## 🔍 Phase 2 — Timeline Reconstruction
+
+Use KQL to rebuild the incident. Focus on three attack milestones.
+
+### 1. Initial Enumeration
+
+```kusto
+// Enumerate LIST operations per client IP
+table("StorageBlobLogs")
+| where OperationName == "ListBlob"
+| summarize Count = count() by CallerIpAddress, bin(TimeGenerated, 5m)
+| order by Count desc
+```
+
+### 2. Exfiltration Burst
+
+```kusto
+// Identify high-volume downloads per container
+StorageBlobLogs
+| where OperationName == "GetBlob"
+| summarize Downloads = count(), DataOut = sum(TotalIngress) by ContainerName, bin(TimeGenerated, 5m)
+| order by Downloads desc
+```
+
+### 3. Key Enumeration
+
+```kusto
+// Track calls to key listing endpoints
+AzureActivity
+| where OperationNameValue has_any ("ListKeys", "ListAccountSas")
+| project TimeGenerated, Caller, CallerIpAddress, OperationNameValue
+```
+
+Capture screenshots or export results for the report archive.
+
+## 🛠️ Phase 3 — Automatic Containment
+
+1. Deploy the containment Logic App with Bicep:
+   ```bash
+   az deployment group create \
+     --resource-group <rg-name> \
+     --template-file infra/logicapp-lockkeys.bicep \
+     --parameters storageAccountName=<storageName>
+   ```
+2. Connect Sentinel analytics rule "Storage Account Shared Key Access" to the playbook.
+3. Test by creating a Shared Access Signature; verify the Logic App rotates keys and disables the SAS within 60 seconds.
+
+## 🛡️ Phase 4 — Hardening & Lessons Learned
+
+- Apply Defender for Storage **Prevent** policy to block anonymous access.
+- Rotate storage account keys and purge any persisted credentials from configuration files.
+- Enforce Azure AD authentication for applications instead of account keys.
+- Update the *Secure Development* playbook with pipeline checks for secrets.
+
+## 📑 Deliverables
+
+- `report/timeline.md` including the KQL outputs and IoCs.
+- Logic App deployment screenshot + JSON export.
+- Sentinel analytics rule update referencing the containment playbook.
+- Ticket template for production hand-off.
+
+Run this lab whenever new engineers join incident response so they absorb both the investigative process and the automation mindset.

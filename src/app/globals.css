@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Performance: Font imports removed - using Next.js font optimization in layout.tsx
+  This eliminates CSS @import overhead and enables automatic font optimization
+*/
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-cyber-dark text-cyber-gray-light antialiased;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    /* Cursor: minimal pointer by default, orbital animation reserved for interactive hover */
+  }
+
+  /* Accessibility: Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* Performance: Custom cursor only on desktop to reduce rendering overhead */
+  @media (hover: hover) and (pointer: fine) {
+    body {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="3" fill="%2300FFAE" opacity="0.9"/><circle cx="16" cy="16" r="10" fill="none" stroke="%2300FFAE" stroke-width="1.5" opacity="0.4"/></svg>') 16 16, auto;
+    }
+
+    /* Interactive elements get a pointer cursor */
+    a, button, [role="button"], [data-cursor="link"] {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><defs><filter id="linkGlow"><feGaussianBlur stdDeviation="2.8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g filter="url(%23linkGlow)"><circle cx="24" cy="24" r="5" fill="%231AD1FF" opacity="0.92"/><circle cx="24" cy="24" r="14" fill="none" stroke="%231AD1FF" stroke-width="2.3" opacity="0.65"/><circle cx="24" cy="24" r="21" fill="none" stroke="%231AD1FF" stroke-width="1.2" opacity="0.35"/></g><g opacity="0.85"><circle cx="36" cy="24" r="2.3" fill="%2300FFAE"><animateTransform attributeName="transform" type="rotate" values="0 24 24;360 24 24" dur="3s" repeatCount="indefinite"/></circle><circle cx="12" cy="24" r="2.3" fill="%2300FFAE"><animateTransform attributeName="transform" type="rotate" values="0 24 24;360 24 24" dur="3s" repeatCount="indefinite"/></circle><circle cx="24" cy="12" r="2.3" fill="%2300FFAE"><animateTransform attributeName="transform" type="rotate" values="0 24 24;360 24 24" dur="3s" repeatCount="indefinite"/></circle><circle cx="24" cy="36" r="2.3" fill="%2300FFAE"><animateTransform attributeName="transform" type="rotate" values="0 24 24;360 24 24" dur="3s" repeatCount="indefinite"/></circle></g></svg>') 24 24, pointer;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-white;
+  }
+}
+
+@layer utilities {
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-cyber-darker;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-cyber-cyan/30 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-cyber-cyan/50;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-cyber-cyan/30 text-white;
+  }
+
+  /* Focus visible */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-cyber-cyan ring-offset-2 ring-offset-cyber-dark rounded;
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    @apply transition-all duration-300 ease-in-out;
+  }
+}
+
+/* Animation keyframes */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px rgba(26, 209, 255, 0.5), 0 0 10px rgba(26, 209, 255, 0.3);
+  }
+  to {
+    box-shadow: 0 0 10px rgba(26, 209, 255, 0.8), 0 0 20px rgba(26, 209, 255, 0.5);
+  }
+}
+
+/* Cyber grid background (optional) */
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(26, 209, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 209, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Matrix rain effect (optional - can be activated on specific sections) */
+.matrix-rain {
+  position: relative;
+  overflow: hidden;
+}
+
+.matrix-rain::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 255, 174, 0.05) 50%,
+    transparent 100%
+  );
+  animation: matrix-scroll 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes matrix-scroll {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+/* Cyber Background Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-10px);
+  }
+  75% {
+    transform: translateY(-30px) translateX(5px);
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+}
+
+/* Cyber animated background */
+.cyber-bg-animated {
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-bg-animated::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26, 209, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 209, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: float 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.cyber-bg-animated::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 255, 174, 0.03) 50%,
+    transparent 100%
+  );
+  animation: scan 8s linear infinite;
+  pointer-events: none;
+}

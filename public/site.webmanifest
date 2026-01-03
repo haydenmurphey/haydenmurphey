@@ -1,0 +1,41 @@
+{
+  "name": "Cybersecurity Portfolio Template",
+  "short_name": "CyberPortfolio",
+  "description": "Professional Blue Team cybersecurity portfolio showcasing projects, experience, and insights in defensive security operations.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a1929",
+  "theme_color": "#00d9ff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/site/icon-192.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/site/icon-512.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "education", "business"],
+  "shortcuts": [
+    {
+      "name": "Blog",
+      "short_name": "Blog",
+      "description": "Read cybersecurity articles",
+      "url": "/blog",
+      "icons": [{ "src": "/images/site/icon-192.jpeg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Projects",
+      "short_name": "Projects",
+      "description": "View security projects",
+      "url": "/projects",
+      "icons": [{ "src": "/images/site/icon-192.jpeg", "sizes": "192x192" }]
+    }
+  ]
+}
