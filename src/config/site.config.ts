@@ -12,8 +12,8 @@ export const siteConfig = {
     name: 'Hayden Murphey',
     codename: 'haydenmurphey',
     jobTitle: 'Cybersecurity Specialist', // Your professional title
-    tagline: '{EDIT} My Professional Cybersecurity Journey',
-    description: 'Your professional bio. Describe your background, expertise, and what makes you unique in the cybersecurity field.',
+    tagline: '',
+    description: 'I am recent Computer Science Graduate from James Madison University looking for an intro role in the Cybersecurity field. I bring a unique variety of skills to the table that transcends just the computer world.',
     organization: 'Independent',
   },
 
@@ -34,14 +34,10 @@ export const siteConfig = {
     description: 'Professional portfolio showcasing cybersecurity projects, blog posts, and expertise.',
     keywords: [
       'cybersecurity',
-      'blue team',
-      'defensive security',
-      'security analyst',
-      'SOC analyst',
-      'SIEM',
-      'incident response',
-      'threat hunting',
+      'security intern',
+      'cybersecurity intern',
       'security operations',
+      'portfolio',
       'Hayden Murphey', // Replace with your actual name
       'haydenmurphey', // Replace with your handle
     ],
