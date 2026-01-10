@@ -10,6 +10,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 const nextConfig = {
   reactStrictMode: true,
 
+  // Bypass linting/TS errors to ensure deployment completes
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -17,9 +18,9 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   
-  // Image optimization
+  // Image optimization for static hosting
   images: {
-    domains: [],
+    unoptimized: true, // Required for GitHub Pages
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -31,8 +32,8 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 
-  // Static optimization
-  output: 'standalone',
+  // Static optimization for GitHub Pages
+  output: 'export', 
 
   // Experimental features for better performance
   experimental: {
@@ -45,6 +46,20 @@ const nextConfig = {
   // PoweredBy header removal for security
   poweredByHeader: false,
 
+  // Security Headers
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+        ],
+      },
+    ];
+  },
+
   webpack: (config) => {
     // Ensure the @ alias resolves correctly during server builds
     config.resolve.alias['@'] = config.resolve.alias['@'] ?? path.resolve(process.cwd(), 'src');
@@ -55,24 +70,13 @@ const nextConfig = {
 // Wrap with Sentry config for error tracking (only if DSN is configured)
 const configWithSentry = process.env.NEXT_PUBLIC_SENTRY_DSN && withSentryConfig
   ? withSentryConfig(nextConfig, {
-      // Sentry Webpack Plugin Options
       silent: true,
       org: process.env.SENTRY_ORG,
       project: process.env.SENTRY_PROJECT,
-      
-      // Upload source maps to Sentry
       widenClientFileUpload: true,
-      
-      // Transpile SDK to be compatible with older browsers
       transpileClientSDK: true,
-      
-      // Automatically tree-shake Sentry logger statements
       disableLogger: true,
-      
-      // Hide source maps from generated client bundles
       hideSourceMaps: true,
-      
-      // Automatically instrument Next.js data fetching
       automaticVercelMonitors: true,
     })
   : nextConfig;
