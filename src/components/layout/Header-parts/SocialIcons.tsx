@@ -29,15 +29,6 @@ export function SocialIcons() {
       >
         <Github size={18} />
       </a>
-      <a
-        href={socialConfig.twitter.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="w-9 h-9 rounded-lg bg-cyber-teal-dark border border-blue-400/20 flex items-center justify-center text-blue-400 hover:border-blue-400 hover:shadow-neon-blue transition-all duration-300"
-        aria-label={socialConfig.twitter.label}
-      >
-        <Twitter size={18} />
-      </a>
     </div>
   );
 }

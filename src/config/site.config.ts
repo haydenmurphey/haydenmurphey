@@ -1,35 +1,28 @@
 /**
  * Site Configuration
- *
- * Central configuration for site-wide metadata, branding, and URLs.
- * ⚠️ IMPORTANT: Update these values with your own information!
- *
- * This is a template - replace all placeholder values with your actual details.
  */
 
 export const siteConfig = {
   /**
    * Site identity and branding
-   * Replace with your name and professional details
    */
-  name: 'Your Name - Cybersecurity Professional',
-  codename: 'your-handle', // Your preferred username/handle
+  name: 'Hayden Murphey - Cybersecurity Professional',
+  codename: '',
   author: {
-    name: 'Your Full Name',
-    codename: 'your-handle',
-    jobTitle: 'Cybersecurity Specialist | Blue Team', // Your professional title
-    tagline: 'Your professional tagline or motto',
+    name: 'Hayden Murphey',
+    codename: 'haydenmurphey',
+    jobTitle: 'Cybersecurity Specialist', // Your professional title
+    tagline: '{EDIT} My Professional Cybersecurity Journey',
     description: 'Your professional bio. Describe your background, expertise, and what makes you unique in the cybersecurity field.',
-    organization: 'Your Organization or Independent',
+    organization: 'Independent',
   },
 
   /**
    * Site URLs and domains
-   * Update with your actual domain
    */
   urls: {
-    base: 'https://yourdomain.com',
-    canonical: 'https://yourdomain.com',
+    base: 'https://haydenmurphey.site',
+    canonical: 'https://haydenmurphey.site',
   },
 
   /**
@@ -37,8 +30,8 @@ export const siteConfig = {
    * Customize for better search engine optimization
    */
   seo: {
-    title: 'Your Name - Cybersecurity Professional Portfolio',
-    description: 'Professional portfolio showcasing cybersecurity projects, blog posts, and expertise. Specializing in [your specializations].',
+    title: 'Hayden Murphey - Cybersecurity Professional Portfolio',
+    description: 'Professional portfolio showcasing cybersecurity projects, blog posts, and expertise.',
     keywords: [
       'cybersecurity',
       'blue team',
@@ -49,8 +42,8 @@ export const siteConfig = {
       'incident response',
       'threat hunting',
       'security operations',
-      'your name', // Replace with your actual name
-      'your handle', // Replace with your handle
+      'Hayden Murphey', // Replace with your actual name
+      'haydenmurphey', // Replace with your handle
     ],
   },
 
@@ -74,17 +67,16 @@ export const siteConfig = {
    */
   theme: {
     defaultMode: 'dark',
-    color: '#0a1929', // Your brand color in hex
+    color: '#0a1929',
   },
 
   /**
    * Educational background
-   * Update with your actual educational institutions
    */
   education: [
     {
-      name: 'Your University Name',
-      type: 'EducationalOrganization',
+      name: 'James Madison University',
+      type: 'University',
     },
     // Add more education entries as needed
   ],

@@ -27,91 +27,83 @@ interface Education {
 const educationData: Education[] = [
   // Academic Degrees
   {
-    title: 'Bachelor in Computer Science or Cybersecurity',
-    organization: 'University of Cambridge',
-    description: 'My plan is to start another degree next year to improve my academic and technological foundation. I plan to pursue a degree in Computer Science because I enjoy the fundamental and more abstract knowledge (in this case, I\'ll focus on a postgraduate degree in Cybersecurity), but depending on opportunities, I may pursue a cybersecurity degree directly.',
-    period: '2026 - 2030 (Expected)',
+    title: 'Bachelor in Computer Science',
+    organization: 'James Madison University',
+    description: 'With this degree, I received my formal education in the areas of comptuation that provides the backbone of Cybersecurity including computer systems, operating systems, programming languages, and data structures.',
+    period: '2022 - 2025',
     icon: '💻',
     type: 'degree',
     extraSections: [
       {
         title: 'Academic Projects',
-        items: ['I intend to conduct research in the area of Artificial Intelligence for anomaly detection.'],
-        accent: 'cyan',
-      },
-    ],
-  },
-  {
-    title: 'Bachelor of Science in Physics',
-    organization: 'Massachusetts Institute of Technology (MIT)',
-    description: 'Comprehensive physics education with emphasis on theoretical foundations, quantum mechanics, statistical physics, and computational modeling. Strong mathematical and analytical training applicable to cybersecurity threat analysis.',
-    period: '2016 - 2022',
-    icon: '⚛️',
-    type: 'degree',
-    extraSections: [
-      {
-        title: 'Research Projects',
-        items: [
-          'Experimental detection of cosmic radiation using cloud chamber technology.',
-          'Science outreach programs for underserved communities and rural areas.',
-          'Active participation in academic conferences with presentations and organizational roles.',
-        ],
+        items: ['PintOS: team collaboration with milestones and code reviews. My group and I implemented user-mode processes, expanded syscalls, and improved the timer subsystem for improved CPU utilization.', 'Built a fully client-side web app that performs CRUD with localStorage persistance and integrates with third-party APIs via asynchronous JavaScript.', 'Completed an algorithmic movement system utilizing ROS2  in Python for {FIGURE OUT ROBOT NAME} to simulate real world scenarios of search and rescue with custom built autonomous (fix that spelling) function.', 'For more see projects tab!'],
         accent: 'cyan',
       },
     ],
   },
   // Postgraduate Studies
-  {
-    title: 'Master\'s in Applied Physics and Materials Science',
-    organization: 'California Institute of Technology (Caltech)',
-    description: 'Advanced research in condensed matter physics and topological materials. Project focused on quantum properties of Bi₂Se₃ and Bi₂Te₃ topological insulators under magnetic field influence. Paused due to career transition to cybersecurity.',
-    period: '2025 - Paused',
-    icon: '⚛️',
-    type: 'postgrad',
-    status: 'paused'
-  },
-  {
-    title: 'Master of Science in Cybersecurity',
-    organization: 'Stanford University',
-    description: 'Advanced graduate program specializing in defensive cybersecurity, threat intelligence, incident response, and security operations. Focus on Blue Team methodologies and security architecture.',
-    period: 'To start in ~2027',
-    icon: '🛡️',
-    type: 'postgrad',
-    status: 'coming-soon'
-  },
+  //{
+    //title: 'Master\'s in Applied Physics and Materials Science',
+    //organization: 'California Institute of Technology (Caltech)',
+    //description: 'Advanced research in condensed matter physics and topological materials. Project focused on quantum properties of Bi₂Se₃ and Bi₂Te₃ topological insulators under magnetic field influence. Paused due to career transition to cybersecurity.',
+    //period: '2025 - Paused',
+    //icon: '⚛️',
+    //type: 'postgrad',
+    //status: 'paused'
+  //},
+  //{
+    //title: 'Master of Science in Cybersecurity',
+    //organization: 'Stanford University',
+    //description: 'Advanced graduate program specializing in defensive cybersecurity, threat intelligence, incident response, and security operations. Focus on Blue Team methodologies and security architecture.',
+    //period: 'To start in ~2027',
+    //icon: '🛡️',
+    //type: 'postgrad',
+    //status: 'coming-soon'
+  //},
   // Certifications
   {
-    title: 'CompTIA Security+',
-    organization: 'CompTIA',
-    description: 'Industry-leading certification in cybersecurity fundamentals, covering network security, threats, and vulnerabilities. Currently studying for exam preparation.',
-    period: 'In Progress',
+    title: 'ISC(2) Certified in Cybersecurity (Add squared symbol to this)',
+    organization: 'ISC(2) Add isc^2',
+    description: 'UPDATE THIS Industry-leading certification in cybersecurity fundamentals, covering network security, threats, and vulnerabilities. Currently studying for exam preparation.',
+    period: 'Completed Feb 2025',
+    icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
+    type: 'certification',
+    status: 'paused',
+    verificationLink: 'https://verify.comptia.org/placeholder',
+    credentialId: 'UPDATE THIS'
+  },
+  {
+    title: 'Association for Computing Machinery CHANGE ICON',
+    organization: 'ACM',
+    description: 'UPDATE THIS Industry-leading certification in cybersecurity fundamentals, covering network security, threats, and vulnerabilities. Currently studying for exam preparation.',
+    period: 'Member since 2025',
     icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
     type: 'certification',
     status: 'in-progress',
     verificationLink: 'https://verify.comptia.org/placeholder',
+    credentialId: 'UPDATE THIS'
+  },
+  {
+    title: 'CompTIA Security+',
+    organization: 'CompTIA',
+    description: 'Industry-leading certification in cybersecurity fundamentals, covering network security, threats, and vulnerabilities. Currently studying for exam preparation.',
+    period: 'Planned 2026',
+    icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
+    type: 'certification',
+    status: 'coming-soon',
+    verificationLink: 'https://verify.comptia.org/placeholder',
     credentialId: 'SEC+-IN-PROGRESS'
   },
   {
-    title: 'Certified Ethical Hacker (CEH)',
-    organization: 'EC-Council',
-    description: 'Advanced certification in ethical hacking methodologies, penetration testing, and vulnerability assessment. Planned after Security+ completion.',
+    title: 'CompTIA Network+',
+    organization: 'CompTIA',
+    description: 'UPDATE THIS Industry-leading certification in cybersecurity fundamentals, covering network security, threats, and vulnerabilities. Currently studying for exam preparation.',
     period: 'Planned 2026',
-    icon: '🔐',
+    icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
     type: 'certification',
     status: 'coming-soon',
-    verificationLink: 'https://verify.eccouncil.org/placeholder',
-    credentialId: 'CEH-PLANNED'
-  },
-  {
-    title: 'Blue Team Level 1 (BTL1)',
-    organization: 'Security Blue Team',
-    description: 'Practical Blue Team certification focusing on defensive security operations, threat detection, and incident response. Primary certification goal.',
-    period: 'Planned 2026',
-    icon: '🔵',
-    type: 'certification',
-    status: 'coming-soon',
-    verificationLink: 'https://securityblueteam.co.uk/verify/placeholder',
-    credentialId: 'BTL1-PLANNED'
+    verificationLink: 'https://verify.comptia.org/placeholder',
+    credentialId: 'NET+-IN-PROGRESS'
   }
 ];
 
@@ -145,7 +137,7 @@ export default function FormationSection() {
             Education & Certifications
           </h2>
           <p className="text-cyber-gray-light text-lg max-w-2xl mx-auto">
-            From physics foundations to cybersecurity expertise. My journey through academic excellence and professional certifications.
+            From computer science foundations to cybersecurity expertise. My journey through academic excellence, professional certifications, and organizations.
           </p>
         </m.div>
 
@@ -159,7 +151,7 @@ export default function FormationSection() {
               className="flex items-center gap-3 mb-8"
             >
               <GraduationCap className="text-cyber-cyan" size={32} />
-              <h3 className="text-2xl font-bold text-cyber-cyan">Undergraduate Degrees</h3>
+              <h3 className="text-2xl font-bold text-cyber-cyan">Undergraduate Degree</h3>
               <div className="flex-1 h-px bg-cyber-cyan/20" />
             </m.div>
 
@@ -308,7 +300,7 @@ export default function FormationSection() {
               className="flex items-center gap-3 mb-8"
             >
               <Award className="text-cyber-orange" size={32} />
-              <h3 className="text-2xl font-bold text-cyber-orange">Professional Certifications</h3>
+              <h3 className="text-2xl font-bold text-cyber-orange">Professional Certifications & Organizations</h3>
               <div className="flex-1 h-px bg-cyber-orange/20" />
             </m.div>
 

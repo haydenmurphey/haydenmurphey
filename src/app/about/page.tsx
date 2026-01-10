@@ -48,7 +48,7 @@ export default function AboutPage() {
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyber-teal-dark/50 border border-cyber-cyan/30 rounded-full mb-4">
                   <div className="w-2 h-2 bg-cyber-green rounded-full animate-pulse" />
                   <span className="text-sm text-cyber-gray-light font-mono">
-                    Blue Team | Defensive Security
+                    Currently Open For Work
                   </span>
                 </div>
 
@@ -57,7 +57,7 @@ export default function AboutPage() {
                 </h1>
 
                 <p className="text-xl text-cyber-gray-light leading-relaxed max-w-2xl md:max-w-none">
-                  Cybersecurity professional focused on Blue Team defense operations, threat detection, and building resilient security architectures.
+                  Early career Cybersecurity professional looking to expand their knowledge of the industry through projects, labs, and professional work.
                 </p>
               </div>
             </div>
@@ -203,10 +203,10 @@ export default function AboutPage() {
                 className="group p-8 bg-gradient-to-br from-cyber-green/10 to-cyber-orange/10 border border-cyber-green/30 rounded-xl hover:border-cyber-green hover:shadow-neon-green transition-all duration-300"
               >
                 <h3 className="text-2xl font-bold text-cyber-green mb-3 group-hover:text-cyber-cyan transition-colors">
-                  Drop a Secure Message
+                  Drop Me a Message
                 </h3>
                 <p className="text-cyber-gray-light mb-4">
-                  Connect for collaboration, consulting, or security discussions
+                  Connect for collaboration, discussion, etc.
                 </p>
                 <div className="inline-flex items-center gap-2 text-cyber-green group-hover:gap-4 transition-all">
                   <span className="font-mono">Contact Me</span>

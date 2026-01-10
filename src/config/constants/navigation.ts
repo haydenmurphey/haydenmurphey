@@ -91,14 +91,7 @@ export const SOCIAL_ITEMS: NavItem[] = [
     label: 'GitHub',
     isExternal: true,
     href: 'https://github.com/yourusername'
-  },
-  {
-    id: 'twitter',
-    icon: Twitter,
-    label: 'X (Twitter)',
-    isExternal: true,
-    href: 'https://twitter.com/yourusername'
-  },
+  }
 ];
 
 /**

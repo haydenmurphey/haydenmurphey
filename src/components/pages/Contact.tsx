@@ -16,22 +16,22 @@ const contactMethods: ContactMethod[] = [
   {
     name: 'LinkedIn',
     icon: <Linkedin size={24} />,
-    href: 'https://linkedin.com/in/your-linkedin-username',
+    href: 'https://linkedin.com/in/haydenmurphey',
     description: 'Connect for professional networking',
     color: 'border-cyber-cyan/30 hover:border-cyber-cyan hover:shadow-glow-cyan text-cyber-cyan'
   },
   {
     name: 'GitHub',
     icon: <Github size={24} />,
-    href: 'https://github.com/yourusername',
+    href: 'https://github.com/haydenmurphey',
     description: 'View my open source projects',
     color: 'border-cyber-gray/30 hover:border-cyber-gray-light hover:shadow-glow-cyan text-cyber-gray-light'
   },
   {
     name: 'Email',
     icon: <Mail size={24} />,
-    href: 'mailto:your.email@example.com',
-    description: 'Send me a secure email',
+    href: 'mailto:hsmurphey@gmail.com',
+    description: 'Send me an email',
     color: 'border-cyber-green/30 hover:border-cyber-green hover:shadow-glow-green text-cyber-green'
   }
 ];
@@ -59,13 +59,13 @@ export default function ContactSection() {
               viewport={{ once: true }}
               className="text-cyber-green font-mono text-sm mb-4 tracking-widest"
             >
-              SECURE CONTACT
+              MY CONTACT
             </m.p>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Drop a <span className="text-cyber-green">Secure Message</span>
+              Drop a <span className="text-cyber-green"> Message Below</span>
             </h2>
             <p className="text-cyber-gray-light text-lg max-w-2xl mx-auto mb-6">
-              For sensitive topics, reach out through the channels below. Encrypted links and trusted networks are always preferred.
+              Reach out through these channels.
             </p>
             <m.div
               initial={{ scaleX: 0 }}
@@ -122,7 +122,7 @@ export default function ContactSection() {
             <div className="flex items-center gap-4">
               <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyber-cyan/30" />
               <TypewriterAnimation
-                text="by ~/yourusername"
+                text="by ~/haydenmurphey"
                 speed={150}
                 className="text-2xl font-bold"
                 delay={1000}
@@ -130,7 +130,7 @@ export default function ContactSection() {
               <div className="h-px w-16 bg-gradient-to-l from-transparent to-cyber-cyan/30" />
             </div>
             <TypewriterAnimation
-              text="[OK] Fighting digital entropy since 2025..."
+              text="[OK] Currently open for work..."
               speed={150}
               className="text-lg font-mono text-cyber-gray-light"
               delay={1400}

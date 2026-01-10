@@ -23,8 +23,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://yourdomain.com'),
   ...generateSEO({
-    title: 'Your Name - Blue Team Cybersecurity Professional',
-    description: 'Professional cybersecurity portfolio showcasing Blue Team operations, defensive security expertise, SIEM, SOC operations, threat hunting, and incident response capabilities.',
+    title: 'Hayden Murphey - Cybersecurity Professional',
+    description: 'Professional cybersecurity portfolio.',
     url: '/',
     type: 'website',
     tags: ['portfolio', 'blue team', 'SOC analyst', 'threat hunting', 'security operations'],

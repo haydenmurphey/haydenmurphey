@@ -2,7 +2,7 @@
 
 import { type ReactNode } from 'react';
 import { m } from 'framer-motion';
-import { Calendar, Shield, Settings, ArrowRight } from 'lucide-react';
+import { Calendar, Shield, Settings, ArrowRight, Music } from 'lucide-react';
 import Link from 'next/link';
 
 interface Experience {
@@ -17,63 +17,39 @@ interface Experience {
 
 const experiences: Experience[] = [
   {
-    title: 'Blue Team Security Specialist',
-    company: <span>TechCorp Security · Full-time</span>,
-    period: 'Jan 2024 - Present',
-    description: 'Lead defensive security operations including threat detection, incident response, and security monitoring. Design and implement detection rules, conduct threat hunting, and mentor junior analysts in Blue Team methodologies.',
+    title: 'Software Validation - AI Trainer',
+    company: <span>DataAnnotation · Freelance Remote</span>,
+    period: 'May 2025 - Present',
+    description: 'Reviewed, corrected, and validated code results against specifications and test cases to improve quality. Worked extensively with JSON and Node.js to reproduce issues, debug logica errors, and verify fixes.',
     icon: <Shield size={20} />,
     achievements: [
-      'Designed and deployed 50+ custom SIEM detection rules reducing MTTD by 40%',
-      'Led incident response for 100+ security incidents with 98% successful resolution rate',
-      'Implemented automated threat hunting workflows using Python and Splunk SPL',
-      'Developed security playbooks for ransomware, phishing, and insider threat scenarios',
-      'Conducted regular purple team exercises to validate detection capabilities',
-      'Mentored 3 junior SOC analysts in threat detection and incident response'
+      'Worked on over 15 different AI projects to improve quality',
+      'Analyzed thousands of data points to spot trends and recognize faults',
+      'Implemented automated quantitative analysis programs with Python'
     ]
   },
   {
-    title: 'SOC Analyst Level 2',
-    company: <span>Global Finance Corp · Full-time</span>,
-    period: 'Jun 2022 - Dec 2023',
-    description: 'Advanced security monitoring and incident investigation in a 24/7 SOC environment. Performed deep-dive analysis of security alerts, threat intelligence integration, and coordination with security teams for incident containment.',
-    icon: <Shield size={20} />,
+    title: 'Assistant Researcher',
+    company: <span>MusicCPR · Part-time</span>,
+    period: 'October 2022 - July 2023',
+    description: 'Coordinated with professors on solving various bugs within the site. Conducted independent testing on the site using my background in music.',
+    icon: <Music size={20} />,
     achievements: [
-      'Triaged and investigated 500+ security incidents across SIEM, EDR, and network tools',
-      'Reduced false positive rate by 35% through alert tuning and correlation rules',
-      'Integrated threat intelligence feeds (MISP, AlienVault OTX) with SIEM platform',
-      'Created comprehensive incident reports for management and compliance teams',
-      'Performed malware analysis and forensic investigation of compromised systems',
-      'Developed documentation and training materials for L1 analysts'
+      'Balanced being a full time college student with learning the ins and outs of web development',
+      'Indentified key musical instrument redudencies'
     ]
   },
   {
-    title: 'SOC Analyst Level 1',
-    company: <span>CyberDefense Solutions · Full-time</span>,
-    period: 'Mar 2021 - May 2022',
-    description: 'First-line security monitoring and alert triage in enterprise SOC. Monitored security events from SIEM, firewalls, IDS/IPS, and endpoint protection platforms. Escalated confirmed incidents to senior analysts.',
+    title: 'Geotechnical Technician',
+    company: <span>Townes Site Engineering · Full-time</span>,
+    period: 'May 2021 - Aug 2025',
+    description: 'Worked along a team of engineers and other geotechs to complete contracted work by various construction sites. With this I conducted independent testings/inspections on site and in lab on materials including soil, concrete, and steel. ',
     icon: <Settings size={20} />,
     achievements: [
-      'Monitored and triaged 1000+ daily security alerts across multiple platforms',
-      'Achieved 95% SLA compliance for alert response times',
-      'Identified and escalated 50+ confirmed security incidents',
-      'Performed initial containment actions for phishing and malware incidents',
-      'Maintained detailed incident documentation and tracking in SOAR platform',
-      'Completed SANS SEC401 training and applied learnings to daily operations'
-    ]
-  },
-  {
-    title: 'IT Support Specialist / Junior Security Analyst',
-    company: <span>Enterprise Tech Services · Full-time</span>,
-    period: 'Aug 2019 - Feb 2021',
-    description: 'Provided technical support while transitioning to security role. Gained hands-on experience with security tools, vulnerability management, and basic incident response. Supported security team with log analysis and security patching.',
-    icon: <Settings size={20} />,
-    achievements: [
-      'Resolved 200+ IT support tickets monthly with 98% satisfaction rating',
-      'Assisted security team with vulnerability scanning and patch management',
-      'Performed basic log analysis for security investigations',
-      'Deployed security agents (EDR, DLP) across 500+ endpoints',
-      'Created user security awareness training materials',
-      'Obtained CompTIA Security+ certification while working full-time'
+      'Performed inspections on job sites containing over 8 billion dollars of infrastructure',
+      'Worked on over 30 different job sites',
+      'Developed exceptional teamwork skills to complete tasks required in contracts',
+      'Completed over 3000 different independent tests on concrete.'
     ]
   }
 ];
@@ -81,7 +57,7 @@ const experiences: Experience[] = [
 export default function ExperienceSection() {
   const title = 'Professional Experience';
   const subtitle = 'TIMELINE';
-  const description = 'From physics lab to Blue Team. Each experience shaped my analytical approach to cyber defense.';
+  const description = 'From experience in Civil Engineering to formal academic education and work in Computer Science. Each experience shaped my analytical approach to cyber defense giving me a balanced sight to physical and technical security.';
   const achievementsLabel = 'Key Achievements:';
   
   return (
@@ -206,38 +182,6 @@ export default function ExperienceSection() {
             ))}
           </div>
         </div>
-
-        {/* View More Button - Desktop */}
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="hidden md:flex justify-center mt-12"
-        >
-          <Link
-            href="/experience"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-cyber-cyan/10 border border-cyber-cyan/30 rounded-lg text-cyber-cyan hover:bg-cyber-cyan/20 hover:shadow-neon-cyan transition-all duration-300 group whitespace-nowrap"
-          >
-            <span className="font-mono text-sm">View More</span>
-            <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
-          </Link>
-        </m.div>
-
-        {/* View More Button - Mobile */}
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex justify-center mt-12 md:hidden"
-        >
-          <Link
-            href="/experience"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-cyber-cyan text-cyber-dark font-bold rounded-lg hover:shadow-neon-cyan hover:scale-105 transition-all duration-300 group"
-          >
-            View Complete Details
-            <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
-          </Link>
-        </m.div>
       </div>
     </section>
   );

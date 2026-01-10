@@ -81,16 +81,6 @@ export function MobileMenu({ isOpen, links, onClose }: MobileMenuProps) {
                 <span>LinkedIn</span>
               </a>
               <a
-                href={socialConfig.twitter.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-blue-400 hover:text-white transition-colors"
-                aria-label={socialConfig.twitter.label}
-              >
-                <Twitter size={18} />
-                <span>Twitter</span>
-              </a>
-              <a
                 href={socialConfig.github.url}
                 target="_blank"
                 rel="noopener noreferrer"

@@ -23,8 +23,6 @@ const defaultSEO = {
   defaultDescription: siteConfig.seo.description,
   baseUrl: canonicalUrl,
   defaultImage: siteConfig.defaultImage,
-  twitterHandle: socialConfig.twitter?.handle ?? '@your-twitter-handle',
-  twitterUsername: socialConfig.twitter?.username ?? 'your-twitter-handle',
   linkedinUsername: socialConfig.linkedin?.username ?? 'your-linkedin-username',
   githubUsername: socialConfig.github?.username ?? 'your-github-username',
   authorName,
@@ -102,8 +100,6 @@ export function generateSEO({
     },
     twitter: {
       card: 'summary_large_image',
-      site: defaultSEO.twitterHandle,
-      creator: defaultSEO.twitterHandle,
       title: fullTitle,
       description,
       images: [ogImage],
@@ -134,7 +130,6 @@ export function generatePersonSchema() {
     url: defaultSEO.baseUrl,
     image: `${defaultSEO.baseUrl}${siteConfig.defaultImage}`,
     sameAs: [
-      `https://twitter.com/${defaultSEO.twitterUsername}`,
       `https://linkedin.com/in/${defaultSEO.linkedinUsername}`,
       `https://github.com/${defaultSEO.githubUsername}`,
     ],

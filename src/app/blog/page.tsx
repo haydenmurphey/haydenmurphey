@@ -4,7 +4,7 @@ import BlogSection from '@/components/pages/Blog';
 import { generateSEO } from '@/lib/seo';
 
 export const metadata: Metadata = generateSEO({
-  title: 'Blue Team Blog - Cybersecurity Insights & Articles',
+  title: 'Personal Blog',
   description: 'Technical articles on Blue Team operations, SIEM, incident response, threat hunting, and defensive cybersecurity. Learn from real-world security projects and best practices.',
   url: '/blog',
   type: 'website',

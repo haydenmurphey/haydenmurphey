@@ -20,7 +20,7 @@ interface HomeSectionProps {
 
 function HomeSection({ translations }: HomeSectionProps) {
   const defaultTranslations: HomeTranslations = {
-    badge: 'Blue Team | Defensive Security',
+    badge: 'Currently Open For Work',
     title: siteConfig.author.name,
     codename: siteConfig.codename,
     tagline: siteConfig.author.tagline,
@@ -84,7 +84,7 @@ function HomeSection({ translations }: HomeSectionProps) {
             className="text-5xl md:text-7xl font-bold mb-6"
           >
             <span className="text-white">{t.title} </span>
-            <span className="text-cyber-cyan font-mono">({t.codename})</span>
+            <span className="text-cyber-cyan font-mono">{t.codename}</span>
           </m.h1>
 
           {/* Tagline */}
