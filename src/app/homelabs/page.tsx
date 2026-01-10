@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 import type { Metadata } from 'next';
 import { Header } from '@/components/layout';
 import HomelabsSection from '@/components/pages/Homelabs';

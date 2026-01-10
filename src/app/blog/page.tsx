@@ -3,6 +3,8 @@ import { Header } from '@/components/layout';
 import BlogSection from '@/components/pages/Blog';
 import { generateSEO } from '@/lib/seo';
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = generateSEO({
   title: 'Personal Blog',
   description: 'Technical articles on Blue Team operations, SIEM, incident response, threat hunting, and defensive cybersecurity. Learn from real-world security projects and best practices.',

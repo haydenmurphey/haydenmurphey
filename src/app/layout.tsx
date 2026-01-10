@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 import type { Metadata } from 'next';
 import { Space_Mono, Inter } from 'next/font/google';
 import { headers } from 'next/headers';

@@ -1,5 +1,7 @@
+export const dynamic = "force-static";
+
 import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
+import dynamic1 from 'next/dynamic';
 import { Header, FloatingNav } from '@/components/layout';
 import HomeSection from '@/components/home/Home';
 import HomelabPreview from '@/components/home/HomelabPreview';
@@ -7,11 +9,11 @@ import { generateSEO } from '@/lib/seo';
 import { siteConfig } from '@/config/site.config';
 
 // Dynamic imports for below-the-fold content
-const ProjectsPreview = dynamic(() => import('@/components/home/ProjectsPreview'));
-const BlogPreview = dynamic(() => import('@/components/home/BlogPreview'));
-const FormationSection = dynamic(() => import('@/components/pages/Formation'));
-const ExperienceSection = dynamic(() => import('@/components/pages/Experience'));
-const ContactSection = dynamic(() => import('@/components/pages/Contact'));
+const ProjectsPreview = dynamic1(() => import('@/components/home/ProjectsPreview'));
+const BlogPreview = dynamic1(() => import('@/components/home/BlogPreview'));
+const FormationSection = dynamic1(() => import('@/components/pages/Formation'));
+const ExperienceSection = dynamic1(() => import('@/components/pages/Experience'));
+const ContactSection = dynamic1(() => import('@/components/pages/Contact'));
 
 export const metadata: Metadata = generateSEO({
   title: siteConfig.seo.title,

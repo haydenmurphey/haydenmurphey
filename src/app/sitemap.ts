@@ -3,6 +3,8 @@ import { getAllPostSlugs } from '@/lib/blog';
 import { getAllLabSlugs } from '@/lib/homelabs';
 import { siteConfig } from '@/config/site.config';
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.urls.canonical;
   

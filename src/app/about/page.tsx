@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = "force-static";
+
 import { Header, FloatingNav } from '@/components/layout';
 import { m } from 'framer-motion';
 import { Shield, Zap, Brain, Target, ArrowRight } from 'lucide-react';
