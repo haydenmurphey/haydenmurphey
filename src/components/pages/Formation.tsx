@@ -36,7 +36,7 @@ const educationData: Education[] = [
     extraSections: [
       {
         title: 'Academic Projects',
-        items: ['PintOS: team collaboration with milestones and code reviews. My group and I implemented user-mode processes, expanded syscalls, and improved the timer subsystem for improved CPU utilization.', 'Built a fully client-side web app that performs CRUD with localStorage persistance and integrates with third-party APIs via asynchronous JavaScript.', 'Completed an algorithmic movement system utilizing ROS2  in Python for {FIGURE OUT ROBOT NAME} to simulate real world scenarios of search and rescue with custom built autonomous (fix that spelling) function.', 'For more see projects tab!'],
+        items: ['PintOS: team collaboration with milestones and code reviews. My group and I implemented user-mode processes, expanded syscalls, and improved the timer subsystem for improved CPU utilization.', 'Built a fully client-side web app that performs CRUD with localStorage persistance and integrates with third-party APIs via asynchronous JavaScript.', 'Completed an algorithmic movement system utilizing ROS2  in Python for TurtleBot 3 to simulate real world scenarios of search and rescue with custom built autonomous function.', 'For more see projects tab!'],
         accent: 'cyan',
       },
     ],
