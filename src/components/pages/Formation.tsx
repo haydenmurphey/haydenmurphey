@@ -2,7 +2,7 @@
 
 import { type ReactNode } from 'react';
 import { m } from 'framer-motion';
-import { Award, Calendar, GraduationCap, BookOpen, ArrowRight, ShieldAlert } from 'lucide-react';
+import { Award, Calendar, GraduationCap, BookOpen, ArrowRight, ShieldAlert, Handshake } from 'lucide-react';
 import Link from 'next/link';
 
 interface ExtraSection {
@@ -62,31 +62,31 @@ const educationData: Education[] = [
   //},
   // Certifications
   {
-    title: 'ISC(2) Certified in Cybersecurity (Add squared symbol to this)',
-    organization: 'ISC(2) Add isc^2',
-    description: 'UPDATE THIS Industry-leading certification in cybersecurity fundamentals, covering network security, threats, and vulnerabilities. Currently studying for exam preparation.',
+    title: 'ISC2 Certified in Cybersecurity',
+    organization: 'ISC2',
+    description: 'An industry-recognized certification validating a foundational understanding of cybersecurity principles and best practices. This credential demonstrates proficiency in security operations, network security, and risk management. It signifies a commitment to the ISC2 Code of Ethics and a mastery of the essential technical skills required to protect organizational assets in an evolving threat landscape.',
     period: 'Completed Feb 2025',
     icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
     type: 'certification',
     status: 'paused',
-    verificationLink: 'https://verify.comptia.org/placeholder',
-    credentialId: 'UPDATE THIS'
+    verificationLink: 'https://www.credly.com/badges/a5e30221-a456-4076-925c-2628876f697a/public_url',
+    credentialId: '2409600'
   },
   {
-    title: 'Association for Computing Machinery CHANGE ICON',
+    title: 'Association for Computing Machinery',
     organization: 'ACM',
-    description: 'UPDATE THIS Industry-leading certification in cybersecurity fundamentals, covering network security, threats, and vulnerabilities. Currently studying for exam preparation.',
+    description: 'An active member of the world\'s leading professional organization for computer science and information technology. Membership signifies a commitment to the ACM Code of Ethics and professional excellence in the computing field. This affiliation provides access to the world’s largest digital library of computing research, keeping my technical knowledge at the forefront of industry-leading innovations and peer-reviewed standards.',
     period: 'Member since 2025',
-    icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
+    icon: <Handshake className="w-7 h-7 text-red-400" aria-hidden />,
     type: 'certification',
     status: 'in-progress',
-    verificationLink: 'https://verify.comptia.org/placeholder',
-    credentialId: 'UPDATE THIS'
+    verificationLink: 'https://www.acm.org',
+    credentialId: 'Member ID available upon request'
   },
   {
     title: 'CompTIA Security+',
     organization: 'CompTIA',
-    description: 'Industry-leading certification in cybersecurity fundamentals, covering network security, threats, and vulnerabilities. Currently studying for exam preparation.',
+    description: 'A globally recognized, vendor-neutral certification that validates the baseline skills necessary to perform core security functions and pursue an IT security career. This credential confirms expertise in assessing the security posture of an enterprise environment, recommending and implementing appropriate security solutions, and monitoring and securing hybrid environments, including cloud, mobile, and IoT.',
     period: 'Planned 2026',
     icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
     type: 'certification',
@@ -97,7 +97,7 @@ const educationData: Education[] = [
   {
     title: 'CompTIA Network+',
     organization: 'CompTIA',
-    description: 'UPDATE THIS Industry-leading certification in cybersecurity fundamentals, covering network security, threats, and vulnerabilities. Currently studying for exam preparation.',
+    description: 'A vendor-neutral certification validating the essential knowledge and skills needed to confidently design, configure, manage, and troubleshoot any wired or wireless network. This credential confirms expertise in networking fundamentals, including IPv4/IPv6 addressing, DNS, and DHCP, alongside a strong grasp of network security, cloud computing concepts, and critical infrastructure resilience.',
     period: 'Planned 2026',
     icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
     type: 'certification',
