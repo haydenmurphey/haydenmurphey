@@ -31,13 +31,13 @@ export default function BlogPreviewClient({ posts: latestPosts }: BlogPreviewCli
             viewport={{ once: true }}
             className="text-cyber-cyan font-mono text-sm mb-4 tracking-widest"
           >
-            KNOWLEDGE SHARING
+            WRITEUPS
           </m.p>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            My recent logs
+            My Logs
           </h2>
           <p className="text-cyber-gray-light text-lg max-w-2xl mx-auto mb-6">
-            Technical articles & insights on Cybersecurity
+            My recent discoveries in the world of cybersecurity
           </p>
           <m.div
             initial={{ scaleX: 0 }}
