@@ -86,7 +86,7 @@ const educationData: Education[] = [
   {
     title: 'CompTIA A+',
     organization: 'CompTIA',
-    description: 'A globally recognized, vendor-neutral certification that establishes the industry standard for launching IT careers and supporting today’s hybrid workforce. This credential validates foundational skills across key technologies, confirming expertise in configuring, troubleshooting, and maintaining hardware, software, operating systems, and networks, while ensuring security and operational efficiency across a diverse range of devices and platforms.',
+    description: 'A globally recognized, vendor-neutral certification that establishes the industry standard for launching IT careers and supporting today\’s hybrid workforce. This credential validates foundational skills across key technologies, confirming expertise in configuring, troubleshooting, and maintaining hardware, software, operating systems, and networks, while ensuring security and operational efficiency across a diverse range of devices and platforms.',
     period: 'Planned 2026',
     icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
     type: 'certification',
