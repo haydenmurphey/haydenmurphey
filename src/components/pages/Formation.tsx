@@ -91,7 +91,7 @@ const educationData: Education[] = [
     icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
     type: 'certification',
     status: 'coming-soon',
-    verificationLink: 'https://verify.comptia.org/placeholder',
+    verificationLink: '',
     credentialId: 'A+-IN-PROGRESS'
   },
   {
@@ -102,7 +102,7 @@ const educationData: Education[] = [
     icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
     type: 'certification',
     status: 'coming-soon',
-    verificationLink: 'https://verify.comptia.org/placeholder',
+    verificationLink: '',
     credentialId: 'SEC+-IN-PROGRESS'
   },
   {
@@ -113,7 +113,7 @@ const educationData: Education[] = [
     icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
     type: 'certification',
     status: 'coming-soon',
-    verificationLink: 'https://verify.comptia.org/placeholder',
+    verificationLink: '',
     credentialId: 'NET+-IN-PROGRESS'
   }
 ];
