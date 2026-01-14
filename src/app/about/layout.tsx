@@ -3,7 +3,7 @@ import { generateSEO } from '@/lib/seo';
 
 export const metadata: Metadata = generateSEO({
   title: 'About',
-  description: 'Learn about my journey in cybersecurity and various operations. Combining analytical thinking with practical security implementation for robust defensive strategies.',
+  description: 'Learn about my journey in cybersecurity and various operations.',
   url: '/about',
   type: 'profile',
   image: '/images/about/profile.png',
