@@ -25,7 +25,7 @@ export function useHeaderNavigation() {
     if (isHome) {
       return [
         { href: '#home', label: 'Home', isAnchor: true },
-        { href: '/about', label: 'About', isAnchor: false },
+        { href: '/about', label: 'About Me', isAnchor: false },
         { href: '#projects-preview', label: 'Projects', isAnchor: true },
         { href: '#homelabs-preview', label: 'Home Labs', isAnchor: true },
         { href: '#formation', label: 'Formation', isAnchor: true },
@@ -37,7 +37,7 @@ export function useHeaderNavigation() {
 
     return [
       { href: '/', label: 'Home', isAnchor: false },
-      { href: '/about', label: 'About', isAnchor: false },
+      { href: '/about', label: 'About Me', isAnchor: false },
       { href: '/projects', label: 'Projects', isAnchor: false },
   { href: '/homelabs', label: 'Home Labs', isAnchor: false },
       { href: '/formation', label: 'Formation', isAnchor: false },
