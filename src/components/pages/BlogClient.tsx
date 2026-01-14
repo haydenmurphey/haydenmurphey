@@ -50,13 +50,13 @@ export default function BlogSectionClient({ featuredPost, recentPosts, allCatego
             viewport={{ once: true }}
             className="text-cyber-cyan font-mono text-sm mb-4 tracking-widest"
           >
-            KNOWLEDGE SHARING
+            WRITEUPS
           </m.p>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Thanks for reading my logs...
           </h2>
           <p className="text-cyber-gray-light text-lg max-w-2xl mx-auto mb-6">
-            My technical articles & insights on Cybersecurity
+            My recent discoveries in the world of cybersecurity.
           </p>
           <m.div
             initial={{ scaleX: 0 }}
