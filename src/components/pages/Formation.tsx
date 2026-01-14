@@ -84,6 +84,17 @@ const educationData: Education[] = [
     credentialId: 'Member ID available upon request'
   },
   {
+    title: 'CompTIA A+',
+    organization: 'CompTIA',
+    description: 'A globally recognized, vendor-neutral certification that establishes the industry standard for launching IT careers and supporting today’s hybrid workforce. This credential validates foundational skills across key technologies, confirming expertise in configuring, troubleshooting, and maintaining hardware, software, operating systems, and networks, while ensuring security and operational efficiency across a diverse range of devices and platforms.',
+    period: 'Planned 2026',
+    icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
+    type: 'certification',
+    status: 'coming-soon',
+    verificationLink: 'https://verify.comptia.org/placeholder',
+    credentialId: 'A+-IN-PROGRESS'
+  },
+  {
     title: 'CompTIA Security+',
     organization: 'CompTIA',
     description: 'A globally recognized, vendor-neutral certification that validates the baseline skills necessary to perform core security functions and pursue an IT security career. This credential confirms expertise in assessing the security posture of an enterprise environment, recommending and implementing appropriate security solutions, and monitoring and securing hybrid environments, including cloud, mobile, and IoT.',
