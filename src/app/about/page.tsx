@@ -116,16 +116,18 @@ export default function AboutPage() {
                 <Code className="text-cyber-green mb-4" size={32} />
                 <h3 className="text-xl font-bold text-white mb-3">Analytical Thinking</h3>
                 <p className="text-cyber-gray leading-relaxed">
-                  - C
-                  - CSS
-                  - Haskell
-                  - HTML
-                  - Java
-                  - JavaScript
-                  - Python 
-                  - Ruby
-                  - Rust
-                  - Swift
+                  <ul>
+                    <li>C</li>
+                    <li>CSS</li>
+                    <li>Haskell</li>
+                    <li>HTML</li>
+                    <li>Java</li>
+                    <li>JavaScript</li>
+                    <li>Python</li>
+                    <li>Ruby</li>
+                    <li>Rust</li>
+                    <li>Swift</li>
+                  </ul>
                 </p>
               </div>
 
@@ -155,12 +157,9 @@ export default function AboutPage() {
               transition={{ delay: 0.4 }}
               className="bg-gradient-to-r from-cyber-teal-dark/30 to-cyber-navy/30 backdrop-blur-sm border border-cyber-green/20 rounded-2xl p-8 md:p-12 mb-12"
             >
-              <h2 className="text-3xl font-bold text-cyber-green mb-6">Philosophy</h2>
+              <h2 className="text-3xl font-bold text-cyber-green mb-6">Life Outside of Cybersecurity</h2>
 
               <div className="space-y-4 text-cyber-gray-light leading-relaxed">
-                <p className="text-lg">
-                  <span className="text-cyber-cyan font-mono">&ldquo;Defense through understanding, detection through vigilance.&rdquo;</span>
-                </p>
 
                 <p>
                   Effective cybersecurity requires more than just implementing tools and controls.
