@@ -64,4 +64,16 @@ export const projects: Project[] = [
       github: 'https://github.com/haydenmurphey/haydenmurphey',
     },
   },
+  {
+    title: 'Outdated Portfolio',
+    description:
+      'Initial professional portfolio site with academic details, skills, social links, and more. First attempt at web based development utilizing CSS, HTML, and JavaScript.',
+    image: '/images/site/outdated-portfolio.webp',
+    status: 'Completed',
+    statusColor: 'bg-cyber-cyan',
+    tags: ['Dynamic', 'Portfolio', 'CSS', 'JavaScript', 'HTML'],
+    links: {
+      github: 'https://github.com/haydenmurphey/outdated-portfolio',
+    },
+  },
 ];
