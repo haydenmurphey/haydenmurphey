@@ -77,24 +77,17 @@ export default function AboutPage() {
               <h2 className="text-3xl font-bold text-cyber-cyan mb-6">My Journey</h2>
 
               <div className="space-y-4 text-cyber-gray-light leading-relaxed">
+
                 <p>
-                  As a dedicated cybersecurity professional, I specialize in defensive security operations with a focus on threat detection, incident response, and security monitoring. My approach combines technical expertise with strategic thinking to build resilient security architectures.
+                  From a young age, I was always fascinated by computers. At first it began from my interest in gaming with friends but then it grew into more. I realized the power that comes with computers and the world behind it.
+                </p>
+
+                <p>
+                  This led me to pursuing a major in Computer Science where I studied in the discipline of development including frontend and backend work. This helped me develop a strong backbone in systems and other parts relating to cybersecurity.
                 </p>
 
                 <p>
                   My work centers on understanding attacker methodologies and translating threat intelligence into actionable defenses. I regularly work with security tools like SIEM platforms, EDR solutions, and threat intelligence feeds to identify and neutralize threats before they impact operations.
-                </p>
-
-                <p>
-                  I believe in continuous learning and staying current with the evolving threat landscape. My analytical approach to problem-solving helps me anticipate attack vectors, tune detection rules, and improve security posture through data-driven decisions.
-                </p>
-
-                <p>
-                  Throughout my career, I&apos;ve developed expertise in security operations center (SOC) operations, threat hunting, and incident response. I enjoy the challenge of defending against sophisticated adversaries and collaborating with teams to strengthen organizational security.
-                </p>
-
-                <p>
-                  I&apos;m passionate about the defensive side of cybersecurity and committed to advancing my skills in threat intelligence, security automation, and detection engineering. My goal is to contribute to building more secure digital environments through proactive defense strategies.
                 </p>
 
                 <p>
