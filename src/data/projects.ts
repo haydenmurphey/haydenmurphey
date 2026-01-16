@@ -28,15 +28,15 @@ export const projects: Project[] = [
     },
   },
   {
-    title: 'Automated Threat Intelligence Platform',
+    title: 'Autonomous Search & Rescue Navigation System for ROS2 TurtleBot 3',
     description:
-      'Open-source threat intelligence aggregation platform that collects, correlates, and analyzes indicators of compromise (IOCs) from multiple feeds. Includes MITRE ATT&CK mapping, automated threat scoring, and integration with popular security tools. Designed for SOC teams to enhance threat hunting capabilities.',
-  image: '/images/site/blog-cover2.webp',
-    status: 'Open Source',
+      'Developed a robust algorithmic movement system in Python using ROS2 to simulate high-stakes search and rescue operations. This project centered on a custom autonomous function that orchestrated a TurtleBot 3 through a dynamic environment to locate and identify victims. Tested in a competition environemnt.',
+  image: '/images/site/turtlebot3.webp',
+    status: 'Academic Project',
     statusColor: 'bg-cyber-cyan',
-    tags: ['Threat Intelligence', 'MITRE ATT&CK', 'Python', 'API Integration', 'SOC Tools', 'Security Automation'],
+    tags: ['ArUco', 'LiDAR', 'TurtleBot3', 'Gazebo', 'ROS2', 'Python'],
     links: {
-      github: 'https://github.com/yourusername/threat-intel-platform',
+      github: 'https://github.com/haydenmurphey/ros2-turtlebot3-search-rescue',
     },
   },
   {
