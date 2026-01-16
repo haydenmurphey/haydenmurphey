@@ -6,8 +6,8 @@ import HomelabsSection from '@/components/pages/Homelabs';
 import { generateSEO } from '@/lib/seo';
 
 export const metadata: Metadata = generateSEO({
-  title: 'Home Labs - Blue Team Detection & Response Scenarios',
-  description: 'Hands-on homelab scenarios designed for SOC analysts and blue team pros. Deploy detection pipelines, rehearse incident response, and stress-test defenses end-to-end.',
+  title: 'Home Labs - Practice Scenarios',
+  description: 'Hands-on homelab scenarios designed for practice.',
   url: '/homelabs',
   type: 'website',
   tags: ['homelab', 'blue team lab', 'detection engineering', 'incident response lab', 'purple team exercises'],
