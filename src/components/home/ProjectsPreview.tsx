@@ -26,7 +26,7 @@ export default function ProjectsPreviewSection() {
             My Favorite Deployments
           </h2>
           <p className="text-cyber-gray-light text-lg max-w-2xl mx-auto">
-            Projects, tools and automation I like 
+            Projects, tools and more that I have made. 
           </p>
           <m.div
             initial={{ scaleX: 0 }}
