@@ -53,15 +53,15 @@ export const projects: Project[] = [
     },
   },
   {
-    title: 'Blue Team Security Portfolio',
+    title: 'Professional Portfolio',
     description:
-      'Professional cybersecurity portfolio template with integrated blog system using MDX, modern Next.js architecture, and responsive design. Features technical articles on threat hunting, SIEM operations, incident response, and security operations with optimized static rendering and security-hardened configuration.',
+      'Professional cybersecurity portfolio with integrated blog system using MDX, modern Next.js architecture, and responsive design. This project will remain in production as my career develops as an intro cybersecurity professional',
     image: 'current-site',
-    status: 'Production',
+    status: 'On-going',
     statusColor: 'bg-cyber-green',
-    tags: ['Next.js', 'MDX Blog', 'TypeScript', 'Security', 'SSG', 'Responsive'],
+    tags: ['MDX Blog', 'TypeScript', 'CSS', 'JavaScript', 'Responsive'],
     links: {
-      github: 'https://github.com/yourusername/portfolio',
+      github: 'https://github.com/haydenmurphey/haydenmurphey',
     },
   },
 ];

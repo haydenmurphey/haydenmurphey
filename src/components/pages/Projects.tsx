@@ -31,7 +31,7 @@ export default function ProjectsSection() {
             All My Projects
           </h2>
           <p className="text-cyber-gray-light text-lg max-w-2xl mx-auto">
-            Full Stack Development, DevSecOps & Blue Team Operations
+            Personal Projects, Academic Projects, and More.
           </p>
           <m.div
             initial={{ scaleX: 0 }}
