@@ -105,7 +105,7 @@ export default function AboutPage() {
             >
               <div className="bg-cyber-teal-dark/30 backdrop-blur-sm border border-cyber-cyan/20 rounded-xl p-6 hover:border-cyber-cyan/50 transition-all duration-300">
                 <Code className="text-cyber-cyan mb-4" size={32} />
-                <h3 className="text-xl font-bold text-white mb-3">Defensive Security</h3>
+                <h3 className="text-xl font-bold text-white mb-3">Coding Languages</h3>
                 <p className="text-cyber-gray leading-relaxed">
                   Specializing in threat detection, incident response, and security monitoring.
                   Building robust defenses through understanding attacker methodologies.
