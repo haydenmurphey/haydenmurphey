@@ -4,7 +4,7 @@ export const dynamic = "force-static";
 
 import { Header, FloatingNav } from '@/components/layout';
 import { m } from 'framer-motion';
-import { Shield, Zap, Brain, Target, ArrowRight } from 'lucide-react';
+import { Shield, Zap, Code, Target, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import NextImage from 'next/image';
 
@@ -104,7 +104,7 @@ export default function AboutPage() {
               className="grid md:grid-cols-2 gap-6 mb-12"
             >
               <div className="bg-cyber-teal-dark/30 backdrop-blur-sm border border-cyber-cyan/20 rounded-xl p-6 hover:border-cyber-cyan/50 transition-all duration-300">
-                <Brain className="text-cyber-cyan mb-4" size={32} />
+                <Code className="text-cyber-cyan mb-4" size={32} />
                 <h3 className="text-xl font-bold text-white mb-3">Coding Languages</h3>
                 <p className="text-cyber-gray leading-relaxed">
                   Specializing in threat detection, incident response, and security monitoring.
@@ -113,7 +113,7 @@ export default function AboutPage() {
               </div>
 
               <div className="bg-cyber-teal-dark/30 backdrop-blur-sm border border-cyber-green/20 rounded-xl p-6 hover:border-cyber-green/50 transition-all duration-300">
-                <Brain className="text-cyber-green mb-4" size={32} />
+                <Code className="text-cyber-green mb-4" size={32} />
                 <h3 className="text-xl font-bold text-white mb-3">Analytical Thinking</h3>
                 <p className="text-cyber-gray leading-relaxed">
                   Applying scientific methodology to cybersecurity challenges. Breaking down complex
