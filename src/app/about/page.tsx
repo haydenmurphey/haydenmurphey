@@ -87,7 +87,7 @@ export default function AboutPage() {
                 </p>
 
                 <p>
-                  Eventually, I found myself gaining an interest in cybersecurity while recognizing it&apos;s importance in maintaining the integrity and privacy of our digital world.
+                  Eventually, I found myself gaining an interest in cybersecurity while recognizing it&apos;s importance in maintaining the integrity and privacy of our digital world. With the world continuously becoming more digital, this impact cannot be understated.
                 </p>
 
                 <p>
