@@ -40,16 +40,16 @@ export const projects: Project[] = [
     },
   },
   {
-    title: 'Security Orchestration Automation',
+    title: 'Fixture Flow',
     description:
-      'Security orchestration, automation and response (SOAR) playbooks for common incident response scenarios. Automates repetitive security tasks including phishing analysis, malware triage, and vulnerability management. Integrates with leading SIEM, EDR, and ticketing systems for streamlined security operations.',
-  image: '/images/site/blog-cover1.webp',
-    status: 'Active Development',
-    statusColor: 'bg-cyber-green',
-    tags: ['SOAR', 'Security Automation', 'Incident Response', 'Python', 'API', 'Integration'],
+      'Fixture Flow is a personalized, accessibility-first web application designed to solve "information overload" in sports tracking. While most soccer platforms overwhelm users with dense layouts and unnecessary data, Fixture Flow prioritizes a clean, curated experience. Users can select their favorite teams and leagues to create a bespoke home screen that delivers real-time scores and upcoming schedules at a glance.',
+  image: '/images/site/fixtureflow.webp',
+    status: 'Academic Project',
+    statusColor: 'bg-cyber-cyan',
+    tags: ['Asynch API', 'WCAG-Compliant', 'localStorage', 'CSS', 'HTML', 'JavaScript', 'PHP'],
     links: {
-      github: 'https://github.com/yourusername/soar-playbooks',
-      demo: 'https://demo.example.com',
+      github: 'https://github.com/haydenmurphey/fixtureflow',
+      demo: 'https://fixtureflow.page.gd/',
     },
   },
   {
