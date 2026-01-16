@@ -116,8 +116,16 @@ export default function AboutPage() {
                 <Code className="text-cyber-green mb-4" size={32} />
                 <h3 className="text-xl font-bold text-white mb-3">Analytical Thinking</h3>
                 <p className="text-cyber-gray leading-relaxed">
-                  Applying scientific methodology to cybersecurity challenges. Breaking down complex
-                  problems into manageable components for systematic analysis.
+                  - C
+                  - CSS
+                  - Haskell
+                  - HTML
+                  - Java
+                  - JavaScript
+                  - Python 
+                  - Ruby
+                  - Rust
+                  - Swift
                 </p>
               </div>
 
