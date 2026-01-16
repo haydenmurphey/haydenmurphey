@@ -107,47 +107,40 @@ export default function AboutPage() {
                 <Code className="text-cyber-cyan mb-4" size={32} />
                 <h3 className="text-xl font-bold text-white mb-3">Coding Languages</h3>
                 <p className="text-cyber-gray leading-relaxed">
-                  Specializing in threat detection, incident response, and security monitoring.
-                  Building robust defenses through understanding attacker methodologies.
-                </p>
-              </div>
-
-              <div className="bg-cyber-teal-dark/30 backdrop-blur-sm border border-cyber-green/20 rounded-xl p-6 hover:border-cyber-green/50 transition-all duration-300">
-                <Code className="text-cyber-green mb-4" size={32} />
-                <h3 className="text-xl font-bold text-white mb-3">Analytical Thinking</h3>
-                <p className="text-cyber-gray leading-relaxed">
                   <ul>
-                    <li>C</li>
-                    <li>CSS</li>
-                    <li>Haskell</li>
-                    <li>HTML</li>
-                    <li>Java</li>
-                    <li>JavaScript</li>
-                    <li>Python</li>
-                    <li>Ruby</li>
-                    <li>Rust</li>
-                    <li>Swift</li>
+                    <li>- C</li>
+                    <li>- CSS</li>
+                    <li>- Haskell</li>
+                    <li>- HTML</li>
+                    <li>- Java</li>
+                    <li>- JavaScript</li>
+                    <li>- Python</li>
+                    <li>- Ruby</li>
+                    <li>- Rust</li>
+                    <li>- Swift</li>
                   </ul>
                 </p>
               </div>
 
-              <div className="bg-cyber-teal-dark/30 backdrop-blur-sm border border-cyber-orange/20 rounded-xl p-6 hover:border-cyber-orange/50 transition-all duration-300">
-                <Zap className="text-cyber-orange mb-4" size={32} />
-                <h3 className="text-xl font-bold text-white mb-3">Rapid Response</h3>
+              <div className="bg-cyber-teal-dark/30 backdrop-blur-sm border border-cyber-green/20 rounded-xl p-6 hover:border-cyber-green/50 transition-all duration-300">
+                <Target className="text-cyber-green mb-4" size={32} />
+                <h3 className="text-xl font-bold text-white mb-3">Frameworks/Libraries/Technical Skills</h3>
                 <p className="text-cyber-gray leading-relaxed">
-                  Quick identification and mitigation of security incidents. Minimizing impact
-                  through efficient triage and coordinated response procedures.
+                  <ul>
+                    <li>- Agile Methodology (SCRUM)</li>
+                    <li>- API Integration</li>
+                    <li>- CLI (Linux)</li>
+                    <li>- Git</li>
+                    <li>- JSON</li>
+                    <li>- JUnit/pytest</li>
+                    <li>- NumPy</li>
+                    <li>- OpenCV</li>
+                    <li>- pandas</li>
+                    <li>- ROS2</li>
+                  </ul>
                 </p>
               </div>
 
-              <div className="bg-cyber-teal-dark/30 backdrop-blur-sm border border-cyber-cyan/20 rounded-xl p-6 hover:border-cyber-cyan/50 transition-all duration-300">
-                <Target className="text-cyber-cyan mb-4" size={32} />
-                <h3 className="text-xl font-bold text-white mb-3">Threat Hunting</h3>
-                <p className="text-cyber-gray leading-relaxed">
-                  Proactive identification of threats before they manifest. Using data analysis
-                  and pattern recognition to detect anomalies and potential compromises.
-                </p>
-              </div>
             </m.div>
 
             {/* Philosophy Section */}
@@ -192,7 +185,7 @@ export default function AboutPage() {
                   View My Projects
                 </h3>
                 <p className="text-cyber-gray-light mb-4">
-                  Explore defensive security tools and Blue Team automation projects
+                  Explore projects relating to cybersecurity, personal projects, and more
                 </p>
                 <div className="inline-flex items-center gap-2 text-cyber-cyan group-hover:gap-4 transition-all">
                   <span className="font-mono">See Projects</span>
