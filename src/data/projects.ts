@@ -55,7 +55,7 @@ export const projects: Project[] = [
   {
     title: 'Professional Portfolio',
     description:
-      'Professional cybersecurity portfolio with integrated blog system using MDX, modern Next.js architecture, and responsive design. This project will remain in production as my career develops as an intro cybersecurity professional',
+      'Professional cybersecurity portfolio with integrated blog system using MDX, modern Next.js architecture, and responsive design. This project will remain in production as my career develops as an intro cybersecurity professional.',
     image: 'current-site',
     status: 'On-going',
     statusColor: 'bg-cyber-green',
