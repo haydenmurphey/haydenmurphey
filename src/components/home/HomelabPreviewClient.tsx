@@ -113,10 +113,10 @@ export default function HomelabPreviewClient({ labs }: HomelabPreviewClientProps
             HOME LABS
           </m.p>
           <h2 id="homelabs-heading" className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Detection-first playground
+            Cybersecurity Playground
           </h2>
           <p className="text-cyber-gray-light text-lg max-w-3xl mx-auto">
-            Recreate the exact defensive scenarios I build to train SOC teams: zero-to-prod environments, attack simulations, and response playbooks ready to execute.
+            Homelab work dedicated to practicing my skills in an applicable way.
           </p>
           <m.div
             initial={{ scaleX: 0 }}
