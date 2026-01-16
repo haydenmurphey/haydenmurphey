@@ -155,17 +155,19 @@ export default function AboutPage() {
               <div className="space-y-4 text-cyber-gray-light leading-relaxed">
 
                 <p>
-                  Effective cybersecurity requires more than just implementing tools and controls.
-                  It demands a deep understanding of both attacker tactics and defender capabilities.
-                  My mission is to maintain strong security postures through continuous monitoring,
-                  proactive threat hunting, and data-driven defense strategies.
+                  When I'm not working or studying for a certification, I typically find myself seeking
+                  a new challenge. I've always been drawn to sports like rock climbing, snowboarding, and soccer. 
+                  I find that these activites serve as the perfect way to give my mind a rest. Away from the field,
+                  I'm often teaching myself a new musical instrument which have been a great learning experience that 
+                  can continue for the rest of my life.
                 </p>
 
                 <p>
-                  Every security incident is an opportunity to learn and improve. Every vulnerability
-                  discovered is a chance to strengthen defenses. This mindset of continuous improvement
-                  and adaptation drives my approach to cybersecurity and keeps me motivated in the
-                  ever-evolving landscape of information security.
+                  My curiousity for how things work naturally extends into my downtime, where I recently have immersed 
+                  into projects like video game emulation. What started as a hobby led me down the rabbit hole of hardware
+                  optimization and file system management, eventually prompting me to experiment with dual-booting a linux based
+                  frontend for my emulation needs called Batocera. This has aided me in sharpening my familiarity with Linux 
+                  based environments serving as the perfect intersection of technical tinkering and nostalgia.
                 </p>
               </div>
             </m.div>
