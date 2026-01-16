@@ -79,19 +79,19 @@ export default function AboutPage() {
               <div className="space-y-4 text-cyber-gray-light leading-relaxed">
 
                 <p>
-                  From a young age, I was always fascinated by computers. At first it began from my interest in gaming with friends but then it grew into more. I realized the power that comes with computers and the world behind it.
+                  From a young age, I was always fascinated by computers. At first it began from an interest in gaming with friends but then it grew into more. I realized the power that comes with computers and all that can be accomplished with them.
                 </p>
 
                 <p>
-                  This led me to pursuing a major in Computer Science where I studied in the discipline of development including frontend and backend work. This helped me develop a strong backbone in systems and other parts relating to cybersecurity.
+                  This led me to pursuing a major in Computer Science where I studied in the discipline of development including frontend and backend work. This helped me develop a strong backbone in systems and various coding languages.
                 </p>
 
                 <p>
-                  My work centers on understanding attacker methodologies and translating threat intelligence into actionable defenses. I regularly work with security tools like SIEM platforms, EDR solutions, and threat intelligence feeds to identify and neutralize threats before they impact operations.
+                  Eventually, I found myself gaining an interest in cybersecurity while recognizing it&apos;s importance in maintaining the integrity and privacy of our digital world.
                 </p>
 
                 <p>
-                  Looking forward, I&apos;m focused on growing my expertise in advanced threat detection, security architecture, and contributing to the broader cybersecurity community through knowledge sharing and collaboration.
+                  Looking forward, I&apos;m focused on growing my expertise in all that comes with the industry including threat detection, security architecture, and much more. I strive to bring positive contributions to the broader cybersecurity community and continue to diversify my skillset in the process.
                 </p>
               </div>
             </m.div>
