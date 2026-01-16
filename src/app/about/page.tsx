@@ -124,7 +124,7 @@ export default function AboutPage() {
 
               <div className="bg-cyber-teal-dark/30 backdrop-blur-sm border border-cyber-green/20 rounded-xl p-6 hover:border-cyber-green/50 transition-all duration-300">
                 <Target className="text-cyber-green mb-4" size={32} />
-                <h3 className="text-xl font-bold text-white mb-3">Frameworks/Libraries/Technical Skills</h3>
+                <h3 className="text-xl font-bold text-white mb-3">Additional Skills</h3>
                 <p className="text-cyber-gray leading-relaxed">
                   <ul>
                     <li>- Agile Methodology (SCRUM)</li>
