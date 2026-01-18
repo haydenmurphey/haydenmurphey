@@ -21,7 +21,7 @@ Before proceeding, ensure you are booted into a Linux environment and have ```su
 
 **On Arch Linux** 
 
-```text
+```code
 sudo pacman -S refind
 ```
 
@@ -29,14 +29,14 @@ sudo pacman -S refind
 
 ```code
 sudo apt update
-**sudo** apt install refind
+sudo apt install refind
 ```
 
 **Initializing the Boot Manager**
 
 After installing the package, you need to install rEFInd to your EFI system partition (ESP):
 
-```bash
+```code
 sudo refind-install
 ```
 
@@ -46,7 +46,18 @@ This command automatically detects your ESP, copies the necessary files, and set
 
 The main configuration file is location at ```/boot/efi/EFI/refind/refind.conf```. It is heavily commented, but there are a few key parameters you should know.
 
+**Common Adjustments**
 
+Open the file with your preferred editor:
+
+```code
+sudo nano /boot/efi/EFI/refind/refind.conf
+```
+
+- ```timeout```: Set how many seconds to wait before booting the default OS.
+```Plaintext
+timeout 5
+```
 
 
 
