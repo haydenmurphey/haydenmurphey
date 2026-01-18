@@ -123,7 +123,33 @@ If you reboot and see a "Security Violation" or find that rEFInd won't launch at
 
 **Missing Drivers for Non-FAT Filesystems**
 
+By default, rEFInd can only read the EFI partition (FAT32). If your kernels reside on an ext4, Btrfs, or XFS partition, rEFInd may not "see" them.
 
+- **The Fix:** rEFInd comes with several filesystems drivers. During installation, you can include them running:
+
+```code
+sudo refind-install --usedrivers
+```
+
+Alternatively, manually copy the required ```.efi``` driver from ```/usr/share/refind/drivers_x64/``` to ```/boot/efi/EFI/refind/drivers_x64/```
+
+**"Ghost" Boot Entries**
+
+Sometimes the rEFInd will show multiple icons for the same OS, or display unwanted recovery partitions.
+
+- **The Fix:** Use the ```dont_scan_dirs``` or ```dont_scan_files``` directives in ```refind.conf```:
+
+```Plaintext
+# Example: Hide the fallback initramfs and a specific directory
+dont_scan_files initramfs-linux-fallback.img
+dont_scan_dirs /EFI/BOOT, /EFI/Dell
+```
+
+**Low-Resolution Graphics**
+
+If the theme looks stretched or pixelated, rEFInd might be defaulting to a safe VGA resolution.
+
+- **The Fix:** Ensure your ```refind.conf``` has the ```resolution``` set to your native display (e.g., ```resolution 2560 1440```). If it still fails, ensure **CSM (Compatibility Support Module)** is disabled in your BIOS, as it can interfere with UEFI high-resolution modes.
 
 ## Conclusion
 
