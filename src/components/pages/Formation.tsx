@@ -380,21 +380,6 @@ export default function FormationSection() {
           </div>
         )}
 
-        {/* View More Button - Mobile */}
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex justify-center mt-12 md:hidden"
-        >
-          <Link
-            href="/formation"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-cyber-green text-cyber-dark font-bold rounded-lg hover:shadow-neon-green hover:scale-105 transition-all duration-300 group"
-          >
-            <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
-          </Link>
-        </m.div>
-
         {/* Bottom Decoration */}
         <m.div
           initial={{ opacity: 0 }}
