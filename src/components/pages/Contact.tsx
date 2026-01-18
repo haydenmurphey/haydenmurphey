@@ -1,7 +1,7 @@
 'use client';
 
 import { m } from 'framer-motion';
-import { Mail, Linkedin, Github, ExternalLink } from 'lucide-react';
+import { Mail, Linkedin, Github, ExternalLink, FileText } from 'lucide-react';
 import TypewriterAnimation from '@/components/ui/TypewriterAnimation';
 
 interface ContactMethod {
@@ -28,17 +28,17 @@ const contactMethods: ContactMethod[] = [
     color: 'border-cyber-gray/30 hover:border-cyber-gray-light hover:shadow-glow-cyan text-cyber-gray-light'
   },
   {
-    name: 'Email',
-    icon: <Mail size={24} />,
+    name: 'Resume',
+    icon: <FileText size={24} />, // Changed to FileText for visual distinction
     href: 'mailto:hsmurphey@gmail.com',
-    description: 'Send me an email',
+    description: 'Download my latest CV',
     color: 'border-cyber-green/30 hover:border-cyber-green hover:shadow-glow-green text-cyber-green'
   },
   {
     name: 'Email',
     icon: <Mail size={24} />,
     href: 'mailto:hsmurphey@gmail.com',
-    description: 'Send me an email',
+    description: 'Send me an email directly',
     color: 'border-cyber-green/30 hover:border-cyber-green hover:shadow-glow-green text-cyber-green'
   }
 ];
@@ -50,8 +50,8 @@ export default function ContactSection() {
       className="min-h-screen py-20 bg-gradient-to-br from-cyber-teal-dark via-cyber-dark to-cyber-darker flex items-center"
     >
       <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto">
-
+        {/* Constrained max-width to keep the 2x2 grid looking tight */}
+        <div className="max-w-3xl mx-auto">
 
           {/* Section Header */}
           <m.div
@@ -83,8 +83,8 @@ export default function ContactSection() {
             />
           </m.div>
 
-          {/* Contact Methods */}
-          <div className="grid md:grid-cols-3 gap-4 mb-16">
+          {/* Contact Methods - Changed to md:grid-cols-2 */}
+          <div className="grid md:grid-cols-2 gap-6 mb-16">
             {contactMethods.map((method, index) => (
               <m.a
                 key={method.name}
@@ -96,23 +96,23 @@ export default function ContactSection() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className={`
-                  flex flex-col items-center justify-center p-6 bg-cyber-teal-dark/30 backdrop-blur-sm border rounded-lg
-                  transition-all duration-300 group hover:scale-105
+                  flex flex-col items-center justify-center p-8 bg-cyber-teal-dark/30 backdrop-blur-sm border rounded-lg
+                  transition-all duration-300 group hover:scale-[1.02]
                   ${method.color}
                 `}
               >
-                <div className="w-12 h-12 rounded-lg bg-cyber-navy/50 flex items-center justify-center mb-3">
+                <div className="w-14 h-14 rounded-lg bg-cyber-navy/50 flex items-center justify-center mb-4">
                   {method.icon}
                 </div>
-                <h3 className="text-base font-bold text-white mb-1">
+                <h3 className="text-lg font-bold text-white mb-1">
                   {method.name}
                 </h3>
-                <p className="text-cyber-gray text-xs text-center">
+                <p className="text-cyber-gray text-sm text-center">
                   {method.description}
                 </p>
                 <ExternalLink
-                  size={14}
-                  className="mt-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"
+                  size={16}
+                  className="mt-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"
                 />
               </m.a>
             ))}
