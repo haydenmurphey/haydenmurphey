@@ -16,7 +16,7 @@ export default function SectionFooter({
   icon: Icon,
   iconColor = 'text-cyber-cyan',
   seeMoreLink,
-  seeMoreText = 'View Complete Details'
+  seeMoreText = ''
 }: SectionFooterProps) {
   return (
     <div className="mt-16">
