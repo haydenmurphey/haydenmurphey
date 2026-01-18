@@ -15,16 +15,15 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: 'SIEM Analytics Dashboard',
+    title: 'Pintos',
     description:
-      'Enterprise security information and event management (SIEM) analytics dashboard with real-time threat detection, automated incident response workflows, and comprehensive security metrics visualization. Built with security-first principles including role-based access control, encrypted data transmission, and audit logging.',
-  image: '/images/site/blog-cover1.webp',
-    status: 'Example Project',
-    statusColor: 'bg-cyber-green',
-    tags: ['Python', 'Elastic Stack', 'Splunk', 'Security Analytics', 'Threat Detection', 'DevSecOps'],
+      'Four part group project for teaching operating system designed for the 80x86 architecture that requires implementing fundamental kernel features including a priority-based scheduler and a robust virtual memory system. This project involves developing core OS primitives like system call handling, process management, and an extensible indexed file system to support concurrent user programs.',
+  image: '/images/site/pintos.webp',
+    status: 'Academic Project',
+    statusColor: 'bg-cyber-cyan',
+    tags: ['C', 'Makefile', 'Assembly', 'Operating Systems', 'System Calls', 'Scheduling'],
     links: {
-      github: 'https://github.com/yourusername/siem-dashboard',
-      demo: 'https://demo.example.com',
+      github: 'https://github.com/haydenmurphey/pintos',
     },
   },
   {
