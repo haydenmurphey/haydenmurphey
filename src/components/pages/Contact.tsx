@@ -33,6 +33,13 @@ const contactMethods: ContactMethod[] = [
     href: 'mailto:hsmurphey@gmail.com',
     description: 'Send me an email',
     color: 'border-cyber-green/30 hover:border-cyber-green hover:shadow-glow-green text-cyber-green'
+  },
+  {
+    name: 'Email',
+    icon: <Mail size={24} />,
+    href: 'mailto:hsmurphey@gmail.com',
+    description: 'Send me an email',
+    color: 'border-cyber-green/30 hover:border-cyber-green hover:shadow-glow-green text-cyber-green'
   }
 ];
 
