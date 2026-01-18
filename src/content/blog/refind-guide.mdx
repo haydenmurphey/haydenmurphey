@@ -1,17 +1,19 @@
 ---
-title: 'Building an Effective Incident Response Playbook'
-description: 'A comprehensive guide to creating, implementing, and maintaining incident response playbooks for security operations teams.'
-date: '2025-01-12'
-category: 'Incident Response'
-author: 'Your Name'
-featured: true
-coverImage: '/images/site/blog-cover1.webp'
-tags: ['Incident Response', 'SOC', 'Playbooks', 'Blue Team']
+title: 'A Guide to rEFInd and Custom Theming'
+description: 'A comprehensive guide to implementing rEFInd in Linux to handle a multi-boot system, featuring custom themes and troubleshooting.'
+date: '2025-01-18'
+category: 'Technical Tutorials'
+author: 'Hayden Murphey'
+featured: false
+coverImage: '/images/site/refind.webp'
+tags: ['Linux', 'UEFI', 'Bootloader', 'Customization']
 ---
 
-# Building an Effective Incident Response Playbook
+# rEFInd in a Linux environment
 
-Incident response playbooks are the backbone of effective security operations. They provide structured, repeatable processes that enable security teams to respond quickly and consistently to security incidents. In this guide, we'll explore how to build, implement, and maintain effective incident response playbooks.
+For anyone maintaining a multi-boot system looking for an alternative to GRUB, the default bootloader, rEFInd is a great choice. rEFInd is a powerful, EFI-based boot manager designed to work on all platforms. It works by dynamically scanning for bootable EFI files instead of simply listing partitions. For developers, it offers a cleaner way to manage kernel paramaters without manual GRUB updates.
+
+In this guide, we will walk through the technical process of installing rEFInd on a Linux-based system, optimizing the configuration for performance, and implementing custom themes to match your personal development environment.
 
 ## What is an Incident Response Playbook?
 
