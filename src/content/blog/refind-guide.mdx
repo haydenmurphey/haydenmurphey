@@ -22,18 +22,14 @@ Before proceeding, ensure you are booted into a Linux environment and have ```su
 **On Arch Linux** 
 
 ```bash
-
 sudo pacman -S refind
-
 ```
 
 **On Debian/Ubuntu**
 
 ```bash
-
 sudo apt update
 sudo apt install refind
-
 ```
 
 **Initializing the Boot Manager**
@@ -41,16 +37,14 @@ sudo apt install refind
 After installing the package, you need to install rEFInd to your EFI system partition (ESP):
 
 ```bash
-
 sudo refind-install
-
 ```
 
 This command automatically detects your ESP, copies the necessary files, and sets rEFInd as the default boot entry in your UEFI firmware.
 
 ## 2. Basic Configuration
 
-The main configuration file is location at ```/boot/efi/EFI/refind/refind.conf``. It is heavily commented, but there are a few key parameters you should know.
+The main configuration file is location at ```/boot/efi/EFI/refind/refind.conf```. It is heavily commented, but there are a few key parameters you should know.
 
 
 
