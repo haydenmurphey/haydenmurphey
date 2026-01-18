@@ -391,7 +391,6 @@ export default function FormationSection() {
             href="/formation"
             className="inline-flex items-center gap-2 px-8 py-4 bg-cyber-green text-cyber-dark font-bold rounded-lg hover:shadow-neon-green hover:scale-105 transition-all duration-300 group"
           >
-            View Complete Details
             <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
           </Link>
         </m.div>
