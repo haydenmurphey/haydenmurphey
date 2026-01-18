@@ -25,21 +25,21 @@ const contactMethods: ContactMethod[] = [
     icon: <Github size={24} />,
     href: 'https://github.com/haydenmurphey',
     description: 'View my open source projects',
-    color: 'border-cyber-gray/30 hover:border-cyber-gray-light hover:shadow-glow-cyan text-cyber-gray-light'
+    color: 'border-cyber-cyan/30 hover:border-cyber-cyan hover:shadow-glow-cyan text-cyber-cyan'
   },
   {
     name: 'Resume',
-    icon: <FileText size={24} />, // Changed to FileText for visual distinction
-    href: 'mailto:hsmurphey@gmail.com',
+    icon: <FileText size={24} />,
+    href: '/images/site/hayden_murphey.pdf',
     description: 'Download my latest CV',
-    color: 'border-cyber-green/30 hover:border-cyber-green hover:shadow-glow-green text-cyber-green'
+    color: 'border-cyber-cyan/30 hover:border-cyber-cyan hover:shadow-glow-cyan text-cyber-cyan'
   },
   {
     name: 'Email',
     icon: <Mail size={24} />,
     href: 'mailto:hsmurphey@gmail.com',
     description: 'Send me an email directly',
-    color: 'border-cyber-green/30 hover:border-cyber-green hover:shadow-glow-green text-cyber-green'
+    color: 'border-cyber-cyan/30 hover:border-cyber-cyan hover:shadow-glow-cyan text-cyber-cyan'
   }
 ];
 
