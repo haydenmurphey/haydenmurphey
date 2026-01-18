@@ -19,23 +19,42 @@ In this guide, we will walk through the technical process of installing rEFInd o
 
 Before proceeding, ensure you are booted into a Linux environment and have ```sudo``` privileges.
 
-### Key Components
+**On Arch Linux** 
 
-A comprehensive playbook should include:
+```bash
 
-1. **Trigger Conditions** - What initiates this playbook
-2. **Roles and Responsibilities** - Who does what
-3. **Step-by-Step Procedures** - Detailed action items
-4. **Decision Trees** - Logic for different scenarios
-5. **Communication Templates** - Stakeholder notifications
-6. **Evidence Collection** - Forensic procedures
-7. **Recovery Steps** - Return to normal operations
+sudo pacman -S refind
 
-## Common Playbook Types
+```
 
-### 1. Phishing Incident Response
+**On Debian/Ubuntu**
 
-**Trigger**: User reports suspicious email or phishing detection system alert
+```bash
+
+sudo apt update
+sudo apt install refind
+
+```
+
+**Initializing the Boot Manager**
+
+After installing the package, you need to install rEFInd to your EFI system partition (ESP):
+
+```bash
+
+sudo refind-install
+
+```
+
+This command automatically detects your ESP, copies the necessary files, and sets rEFInd as the default boot entry in your UEFI firmware.
+
+## 2. Basic Configuration
+
+The main configuration file is location at ```/boot/efi/EFI/refind/refind.conf``. It is heavily commented, but there are a few key parameters you should know.
+
+
+
+
 
 **Initial Steps**:
 ```bash
