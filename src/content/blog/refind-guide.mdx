@@ -59,19 +59,57 @@ sudo nano /boot/efi/EFI/refind/refind.conf
 timeout 5
 ```
 
-
-
-**Initial Steps**:
-```bash
-# Quarantine the email
-quarantine-email --message-id <ID> --reason "Phishing investigation"
-
-# Check for similar emails
-search-emails --sender <sender> --timeframe "last 24h"
-
-# Extract indicators
-extract-iocs --email <email-file> --output iocs.json
+-```resolution```: Explicitly set your monitor's native resolution for the sharpest UI.
+```Plaintext
+resolution 1920 1080
 ```
+
+-```scanfor```: Defines what rEFInd looks for (internal, external, etc.).
+```Plaintext
+scanfor internal,external,manual
+```
+
+## 3. Adding Custom themes
+
+Theming is where rEFInd truly shines. To add a custom theme, you generally follow these steps:
+
+**Step 1: Create a Themes Directory**
+
+```code
+sudo mkdir /boot/efi/EFI/refind/themes
+```
+
+**Step 2: Download a Theme**
+
+Most themes are hosted on GitHub. For example, let's use a popular minimalist theme:
+
+```code
+cd /boot/efi/EFI/refind/themes
+sudo git clone https://github.com/evanpurkhiser/rEFInd-minimal.git
+```
+
+**Step 3: Enable the Theme**
+
+At the very bottom of your ```refind.conf``` file, use the ```include``` directive to point to the theme's configuration file:
+
+```Plaintext
+include themes/rEFInd-minimal/theme.conf
+```
+
+## 4. Manual Stanza Configuration (Optional)
+
+If rEFInd isn't detecting your kernal paramters correctly, or if you want custom icons for specific entries, you can define a **menuentry.**
+
+```Plaintext
+menuentry "Arch Linux" {
+    icon     /EFI/refind/themes/rEFInd-minimal/icons/os_arch.png
+    loader   /vmlinuz-linux
+    initrd   /initramfs-linux.img
+    options  "root=PARTUUID=your-uuid-here rw add_efi_memmap"
+}
+```
+
+
 
 **Analysis Phase**:
 - Verify email headers and sender reputation
