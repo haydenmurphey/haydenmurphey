@@ -219,6 +219,7 @@ export default async function HomelabPage({ params }: { params: Promise<{ slug: 
 
               <div className="mb-8 rounded-xl border border-cyber-cyan/30 bg-cyber-navy/40 p-4 md:p-5 shadow-neon-cyan/5">
                 <p className="text-sm md:text-base text-cyber-gray-light">
+                  This is a sandbox where I can experiment on various self hosted environments.
                 </p>
               </div>
 
