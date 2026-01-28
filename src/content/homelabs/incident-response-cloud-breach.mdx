@@ -30,88 +30,38 @@ tags:
   - "logic-apps"
 ---
 
-# Incident Response Lab: Azure Storage Breach Containment
+## Management Hypervisor
 
+The central piece of my lab is a dedicated host running **Proxmox VE.**
 
-## 🧩 Lab Scenario
+**Host Name: pve-01**
+- **Model:** HP EliteDesk 800 G1 SFF
+- **CPU:** Intel Core i5-4590 (4 Cores, up to 3.70 GHz)
+- **RAM:** 12GB DDR3
+- **Storage:** 480GB seconds
+- **Hypervisor:** Proxmox VE
 
-- A developer accidentally published a Storage Account connection string in a public repository.
-- An attacker enumerated containers and exfiltrated sensitive blobs over 30 minutes.
-- Defender for Cloud raised an anomaly but no automated response was configured.
+---
 
-## 🗺️ Phase 1 — Evidence Collection
+## Network Backbone
 
-1. Configure Diagnostic Settings in the Storage Account:
-   ```bash
-   az monitor diagnostic-settings create \
-     --name storage-ir \
-     --resource $(az storage account show --name <storageName> --query id -o tsv) \
-     --logs '[{"category":"StorageRead","enabled":true}]' \
-     --metrics '[{"category":"Transaction","enabled":true}]' \
-     --workspace <logAnalyticsResourceId>
-   ```
-2. Run the pre-built KQL notebook `kql/storage_sas_breach.kql` inside Sentinel to load baseline queries.
-3. Export a copy of the unified audit log to your evidence folder (`./evidence/raw`).
+My setup contains a mix of consumer and enterprise systems.
 
-## 🔍 Phase 2 — Timeline Reconstruction
+- **Cisco WS-3750-24PS-S (Core Switch):** This is a 24-port Layer 3 enterprise switch. It doesn't run 24/7 but I use it to manage VLANs and test other network functions.
+- **Gateway:** Handles my primary connection to the ISP and provides the initial routing for my setup.
 
-Use KQL to rebuild the incident. Focus on three attack milestones.
+## The Final Piece
 
-### 1. Initial Enumeration
+While the HP Desktop handles the heavier virtualization, my **Raspberry Pi 5 (4GB)** covers the rest. I've upgraded it with a **NVME/PoE Hat**, allowing it to boot from a higher speed SSD with a single Ethernet cable.
 
-```kusto
-// Enumerate LIST operations per client IP
-table("StorageBlobLogs")
-| where OperationName == "ListBlob"
-| summarize Count = count() by CallerIpAddress, bin(TimeGenerated, 5m)
-| order by Count desc
-```
+### Current Services Running:
 
-### 2. Exfiltration Burst
+- **Pi-hole:** Network-wide DNS ad-blocking
+- **Minecraft Server:** Dedicated instance for multiplayer
+- **Obsidian Sync:** A self-hosted backend for multi platform support
+- **Home Page:** A central dashboard to monitor the health and links of all lab services
+- **Tailscale:** My VPN for secure remote acceess to the lab from anywhere
 
-```kusto
-// Identify high-volume downloads per container
-StorageBlobLogs
-| where OperationName == "GetBlob"
-| summarize Downloads = count(), DataOut = sum(TotalIngress) by ContainerName, bin(TimeGenerated, 5m)
-| order by Downloads desc
-```
+## Next Steps:
 
-### 3. Key Enumeration
-
-```kusto
-// Track calls to key listing endpoints
-AzureActivity
-| where OperationNameValue has_any ("ListKeys", "ListAccountSas")
-| project TimeGenerated, Caller, CallerIpAddress, OperationNameValue
-```
-
-Capture screenshots or export results for the report archive.
-
-## 🛠️ Phase 3 — Automatic Containment
-
-1. Deploy the containment Logic App with Bicep:
-   ```bash
-   az deployment group create \
-     --resource-group <rg-name> \
-     --template-file infra/logicapp-lockkeys.bicep \
-     --parameters storageAccountName=<storageName>
-   ```
-2. Connect Sentinel analytics rule "Storage Account Shared Key Access" to the playbook.
-3. Test by creating a Shared Access Signature; verify the Logic App rotates keys and disables the SAS within 60 seconds.
-
-## 🛡️ Phase 4 — Hardening & Lessons Learned
-
-- Apply Defender for Storage **Prevent** policy to block anonymous access.
-- Rotate storage account keys and purge any persisted credentials from configuration files.
-- Enforce Azure AD authentication for applications instead of account keys.
-- Update the *Secure Development* playbook with pipeline checks for secrets.
-
-## 📑 Deliverables
-
-- `report/timeline.md` including the KQL outputs and IoCs.
-- Logic App deployment screenshot + JSON export.
-- Sentinel analytics rule update referencing the containment playbook.
-- Ticket template for production hand-off.
-
-Run this lab whenever new engineers join incident response so they absorb both the investigative process and the automation mindset.
+My next goal is to expand the Prommox cluster with automated monitoring using Prometheus and Grafana. Also for the HP Desktop, I look to upgrade the ram to 32GB DDR3 for improved function.
