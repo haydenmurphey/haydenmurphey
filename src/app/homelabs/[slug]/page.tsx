@@ -243,61 +243,6 @@ export default async function HomelabPage({ params }: { params: Promise<{ slug: 
               </div>
             </div>
 
-            <aside className="space-y-8">
-              <div className="rounded-2xl border border-cyber-cyan/25 bg-cyber-navy/40 p-6">
-                <h2 className="text-lg font-semibold text-white mb-4">Mission checklist</h2>
-                <dl className="space-y-3 text-sm text-cyber-gray-light">
-                  <div className="flex justify-between">
-                    <dt className="font-mono text-cyber-cyan/80">Difficulty</dt>
-                    <dd>{lab.difficulty}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="font-mono text-cyber-cyan/80">Estimated run</dt>
-                    <dd>{lab.duration}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="font-mono text-cyber-cyan/80">Focus</dt>
-                    <dd>{lab.focusArea}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="font-mono text-cyber-cyan/80">Category</dt>
-                    <dd>{lab.category}</dd>
-                  </div>
-                </dl>
-              </div>
-
-              {lab.requirements.length > 0 && (
-                <div className="rounded-2xl border border-cyber-cyan/25 bg-cyber-navy/40 p-6">
-                  <h2 className="text-lg font-semibold text-white mb-4">Prerequisites</h2>
-                  <ul className="space-y-2 text-sm text-cyber-gray-light">
-                    {lab.requirements.map((requirement) => (
-                      <li key={requirement} className="flex gap-2">
-                        <span className="mt-1 h-1.5 w-1.5 rounded-full bg-cyber-green" />
-                        <span>{requirement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {lab.tags.length > 0 && (
-                <div className="rounded-2xl border border-cyber-cyan/25 bg-cyber-navy/40 p-6">
-                  <h2 className="text-lg font-semibold text-white mb-4">Tags</h2>
-                  <div className="flex flex-wrap gap-2">
-                    {lab.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1 text-xs font-mono text-cyber-cyan border border-cyber-cyan/30 rounded-full bg-cyber-cyan/10"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </aside>
-          </div>
-
           <div className="mt-16 pt-8 border-t border-cyber-cyan/20 flex flex-wrap items-center justify-between gap-4">
             <Link
               href="/homelabs"
