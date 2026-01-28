@@ -219,9 +219,6 @@ export default async function HomelabPage({ params }: { params: Promise<{ slug: 
 
               <div className="mb-8 rounded-xl border border-cyber-cyan/30 bg-cyber-navy/40 p-4 md:p-5 shadow-neon-cyan/5">
                 <p className="text-sm md:text-base text-cyber-gray-light">
-                  These home labs are placeholder scenarios while I document the full walkthroughs. The
-                  environments, objectives, and tooling reflect my real-world practice runs, and I&apos;m
-                  actively expanding the playbooks with screenshots, scripts, and validation data.
                 </p>
               </div>
 
