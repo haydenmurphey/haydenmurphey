@@ -245,7 +245,7 @@ export default async function HomelabPage({ params }: { params: Promise<{ slug: 
 
             <aside className="space-y-8">
               <div className="rounded-2xl border border-cyber-cyan/25 bg-cyber-navy/40 p-6">
-                <h2 className="text-lg font-semibold text-white mb-4">Mission checklist</h2>
+                <h2 className="text-lg font-semibold text-white mb-4">Breakdown</h2>
                 <dl className="space-y-3 text-sm text-cyber-gray-light">
                   <div className="flex justify-between">
                     <dt className="font-mono text-cyber-cyan/80">Type</dt>
@@ -268,7 +268,7 @@ export default async function HomelabPage({ params }: { params: Promise<{ slug: 
 
               {lab.requirements.length > 0 && (
                 <div className="rounded-2xl border border-cyber-cyan/25 bg-cyber-navy/40 p-6">
-                  <h2 className="text-lg font-semibold text-white mb-4">Prerequisites</h2>
+                  <h2 className="text-lg font-semibold text-white mb-4">Additional Details</h2>
                   <ul className="space-y-2 text-sm text-cyber-gray-light">
                     {lab.requirements.map((requirement) => (
                       <li key={requirement} className="flex gap-2">
