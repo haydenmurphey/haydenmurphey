@@ -85,7 +85,7 @@ export default function HomelabsClient({ labs, featured, focusAreas, difficultie
               transition={{ delay: 0.35 }}
               className="mt-6 text-lg text-cyber-gray-light"
             >
-              Blueprinted environments I run at home to sharpen my skills and tools. Each lab contains documentation and my process for each unique scenario.
+              Blueprinted environments I run at home to sharpen my skills and tools.
             </m.p>
             <m.div
               initial={{ scaleX: 0 }}
