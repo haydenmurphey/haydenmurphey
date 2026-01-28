@@ -61,7 +61,7 @@ const LabCard = memo(function LabCard({ lab, index }: LabCardProps) {
         {objectives.length > 0 && (
           <div className="px-6 pb-6">
             <p className="text-xs font-mono text-cyber-cyan/70 tracking-wide mb-3">
-              FIRST OBJECTIVES
+              DETAILS
             </p>
             <ul className="space-y-2 text-sm text-cyber-gray-light">
               {objectives.map((objective) => (
