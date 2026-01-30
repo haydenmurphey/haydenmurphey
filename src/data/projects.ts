@@ -39,6 +39,18 @@ export const projects: Project[] = [
     },
   },
   {
+    title: 'Ruby-Based Full-Stack Language Interpreter & Interactive TUI',
+    description:
+      'This is a custom-built, dynamically typed programming language engine implemented in Ruby. This project demonstrates the complete lifecycle of a language tool, from lexical analysis and parsing to a decoupled execution runtime and an interactive developer interface.',
+  image: '/images/site/tui_example.png',
+    status: 'Academic Project',
+    statusColor: 'bg-cyber-cyan',
+    tags: ['ruby', 'interpreter', 'compiler', 'AST', 'curses', 'dev-tools'],
+    links: {
+      github: 'https://github.com/haydenmurphey/ruby-ast-interpreter',
+    },
+  },
+  {
     title: 'Fixture Flow',
     description:
       'Fixture Flow is a personalized, accessibility-first web application designed to solve "information overload" in sports tracking. While most soccer platforms overwhelm users with dense layouts and unnecessary data, Fixture Flow prioritizes a clean, curated experience. Users can select their favorite teams and leagues to create a bespoke home screen that delivers real-time scores and upcoming schedules at a glance.',
