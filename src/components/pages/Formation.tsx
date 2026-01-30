@@ -29,7 +29,7 @@ const educationData: Education[] = [
   {
     title: 'Bachelor in Computer Science',
     organization: 'James Madison University',
-    description: 'With this degree, I received my formal education in the areas of comptuation that provides the backbone of Cybersecurity including computer systems, operating systems, programming languages, and data structures.',
+    description: 'With this degree, I received my formal education in the areas of comptuation including computer systems, operating systems, programming languages, and data structures.',
     period: '2022 - 2025',
     icon: '💻',
     type: 'degree',
@@ -148,7 +148,7 @@ export default function FormationSection() {
             Education & Certifications
           </h2>
           <p className="text-cyber-gray-light text-lg max-w-2xl mx-auto">
-            From computer science foundations to cybersecurity expertise. My journey through academic excellence, professional certifications, and organizations.
+            From computer science foundations to cybersecurity/cloud expertise. My journey through academic excellence, professional certifications, and organizations.
           </p>
         </m.div>
 

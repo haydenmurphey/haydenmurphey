@@ -113,7 +113,7 @@ export default function HomelabPreviewClient({ labs }: HomelabPreviewClientProps
             HOME LABS
           </m.p>
           <h2 id="homelabs-heading" className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Cybersecurity Playground
+            Cyber Sandbox
           </h2>
           <p className="text-cyber-gray-light text-lg max-w-3xl mx-auto">
             Homelab work dedicated to practicing my skills in an applicable way.
