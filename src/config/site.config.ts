@@ -13,7 +13,7 @@ export const siteConfig = {
     codename: 'haydenmurphey',
     jobTitle: 'Cybersecurity Specialist', // Your professional title
     tagline: '',
-    description: 'I am recent Computer Science Graduate from James Madison University looking for an intro role in the Cybersecurity field. I bring a unique variety of skills to the table that transcends just the computer world.',
+    description: 'I am recent Computer Science Graduate from James Madison University looking for an intro role in the cyber field. I bring a unique variety of skills to the table that transcends just the computer world.',
     organization: 'Independent',
   },
 
@@ -82,13 +82,7 @@ export const siteConfig = {
    * List your key skills and specializations
    */
   expertise: [
-    'Cybersecurity',
-    'Blue Team Operations',
-    'SIEM',
-    'Incident Response',
-    'Threat Hunting',
-    'Security Operations Center',
-    'Defensive Security',
+    'Computer Science',
     // Add your specific expertise areas
   ],
 } as const;
