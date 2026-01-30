@@ -42,7 +42,7 @@ export const projects: Project[] = [
     title: 'Ruby-Based Full-Stack Language Interpreter & Interactive TUI',
     description:
       'This is a custom-built, dynamically typed programming language engine implemented in Ruby. This project demonstrates the complete lifecycle of a language tool, from lexical analysis and parsing to a decoupled execution runtime and an interactive developer interface.',
-  image: '/images/site/tui_example.png',
+  image: '/images/site/tui_example.webp',
     status: 'Academic Project',
     statusColor: 'bg-cyber-cyan',
     tags: ['ruby', 'interpreter', 'compiler', 'AST', 'curses', 'dev-tools'],
