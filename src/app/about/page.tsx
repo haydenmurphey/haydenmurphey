@@ -59,7 +59,7 @@ export default function AboutPage() {
                 </h1>
 
                 <p className="text-xl text-cyber-gray-light leading-relaxed max-w-2xl md:max-w-none">
-                  Early career Cybersecurity professional looking to expand their knowledge of the industry through projects, labs, and professional work.
+                  Early career cyber professional looking to expand their knowledge of the industry through projects, labs, and professional work.
                 </p>
               </div>
             </div>
@@ -87,11 +87,11 @@ export default function AboutPage() {
                 </p>
 
                 <p>
-                  Eventually, I found myself gaining an interest in cybersecurity while recognizing it&apos;s importance in maintaining the integrity and privacy of our digital world. With the world continuously becoming more digital, this impact cannot be understated.
+                  Eventually, I found myself gaining an interest in cybersecurity and cloud computing while recognizing both of these fields importance in maintaining the integrity and privacy of our digital world. With the world continuously becoming more digital, this impact cannot be understated.
                 </p>
 
                 <p>
-                  Looking forward, I&apos;m focused on growing my expertise in all that comes with the industry including threat detection, security architecture, and much more. I strive to bring positive contributions to the broader cybersecurity community and continue to diversify my skillset in the process.
+                  Looking forward, I&apos;m focused on growing my expertise in all that comes with the industry including threat detection, architecture, and much more. I strive to bring positive contributions to the broader cyber community and continue to diversify my skillset in the process.
                 </p>
               </div>
             </m.div>
@@ -108,6 +108,7 @@ export default function AboutPage() {
                 <h3 className="text-xl font-bold text-white mb-3">Coding Languages</h3>
                 <p className="text-cyber-gray leading-relaxed">
                   <ul>
+                    <li>- Bash</li>
                     <li>- C</li>
                     <li>- CSS</li>
                     <li>- Haskell</li>
@@ -117,7 +118,6 @@ export default function AboutPage() {
                     <li>- Python</li>
                     <li>- Ruby</li>
                     <li>- Rust</li>
-                    <li>- Swift</li>
                   </ul>
                 </p>
               </div>
@@ -150,7 +150,7 @@ export default function AboutPage() {
               transition={{ delay: 0.4 }}
               className="bg-gradient-to-r from-cyber-teal-dark/30 to-cyber-navy/30 backdrop-blur-sm border border-cyber-green/20 rounded-2xl p-8 md:p-12 mb-12"
             >
-              <h2 className="text-3xl font-bold text-cyber-green mb-6">Life Outside of Cybersecurity</h2>
+              <h2 className="text-3xl font-bold text-cyber-green mb-6">Life Outside of Cyber Work</h2>
 
               <div className="space-y-4 text-cyber-gray-light leading-relaxed">
 
@@ -187,7 +187,7 @@ export default function AboutPage() {
                   View My Projects
                 </h3>
                 <p className="text-cyber-gray-light mb-4">
-                  Explore projects relating to cybersecurity, personal projects, and more
+                  Explore projects relating to academia, personal projects, and more
                 </p>
                 <div className="inline-flex items-center gap-2 text-cyber-cyan group-hover:gap-4 transition-all">
                   <span className="font-mono">See Projects</span>
