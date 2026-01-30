@@ -56,7 +56,7 @@ export default function BlogSectionClient({ featuredPost, recentPosts, allCatego
             Thanks for reading my logs...
           </h2>
           <p className="text-cyber-gray-light text-lg max-w-2xl mx-auto mb-6">
-            My recent discoveries in the world of cybersecurity.
+            My recent discoveries in the world of computer science.
           </p>
           <m.div
             initial={{ scaleX: 0 }}

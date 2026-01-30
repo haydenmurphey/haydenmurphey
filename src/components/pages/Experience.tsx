@@ -57,7 +57,7 @@ const experiences: Experience[] = [
 export default function ExperienceSection() {
   const title = 'Professional Experience';
   const subtitle = 'TIMELINE';
-  const description = 'From experience in Civil Engineering to formal academic education and work in Computer Science. Each experience shaped my analytical approach to cyber defense giving me a balanced sight to physical and technical security.';
+  const description = 'From experience in Civil Engineering to formal academic education and work in Computer Science. Each experience shaped my analytical approach to cyber work giving me a balanced sight on the physical and technical aspects.';
   const achievementsLabel = 'Key Achievements:';
   
   return (
