@@ -25,8 +25,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://yourdomain.com'),
   ...generateSEO({
-    title: 'Hayden Murphey - Cybersecurity Professional',
-    description: 'Professional cybersecurity portfolio.',
+    title: 'Hayden Murphey - Cyber Professional',
+    description: 'Professional cyber portfolio.',
     url: '/',
     type: 'website',
     tags: ['portfolio', 'blue team', 'SOC analyst', 'threat hunting', 'security operations'],

@@ -6,7 +6,7 @@ export const siteConfig = {
   /**
    * Site identity and branding
    */
-  name: 'Hayden Murphey - Cybersecurity Professional',
+  name: 'Hayden Murphey - Cyber Professional',
   codename: '',
   author: {
     name: 'Hayden Murphey',
@@ -30,7 +30,7 @@ export const siteConfig = {
    * Customize for better search engine optimization
    */
   seo: {
-    title: 'Hayden Murphey - Cybersecurity Professional Portfolio',
+    title: 'Hayden Murphey - Cyber Professional Portfolio',
     description: 'Professional portfolio showcasing cybersecurity projects, blog posts, and expertise.',
     keywords: [
       'cybersecurity',

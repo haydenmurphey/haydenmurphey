@@ -7,7 +7,7 @@ export const metadata: Metadata = generateSEO({
   url: '/about',
   type: 'profile',
   image: '/images/about/profile.png',
-  tags: ['about', 'cybersecurity professional', 'blue team specialist', 'physics background', 'career transition'],
+  tags: ['about', 'cyber professional', 'blue team specialist', 'physics background', 'career transition'],
 });
 
 export default function AboutLayout({
