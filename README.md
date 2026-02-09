@@ -20,6 +20,11 @@ const Hayden = {
       date_acquired: "Feb 2025"
     },
     {
+      name: "AWS Certified Cloud Practitioner",
+      type: "Certification",
+      date_acquired: "Feb 2026"
+    },
+    {
       name: "Association for Computing Machinery (ACM)",
       type: "Student Member",
       date_joined: "2025"
