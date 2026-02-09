@@ -2,7 +2,7 @@
 
 import { type ReactNode } from 'react';
 import { m } from 'framer-motion';
-import { Award, Calendar, GraduationCap, BookOpen, ArrowRight, ShieldAlert, Handshake } from 'lucide-react';
+import { Award, Calendar, GraduationCap, BookOpen, ArrowRight, ShieldAlert, Handshake, Cloud } from 'lucide-react';
 import Link from 'next/link';
 
 interface ExtraSection {
@@ -73,6 +73,17 @@ const educationData: Education[] = [
     credentialId: '2409600'
   },
   {
+    title: 'AWS Certified Cloud Practitioner',
+    organization: 'AWS',
+    description: 'Earned the AWS Certified Cloud Practitioner (CLF-C02) credential, demonstrating a comprehensive understanding of cloud-native concepts and the AWS ecosystem. This certification validates my proficiency in identifying core AWS services (Compute, Storage, Database), navigating security best practices, and understanding the economic impact of cloud adoption.',
+    period: 'Completed Feb 2026',
+    icon: <Cloud className="w-7 h-7 text-red-400" aria-hidden />,
+    type: 'certification',
+    status: 'paused',
+    verificationLink: 'https://aws.amazon.com/certification/certified-cloud-practitioner/',
+    credentialId: 'COMING-SOON'
+  },
+  {
     title: 'Association for Computing Machinery',
     organization: 'ACM',
     description: 'An active member of the world\'s leading professional organization for computer science and information technology. Membership signifies a commitment to the ACM Code of Ethics and professional excellence in the computing field. This affiliation provides access to the world’s largest digital library of computing research, keeping my technical knowledge at the forefront of industry-leading innovations and peer-reviewed standards.',
@@ -84,15 +95,15 @@ const educationData: Education[] = [
     credentialId: 'Member ID available upon request'
   },
   {
-    title: 'CompTIA Network+',
-    organization: 'CompTIA',
-    description: 'A vendor-neutral certification validating the essential knowledge and skills needed to confidently design, configure, manage, and troubleshoot any wired or wireless network. This credential confirms expertise in networking fundamentals, including IPv4/IPv6 addressing, DNS, and DHCP, alongside a strong grasp of network security, cloud computing concepts, and critical infrastructure resilience.',
+    title: 'AWS Certified CloudOps Engineer - Associate',
+    organization: 'AWS',
+    description: 'Validates the technical expertise required to deploy, manage, and operate scalable, highly available, and fault-tolerant systems on AWS. It focuses on hands-on operational excellence, covering critical areas like real-time monitoring, automated incident remediation, and infrastructure-as-code automation. Earning this credential demonstrates a professional’s ability to maintain secure cloud environments while ensuring business continuity through robust disaster recovery strategies.',
     period: 'Planned 2026',
-    icon: <ShieldAlert className="w-7 h-7 text-red-400" aria-hidden />,
+    icon: <Cloud className="w-7 h-7 text-red-400" aria-hidden />,
     type: 'certification',
     status: 'coming-soon',
     verificationLink: '',
-    credentialId: 'NET+-IN-PROGRESS'
+    credentialId: 'IN-PROGRESS'
   }
 ];
 
