@@ -80,8 +80,8 @@ const educationData: Education[] = [
     icon: <Cloud className="w-7 h-7 text-red-400" aria-hidden />,
     type: 'certification',
     status: 'paused',
-    verificationLink: 'https://aws.amazon.com/certification/certified-cloud-practitioner/',
-    credentialId: 'COMING-SOON'
+    verificationLink: 'https://aws.amazon.com/verification',
+    credentialId: '6680c15bf1de42758d379720022d6156'
   },
   {
     title: 'Association for Computing Machinery',
