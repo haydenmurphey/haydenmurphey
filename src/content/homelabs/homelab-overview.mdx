@@ -55,13 +55,9 @@ While the HP Desktop handles traditional virtualization, the main workhorse of m
 To simulate an enterprise-grade cloud environment, this server is built with strict security and disaster recovery principles:
 
 - **Zero Trust Network Access:** The server has zero public-facing ports. All external access is routed through a secure Tailscale mesh network.
-
 - **Reverse Proxy:** A native Windows Caddy instance acts as the sole gatekeeper. It binds exclusively to the Tailscale IP, automatically provisions TLS certificates for secure HTTPS connections, and routes traffic locally to Docker containers via 127.0.0.1.
-
 - **Intrusion Prevention System (IPS):** CrowdSec runs natively alongside Caddy, monitoring access logs in real-time. If malicious traffic or brute-force attempts are detected, the CrowdSec Bouncer dynamically instructs the Windows Defender Firewall to drop the offending IP.
-
 - **Full Disk Encryption:** BitLocker is enforced across the OS drive, the Docker data drive, and the external backup drive to secure physical assets.
-
 - **Automated Disaster Recovery:** A custom multi-threaded Robocopy script runs via Windows Task Scheduler every night, mirroring critical container volumes, SQLite databases, and configurations to an encrypted external USB drive for rapid recovery.
 
 ### Current Services (Dockerized):
@@ -69,23 +65,15 @@ To simulate an enterprise-grade cloud environment, this server is built with str
 This node hosts a suite of containerized microservices and applications, all managed via **Docker Compose**:
 
 ***Infrastructure & Management***
-
 - **Glance:** A centralized, YAML-configured dashboard unifying monitoring and service access.
-
 - **Vaultwarden:** Self-hosted Bitwarden-compatible password manager.
-
 - **Beszel & Speedtest Tracker:** Lightweight telemetry and network performance monitoring.
 
 ***Media & Productivity***
-
 - **Jellyfin:** Personal media streaming server.
-
 - **Immich:** High-performance, self-hosted photo and video backup solution.
-
 - **Filebrowser:** Web-based file management acting as a localized NAS.
-
 - **Kasm Workspaces:** Containerized desktop infrastructure for secure, isolated browser sessions.
-
 - **Sunshine Host:** Low-latency remote desktop and game streaming.
 
 ---
