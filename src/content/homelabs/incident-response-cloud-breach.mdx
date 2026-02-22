@@ -1,7 +1,7 @@
 ---
 title: "Home Lab Setup"
 description: "Up to date overview of my homelab."
-date: "2026-01-27"
+date: "2026-02-22"
 difficulty: "Overview"
 duration: ""
 status: "Current"
@@ -11,7 +11,6 @@ coverImage: "/images/site/homelab.webp"
 tools:
   - "Proxmox VE"
   - "Tailscale"
-  - "Pi-hole"
   - "Docker"
 objectives:
   - "Deployed a Proxmox VE hypervisor on HP EliteDesk hardware to manage a hybrid environment of VMs and LXC containers, allowing for prototyping and isolated testing of new software stacks."
@@ -22,7 +21,6 @@ requirements:
 tags:
   - "Proxmox VE"
   - "Tailscale"
-  - "Pi-hole"
   - "Docker"
 ---
 
@@ -46,9 +44,8 @@ My setup contains a mix of consumer and enterprise systems.
 - **Cisco WS-3750-24PS-S (Core Switch):** This is a 24-port Layer 3 enterprise switch. It doesn't run 24/7 but I use it to manage VLANs and test other network functions.
 - **Gateway:** Handles my primary connection to the ISP and provides the initial routing for my setup.
 
-## The Final Piece
+---
 
-While the HP Desktop handles the heavier virtualization, my **Raspberry Pi 5 (4GB)** covers the rest. I've upgraded it with a **NVME/PoE Hat**, allowing it to boot from a higher speed SSD with a single Ethernet cable.
 
 ### Current Services Running:
 
@@ -56,6 +53,52 @@ While the HP Desktop handles the heavier virtualization, my **Raspberry Pi 5 (4G
 - **Minecraft Server:** Dedicated instance for multiplayer
 - **Home Page:** A central dashboard to monitor the health and links of all lab services
 - **Tailscale:** My VPN for secure remote acceess to the lab from anywhere
+
+
+
+## The Final Piece: Zero Trust Application Server
+
+While the HP Desktop handles traditional virtualization, the main workhorse of my homelab is a high-performance GMKtek M6 Ultra Mini-PC. This machine serves as my dedicated container orchestration host and runs entirely on a Zero Trust architecture.
+
+### Architecture & Security
+
+To simulate an enterprise-grade cloud environment, this server is built with strict security and disaster recovery principles:
+
+- **Zero Trust Network Access:** The server has zero public-facing ports. All external access is routed through a secure Tailscale mesh network.
+
+- **Reverse Proxy:** A native Windows Caddy instance acts as the sole gatekeeper. It binds exclusively to the Tailscale IP, automatically provisions TLS certificates for secure HTTPS connections, and routes traffic locally to Docker containers via 127.0.0.1.
+
+- **Intrusion Prevention System (IPS):** CrowdSec runs natively alongside Caddy, monitoring access logs in real-time. If malicious traffic or brute-force attempts are detected, the CrowdSec Bouncer dynamically instructs the Windows Defender Firewall to drop the offending IP.
+
+- **Full Disk Encryption:** BitLocker is enforced across the OS drive, the Docker data drive, and the external backup drive to secure physical assets.
+
+- **Automated Disaster Recovery:** A custom multi-threaded Robocopy script runs via Windows Task Scheduler every night, mirroring critical container volumes, SQLite databases, and configurations to an encrypted external USB drive for rapid recovery.
+
+### Current Services (Dockerized):
+
+This node hosts a suite of containerized microservices and applications, all managed via **Docker Compose**:
+
+***Infrastructure & Management***
+
+- **Glance:** A centralized, YAML-configured dashboard unifying monitoring and service access.
+
+- **Vaultwarden:** Self-hosted Bitwarden-compatible password manager.
+
+- **Beszel & Speedtest Tracker:** Lightweight telemetry and network performance monitoring.
+
+***Media & Productivity***
+
+- **Jellyfin:** Personal media streaming server.
+
+- **Immich:** High-performance, self-hosted photo and video backup solution.
+
+- **Filebrowser:** Web-based file management acting as a localized NAS.
+
+- **Kasm Workspaces:** Containerized desktop infrastructure for secure, isolated browser sessions.
+
+- **Sunshine Host:** Low-latency remote desktop and game streaming.
+
+---
 
 ## Next Steps:
 
