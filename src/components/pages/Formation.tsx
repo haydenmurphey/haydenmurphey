@@ -95,10 +95,10 @@ const educationData: Education[] = [
     credentialId: 'Member ID available upon request'
   },
   {
-    title: 'AWS Certified CloudOps Engineer - Associate',
+    title: 'AWS Certified Solutions Architect - Associate',
     organization: 'AWS',
-    description: 'Validates the technical expertise required to deploy, manage, and operate scalable, highly available, and fault-tolerant systems on AWS. It focuses on hands-on operational excellence, covering critical areas like real-time monitoring, automated incident remediation, and infrastructure-as-code automation. Earning this credential demonstrates a professional’s ability to maintain secure cloud environments while ensuring business continuity through robust disaster recovery strategies.',
-    period: 'Planned 2026',
+    description: 'Validates the ability to design secure, resilient, high-performing, and cost-optimized architectures using AWS technology. It focuses on technical proficiency in deploying applications on AWS based on the Well-Architected Framework.',
+    period: 'Expected Mar 2026',
     icon: <Cloud className="w-7 h-7 text-red-400" aria-hidden />,
     type: 'certification',
     status: 'coming-soon',
