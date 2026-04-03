@@ -25,8 +25,13 @@ const Hayden = {
       date_acquired: "Feb 2026"
     },
     {
+      name: "AWS Certified Solutions Architect - Associate",
+      type: "Certification",
+      date_acquired: "Apr 2026"
+    },
+    {
       name: "Association for Computing Machinery (ACM)",
-      type: "Student Member",
+      type: "Member",
       date_joined: "2025"
     }
   ]
