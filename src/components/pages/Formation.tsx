@@ -83,6 +83,17 @@ const educationData: Education[] = [
     verificationLink: 'https://aws.amazon.com/verification',
     credentialId: '6680c15bf1de42758d379720022d6156'
   },
+    {
+    title: 'AWS Certified Solutions Architect - Associate',
+    organization: 'AWS',
+    description: 'Validates the ability to design secure, resilient, high-performing, and cost-optimized architectures using AWS technology. It focuses on technical proficiency in deploying applications on AWS based on the Well-Architected Framework.',
+    period: 'Completed Apr 2026',
+    icon: <Cloud className="w-7 h-7 text-red-400" aria-hidden />,
+    type: 'certification',
+    status: 'paused',
+    verificationLink: 'https://aws.amazon.com/verification',
+    credentialId: '7b6dbb74cd0c4edca527363da3aa978b'
+  },
   {
     title: 'Association for Computing Machinery',
     organization: 'ACM',
@@ -93,17 +104,6 @@ const educationData: Education[] = [
     status: 'in-progress',
     verificationLink: 'https://www.acm.org',
     credentialId: 'Member ID available upon request'
-  },
-  {
-    title: 'AWS Certified Solutions Architect - Associate',
-    organization: 'AWS',
-    description: 'Validates the ability to design secure, resilient, high-performing, and cost-optimized architectures using AWS technology. It focuses on technical proficiency in deploying applications on AWS based on the Well-Architected Framework.',
-    period: 'Expected Mar 2026',
-    icon: <Cloud className="w-7 h-7 text-red-400" aria-hidden />,
-    type: 'certification',
-    status: 'coming-soon',
-    verificationLink: '',
-    credentialId: 'IN-PROGRESS'
   }
 ];
 

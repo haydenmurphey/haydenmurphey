@@ -60,7 +60,6 @@ export const projects: Project[] = [
     tags: ['Asynch API', 'WCAG-Compliant', 'localStorage', 'CSS', 'HTML', 'JavaScript', 'PHP'],
     links: {
       github: 'https://github.com/haydenmurphey/fixtureflow',
-      demo: 'https://fixtureflow.page.gd/',
     },
   },
   {
