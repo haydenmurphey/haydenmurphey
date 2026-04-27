@@ -1,7 +1,7 @@
 <h2>👋 Hello World, I'm Hayden Murphey! </h2>
 <p><em>
-  Computer Science Graduate at James Madison University (2025)
-  Technical AI Trainer at DataAnnotation
+  <li>Computer Science Graduate at James Madison University (2025)
+  <li>Technical AI Trainer at DataAnnotation
 </em></p>
 
 <h2>👨‍💻 About Me: </h2>
