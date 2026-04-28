@@ -1,40 +1,10 @@
-<h2>👋 Hello World, I'm Hayden Murphey! </h2>
-<p><em>
-  Computer Science Graduate at <a href="https://www.jmu.edu/">James Madison University (2025)</a></br>
-  Technical AI Trainer at <a href="https://www.dataannotation.tech/generalist?worker_src=G&utm_source=google&utm_medium=display&utm_campaign=21040832282&utm_adgroup=&utm_content=&gad_source=1&gad_campaignid=22434464778&gbraid=0AAAAAqBNCsW2WLYi32WWukEpB2hhsActl&gclid=CjwKCAiAlfvIBhA6EiwAcErpyYjgcX-vhycVJVD2KgfxejzKFhE_YQqOSGa22eJkKRebJ1szunw8rhoC1yEQAvD_BwE">DataAnnotation</a>
-</em></p>
+# 👋 Hayden Murphey
 
-<h2>👨‍💻 About Me: </h2>
+**CS Grad (JMU) • Technical AI Trainer • Systems & Cloud Enthusiast**
 
-```javascript
-const Hayden = {
-  pronouns: "he" | "him",
-  languages: [C, CSS, Haskel, HTML, Java, JavaScript, Python, Ruby, Rust, Swift],
-  frameworks_libraries: [Bootstrap , CMake, JSON, JUnit/pytest, NumPy, OpenCV, pandas, ROS2, Tailwind],
-  technical_skills: [Agile Methodology (SCRUM), API Integration, CLI, Git, SVN],
-  interests: [Music, Operating Systems, Emulation, Snowboarding, Rock Climbing],
-  certs_professional_memberships: [
-    {
-      name: "ISC(2) Certified in Cybersecurity",
-      type: "Certification",
-      date_acquired: "Feb 2025"
-    },
-    {
-      name: "AWS Certified Cloud Practitioner",
-      type: "Certification",
-      date_acquired: "Feb 2026"
-    },
-    {
-      name: "AWS Certified Solutions Architect - Associate",
-      type: "Certification",
-      date_acquired: "Apr 2026"
-    },
-    {
-      name: "Association for Computing Machinery (ACM)",
-      type: "Member",
-      date_joined: "2025"
-    }
-  ]
-}
-```
- 
+Welcome to my GitHub! I'm passionate about low-level systems, cloud architecture, and building efficient software. When I'm outside the tech world, I'm usually producing music, snowboarding, or rock climbing.
+
+💻 **The Stack**
+* **Languages:** Python, C, Rust, Java, JavaScript, Swift, Ruby, Haskell
+* **Tools & Libraries:** ROS2, OpenCV, NumPy, pandas, Tailwind, Git
+* **Cloud & Security:** AWS Solutions Architect Associate, AWS Cloud Practitioner, ISC(2) CC
