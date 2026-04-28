@@ -450,7 +450,7 @@ const experience = [
     period: "May 2021 → Aug 2025",
     bullets: [
       "Logged & tracked 10,000+ concrete test specimens across 40+ active projects.",
-      "Owned data entry, reporting, and quality standards for materials testing.",
+      "Completed data entry, reporting, and quality standards for concrete, steel, and soil materials.",
       "Coordinated cross-team between field crews, lab staff, and project managers.",
     ],
   },
