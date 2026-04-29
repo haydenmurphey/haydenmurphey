@@ -544,21 +544,6 @@ const Sidebar = ({ active, onNav, activeTheme, onSetTheme }) => {
 
   return (
     <aside className="sidebar">
-      <nav className="sb-nav" aria-label="sections">
-        <p className="sb-h">// nav</p>
-        {NAV.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => onNav(item.id)}
-            className={"sb-link " + (active === item.id ? "active" : "")}
-          >
-            <span className="sb-num">{item.n}</span>
-            <span className="sb-arrow">{active === item.id ? "▸" : " "}</span>
-            <span className="sb-lbl">{item.label}</span>
-          </button>
-        ))}
-      </nav>
-
       <div className="sb-theme">
         <p className="sb-h">// theme</p>
         <div className="theme-opts">
@@ -577,6 +562,21 @@ const Sidebar = ({ active, onNav, activeTheme, onSetTheme }) => {
           ))}
         </div>
       </div>
+
+      <nav className="sb-nav" aria-label="sections">
+        <p className="sb-h">// nav</p>
+        {NAV.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => onNav(item.id)}
+            className={"sb-link " + (active === item.id ? "active" : "")}
+          >
+            <span className="sb-num">{item.n}</span>
+            <span className="sb-arrow">{active === item.id ? "▸" : " "}</span>
+            <span className="sb-lbl">{item.label}</span>
+          </button>
+        ))}
+      </nav>
 
       <div className="sb-links">
         <p className="sb-h">// links</p>
