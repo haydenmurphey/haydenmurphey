@@ -506,6 +506,14 @@ const Contact = ({ density }) => (
   </section>
 );
 
+// ─── Theme config ───────────────────────────────────────────────────
+const THEMES = [
+  { id: "cream",      dot: "○", name: "LIGHT", sub: "light"  },
+  { id: "cream-dark", dot: "●", name: "DARK",  sub: "dark"    },
+  { id: "neon",       dot: "◉", name: "NEON",  sub: "terminal"   },
+];
+const THEME_CYCLE = { cream: "cream-dark", "cream-dark": "neon", neon: "cream" };
+
 // ─── Sidebar ────────────────────────────────────────────────────────
 const NAV = [
   { id: "top", label: "home", n: "0" },
@@ -519,7 +527,7 @@ const NAV = [
   { id: "contact", label: "contact", n: "8" },
 ];
 
-const Sidebar = ({ active, onNav }) => {
+const Sidebar = ({ active, onNav, activeTheme, onSetTheme }) => {
   const [time, setTime] = useState("");
   useEffect(() => {
     const tick = () => {
@@ -557,16 +565,49 @@ const Sidebar = ({ active, onNav }) => {
         ))}
       </nav>
 
-      <div className="sb-foot">
-        <p className="sb-h">// keys</p>
-        <div className="sb-keys">
-          <div><kbd>j</kbd> <kbd>k</kbd> next/prev</div>
-          <div><kbd>1</kbd>–<kbd>8</kbd> jump</div>
-          <div><kbd>g</kbd> top · <kbd>G</kbd> end</div>
+      <div className="sb-theme">
+        <p className="sb-h">// theme</p>
+        <div className="theme-opts">
+          {THEMES.map((t) => (
+            <button
+              key={t.id}
+              className={"theme-opt" + (activeTheme === t.id ? " selected" : "")}
+              data-opt={t.id}
+              onClick={() => onSetTheme(t.id)}
+              aria-pressed={activeTheme === t.id}
+            >
+              <span className="topt-dot">{t.dot}</span>
+              <span className="topt-name">{t.name}</span>
+              <span className="topt-sub">{t.sub}</span>
+            </button>
+          ))}
         </div>
+      </div>
+
+      <div className="sb-links">
+        <p className="sb-h">// links</p>
+        <div className="sb-lnks">
+          <a href="https://github.com/haydenmurphey" target="_blank" rel="noreferrer" className="sb-ext">
+            <span className="sb-ext-arr">→</span> github
+          </a>
+          <a href="https://linkedin.com/in/haydenmurphey" target="_blank" rel="noreferrer" className="sb-ext">
+            <span className="sb-ext-arr">→</span> linkedin
+          </a>
+          <a href="./hayden_murphey_2026.pdf" target="_blank" rel="noreferrer" className="sb-ext">
+            <span className="sb-ext-arr">→</span> resume.pdf
+          </a>
+          <a href="mailto:hsmurphey@gmail.com" className="sb-ext">
+            <span className="sb-ext-arr">→</span> email
+          </a>
+        </div>
+      </div>
+
+      <div className="sb-foot">
         <p className="sb-h">// status</p>
         <div className="sb-status">
-          <div>local · {time}</div>
+          <div><span className="sb-st-k">time ·</span> {time}</div>
+          <div><span className="sb-st-k">zone ·</span> EST / UTC−5</div>
+          <div><span className="sb-st-k">avail ·</span> <span className="stat-ok">● open</span></div>
         </div>
       </div>
     </aside>
@@ -586,19 +627,34 @@ const App = () => {
   const values = STATIC_CONFIG;
   const [active, setActive] = useState("top");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  
+  const [activeTheme, setActiveTheme] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved && ["cream", "cream-dark", "neon"].includes(saved)) return saved;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "cream-dark" : "cream";
+  });
+
+  const setTheme = useCallback((id) => {
+    localStorage.setItem("theme", id);
+    setActiveTheme(id);
+  }, []);
+
   // apply theme tokens to <html>
   useEffect(() => {
-    document.documentElement.dataset.theme = values.theme;
+    document.documentElement.dataset.theme = activeTheme;
     document.documentElement.dataset.density = values.density;
     document.documentElement.dataset.scan = values.scanlines ? "on" : "off";
     document.documentElement.style.setProperty("--fs-base", values.fontSize + "px");
-  }, [values]);
+  }, [activeTheme, values]);
+
+  const navLockRef = useRef(null);
 
   const navTo = useCallback((id) => {
     const el = document.getElementById(id);
     if (!el) return;
     const top = el.getBoundingClientRect().top + window.scrollY - 24;
+    setActive(id);
+    clearTimeout(navLockRef.current);
+    navLockRef.current = setTimeout(() => { navLockRef.current = null; }, 800);
     window.scrollTo({ top, behavior: "smooth" });
     setMobileNavOpen(false);
   }, []);
@@ -615,7 +671,7 @@ const App = () => {
     const opts = { rootMargin: "-30% 0px -60% 0px", threshold: 0 };
     const obs = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
-        if (e.isIntersecting) setActive(e.target.id);
+        if (e.isIntersecting && !navLockRef.current) setActive(e.target.id);
       });
     }, opts);
     NAV.forEach((n) => {
@@ -650,6 +706,13 @@ const App = () => {
           hm<span className="tb-dot">·</span>portfolio
         </div>
         <button
+          className="tb-theme"
+          onClick={() => setTheme(THEME_CYCLE[activeTheme])}
+          aria-label="cycle colour theme"
+        >
+          [{THEMES.find((t) => t.id === activeTheme)?.dot ?? "○"}]
+        </button>
+        <button
           className="tb-burger"
           aria-expanded={mobileNavOpen}
           onClick={() => setMobileNavOpen((o) => !o)}
@@ -659,7 +722,7 @@ const App = () => {
       </header>
       <div className="scrim" onClick={() => setMobileNavOpen(false)} aria-hidden="true" />
 
-      <Sidebar active={active} onNav={navTo} />
+      <Sidebar active={active} onNav={navTo} activeTheme={activeTheme} onSetTheme={setTheme} />
 
       <main className="main">
         <Hero density={values.density} onNav={navTo} />
