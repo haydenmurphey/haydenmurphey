@@ -155,11 +155,11 @@ em { font-style: normal; color: var(--accent); }
   position: sticky;
   top: 0;
   height: 100vh;
-  padding: 28px 22px;
+  padding: clamp(12px, 3vh, 28px) 22px;
   border-right: 1px dashed var(--rule);
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: clamp(12px, 3vh, 28px);
   overflow-y: auto;
 }
 
@@ -178,7 +178,7 @@ em { font-style: normal; color: var(--accent); }
 .sb-tag { margin: 0; color: var(--muted); font-size: 0.8em; }
 
 .sb-h {
-  margin: 0 0 8px;
+  margin: 0 0 clamp(4px, 0.9vh, 8px);
   color: var(--muted);
   font-size: 0.78em;
   letter-spacing: 0.06em;
@@ -190,7 +190,7 @@ em { font-style: normal; color: var(--accent); }
   grid-template-columns: 18px 14px 1fr;
   align-items: center;
   gap: 6px;
-  padding: 4px 8px;
+  padding: clamp(2px, 0.5vh, 4px) 8px;
   background: transparent;
   border: 0;
   color: var(--ink-2);
@@ -205,18 +205,18 @@ em { font-style: normal; color: var(--accent); }
 .sb-link.active .sb-num { color: var(--accent-2); }
 .sb-arrow { color: var(--accent); }
 
-.sb-foot { margin-top: auto; display: flex; flex-direction: column; gap: 14px; }
-.sb-status { font-size: 0.82em; color: var(--ink-2); display: flex; flex-direction: column; gap: 5px; }
+.sb-foot { margin-top: auto; display: flex; flex-direction: column; gap: clamp(8px, 1.5vh, 14px); }
+.sb-status { font-size: 0.82em; color: var(--ink-2); display: flex; flex-direction: column; gap: clamp(3px, 0.5vh, 5px); }
 .sb-st-k { color: var(--muted); }
 .sb-ok { color: var(--ok); }
 
-.sb-links { display: flex; flex-direction: column; gap: 8px; }
+.sb-links { display: flex; flex-direction: column; gap: clamp(4px, 0.8vh, 8px); }
 .sb-lnks { display: flex; flex-direction: column; gap: 1px; }
 .sb-ext {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 3px 8px;
+  padding: clamp(1px, 0.3vh, 3px) 8px;
   color: var(--ink-2);
   font-size: 0.88em;
   border-bottom: 0;
@@ -226,14 +226,14 @@ em { font-style: normal; color: var(--accent); }
 .sb-ext:hover { color: var(--accent); background: var(--bg-2); border-bottom: 0; }
 .sb-ext-arr { color: var(--accent); }
 
-.sb-theme { display: flex; flex-direction: column; gap: 8px; }
-.theme-opts { display: flex; flex-direction: column; gap: 4px; }
+.sb-theme { display: flex; flex-direction: column; gap: clamp(4px, 0.8vh, 8px); }
+.theme-opts { display: flex; flex-direction: column; gap: clamp(2px, 0.4vh, 4px); }
 .theme-opt {
   display: flex;
   align-items: center;
   gap: 8px;
   width: 100%;
-  padding: 7px 10px;
+  padding: clamp(4px, 0.75vh, 7px) 10px;
   background: transparent;
   border: 1px dashed var(--rule);
   color: var(--ink-2);
