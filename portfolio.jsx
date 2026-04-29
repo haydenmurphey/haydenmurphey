@@ -544,12 +544,6 @@ const Sidebar = ({ active, onNav, activeTheme, onSetTheme }) => {
 
   return (
     <aside className="sidebar">
-      <div className="sb-id">
-        <pre aria-hidden="true">{`╭─────────────╮
-│  hm.site    │
-╰─────────────╯`}</pre>
-      </div>
-
       <nav className="sb-nav" aria-label="sections">
         <p className="sb-h">// nav</p>
         {NAV.map((item) => (
