@@ -134,7 +134,7 @@ const Education = ({ density }) => (
       </div>
       <ul className="bullets">
         <li>Coursework: Distributed Systems, Operating Systems, Networks &amp; Security, Database Systems, Algorithms.</li>
-        <li>Music Minor — Focus on Guitar, Bass, Piano, and Drums.</li>
+        <li>Music Minor: Focus on Guitar, Bass, Piano, and Drums.</li>
       </ul>
     </article>
   </section>
