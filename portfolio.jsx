@@ -252,7 +252,7 @@ const projects = [
   {
     n: "003",
     title: "Black Box: AST Interpreter & TUI",
-    period: "2025",
+    period: "Feb 2025 → May 2025",
     stack: ["Ruby", "Curses", "BNF", "Visitor Pattern"],
     summary:
       "A full-stack language interpreter for a custom dynamically-typed language — lexer, recursive-descent parser, AST, and a Curses-based TUI for live debugging.",
@@ -274,7 +274,7 @@ const projects = [
   {
     n: "004",
     title: "Fixture Flow",
-    period: "2025",
+    period: "Feb 2025 → May 2025",
     stack: ["JavaScript", "REST APIs", "LocalStorage", "WCAG"],
     summary:
       "An accessibility-first web app for tracking your favorite soccer teams — clean, curated dashboards instead of the information-overload of mainstream sports sites.",
