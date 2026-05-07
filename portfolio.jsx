@@ -388,27 +388,27 @@ const Projects = ({ density }) => (
 const skillGroups = [
   {
     name: "Cloud & DevOps",
-    items: ["AWS", "Terraform", "Docker", "GitHub Actions", "CI/CD", "Caddy", "Nginx", "API Integration"],
+    items: ["AWS", "Vercel", "Terraform", "Docker", "GitHub Actions", "CI/CD"],
+  },
+  {
+    name: "Frameworks & Web",
+    items: ["React", "Next.js", "Node.js", "REST APIs", "Caddy", "Nginx", "HTML / CSS"],
   },
   {
     name: "Languages",
-    items: ["Python", "Bash", "C", "PowerShell", "Rust", "Ruby", "Java", "JavaScript", "HTML / CSS", "Haskell"],
+    items: ["Python", "JavaScript", "Java", "C", "Rust", "Ruby", "Bash", "PowerShell", "Haskell"],
   },
   {
     name: "Data",
-    items: ["PostgreSQL", "MariaDB", "SQL Server", "Data Warehousing", "NumPy", "pandas"],
-  },
-  {
-    name: "AI & Automation",
-    items: ["Ollama (self-hosted LLM)", "Prompt Engineering", "OpenCV", "Automated Testing", "JUnit / pytest"],
+    items: ["PostgreSQL", "Supabase", "MariaDB", "SQL Server", "Data Warehousing", "NumPy", "pandas"],
   },
   {
     name: "Networking & Security",
-    items: ["Tailscale", "Cisco IOS (L2/L3)", "IPS / CrowdSec", "TLS/SSL"],
+    items: ["Tailscale (VPN)", "Cisco IOS (L2/L3)", "CrowdSec IPS", "TLS / SSL", "Zero Trust"],
   },
   {
     name: "Tools & Practices",
-    items: ["Git", "JSON / YAML", "Linux / CLI", "Raspberry Pi", "ROS2", "Agile (SCRUM)"],
+    items: ["Git", "Linux / CLI", "Agile (SCRUM)", "Object-Oriented Design", "Automated Testing (JUnit, pytest)", "Ollama (self-hosted LLM)", "OpenCV", "ROS2", "Raspberry Pi", "JSON / YAML"],
   },
 ];
 
