@@ -1,8 +1,8 @@
 # 👋 Hayden Murphey
 
-**CS Grad (JMU) • Technical AI Trainer • Systems & Cloud Enthusiast**
+**CS Grad (JMU) • Software Developer • Systems & Cloud Enthusiast**
 
-Welcome to my GitHub! I'm passionate about low-level systems, cloud architecture, and building efficient software. When I'm outside the tech world, I'm usually producing music, snowboarding, or rock climbing.
+Welcome to my GitHub! I'm passionate about low-level systems, cloud architecture, and building efficient software. When I'm outside the tech world, I'm usually making music, snowboarding, or rock climbing.
 
 💻 **The Stack**
 * **Languages:** Python, C, Rust, Java, JavaScript, Swift, Ruby, Haskell
