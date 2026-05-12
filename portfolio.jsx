@@ -145,7 +145,7 @@ const certs = [
   { name: "AWS Certified Solutions Architect – Associate", issuer: "Amazon Web Services", date: "Apr 2026", code: "SAA-C03" },
   { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", date: "Feb 2026", code: "CLF-C02" },
   { name: "Certified in Cybersecurity (CC)", issuer: "(ISC)²", date: "Feb 2025", code: "ISC2-CC" },
-  { name: "Machine Learning Specialization", issuer: "Stanford / DeepLearning.AI", date: "Expected May 2026", code: "ML-SPEC" },
+  { name: "Machine Learning Specialization", issuer: "Stanford / DeepLearning.AI", date: "May 2026", code: "ML-SPEC" },
 ];
 
 const Certifications = ({ density }) => (
