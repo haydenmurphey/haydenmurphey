@@ -527,6 +527,13 @@ em { font-style: normal; color: var(--accent); }
   .p-body { padding-left: 16px; }
 }
 
+/* ─── murphey labs / products ─────────────────────────────────────── */
+.products { display: flex; flex-direction: column; gap: 12px; }
+.product .p-stack { margin: 12px 0 0; }
+.prod-status { font-size: 0.9em; white-space: nowrap; }
+.prod-status.ok { color: var(--ok); }
+.prod-status.pending { color: var(--pending); }
+
 /* ─── skills ──────────────────────────────────────────────────────── */
 .skills {
   display: grid;

@@ -40,7 +40,7 @@ const Header = ({ id, num, title, sub, density }) => {
 
 // ─── Hero ───────────────────────────────────────────────────────────
 const Hero = ({ density, onNav }) => {
-  const tagline = "Cloud / DevOps / Security · Richmond, VA";
+  const tagline = "Building developer tools at Murphey Labs · Cloud & Security background · Richmond, VA";
 
   return (
     <section className="hero" id="top">
@@ -55,7 +55,7 @@ const Hero = ({ density, onNav }) => {
         <div className="meta-row">
           <span className="meta-k">role</span>
           <span className="meta-sep">::</span>
-          <span className="meta-v">Cloud / DevOps Engineer</span>
+          <span className="meta-v">Founder, Murphey Labs · Software &amp; Cloud Engineer</span>
         </div>
         <div className="meta-row">
           <span className="meta-k">loc&nbsp;</span>
@@ -65,7 +65,7 @@ const Hero = ({ density, onNav }) => {
         <div className="meta-row">
           <span className="meta-k">stat</span>
           <span className="meta-sep">::</span>
-          <span className="meta-v stat-ok">● open to opportunities</span>
+          <span className="meta-v stat-ok">● open to the right role</span>
         </div>
       </div>
 
@@ -82,13 +82,13 @@ const Hero = ({ density, onNav }) => {
       <p className="hero-tagline">{tagline}</p>
 
       <div className="hero-quick">
-        <button onClick={() => onNav("projects")} className="qbtn">→ projects</button>
+        <button onClick={() => onNav("labs")} className="qbtn">→ murphey labs</button>
         <span className="qsep">│</span>
-        <a href="mailto:hsmurphey@gmail.com" className="qbtn">→ email</a>
+        <a href="https://murpheylabs.com" target="_blank" rel="noreferrer" className="qbtn">→ murpheylabs.com</a>
         <span className="qsep">│</span>
         <a href="https://github.com/haydenmurphey" target="_blank" rel="noreferrer" className="qbtn">→ github</a>
         <span className="qsep">│</span>
-        <a href="https://linkedin.com/in/haydenmurphey" target="_blank" rel="noreferrer" className="qbtn">→ linkedin</a>
+        <a href="mailto:hsmurphey@gmail.com" className="qbtn">→ email</a>
       </div>
     </section>
   );
@@ -100,18 +100,16 @@ const About = ({ density }) => (
     <Header id="about" num="01" title="ABOUT" sub="// who, what, why" density={density} />
     <div className="prose">
       <p>
-        My journey into tech began with a fascination for computers and gaming, which quickly evolved into a 
-        deep appreciation for systems architecture and development. As a Computer Science graduate from James 
-        Madison University (Dec 2025), I built a strong foundation in frontend and backend programming before 
-        discovering my passion: cloud computing and cybersecurity. I have a strong bias toward engineering 
-        systems that are reproducible, observable, and solid.
+        I run <em>Murphey Labs</em>, a solo software studio building developer tools — currently PinDex, an
+        element-anchored visual-feedback tool for web developers. I fund the studio with contract
+        AI-engineering work for frontier labs (under NDA): evaluating and red-teaming AI-generated code
+        against strict specs, logic, and security requirements.
       </p>
       <p>
-        Today, I am actively seeking a role in cloud engineering where I can design, automate, and protect 
-        modern infrastructure. Most of what I build lives at the intersection of cloud architecture, 
-        security, and automation. I am constantly working to expand my expertise in cloud architecture 
-        and threat detection. Outside the computer world, you can find me playing bass/guitar, soccer, 
-        rock-climbing, or snowboarding.
+        I'm a Computer Science graduate from James Madison University (Dec 2025) with a strong background in
+        cloud architecture, security, and automation, and a bias toward systems that are reproducible,
+        observable, and solid. I'm open to the right role alongside the studio. Outside of programming, you can
+        find me playing bass/guitar, soccer, rock-climbing, or snowboarding.
       </p>
     </div>
   </section>
@@ -119,8 +117,8 @@ const About = ({ density }) => (
 
 // ─── Education ──────────────────────────────────────────────────────
 const Education = ({ density }) => (
-  <section className="block" data-screen-label="02 Education">
-    <Header id="education" num="02" title="EDUCATION" density={density} />
+  <section className="block" data-screen-label="03 Education">
+    <Header id="education" num="03" title="EDUCATION" density={density} />
     <article className="card">
       <div className="card-top">
         <div>
@@ -149,8 +147,8 @@ const certs = [
 ];
 
 const Certifications = ({ density }) => (
-  <section className="block" data-screen-label="03 Certifications">
-    <Header id="certs" num="03" title="CERTIFICATIONS" density={density} />
+  <section className="block" data-screen-label="04 Certifications">
+    <Header id="certs" num="04" title="CERTIFICATIONS" density={density} />
     <div className="cert-table" role="table">
       <div className="ct-head" role="row">
         <span>STATUS</span>
@@ -180,8 +178,8 @@ const Certifications = ({ density }) => (
 
 // ─── Memberships ────────────────────────────────────────────────────
 const Memberships = ({ density }) => (
-  <section className="block" data-screen-label="04 Memberships">
-    <Header id="memberships" num="04" title="MEMBERSHIPS" density={density} />
+  <section className="block" data-screen-label="05 Memberships">
+    <Header id="memberships" num="05" title="MEMBERSHIPS" density={density} />
     <div className="memberships">
       <article className="m-card">
         <pre className="m-icon" aria-hidden="true">{`╭───╮
@@ -199,58 +197,96 @@ const Memberships = ({ density }) => (
   </section>
 );
 
+// ─── Murphey Labs (commercial products) ─────────────────────────────
+const products = [
+  {
+    name: "PinDex",
+    tagline:
+      "Chrome extension + web app for solo web freelancers to leave element-anchored visual feedback on client staging sites. Clients review a shareable punch-list via link — no install.",
+    stack: ["WXT", "React", "TypeScript", "Hono (Cloudflare Workers)", "Next.js", "Zod"],
+    status: "coming-soon", // "shipped" | "in-progress" | "coming-soon"
+    links: [], // e.g. { label: "live", href: "..." }, { label: "repo", href: "..." }
+  },
+];
+
+const PROD_STATUS = {
+  "shipped":      { dot: "●", label: "shipped",     cls: "ok" },
+  "in-progress":  { dot: "◐", label: "in progress", cls: "pending" },
+  "coming-soon":  { dot: "○", label: "coming soon", cls: "pending" },
+};
+
+const ProductCard = ({ p }) => {
+  const s = PROD_STATUS[p.status] ?? PROD_STATUS["coming-soon"];
+  return (
+    <article className="product card">
+      <div className="card-top">
+        <div>
+          <h3 className="card-title">{p.name}</h3>
+          <p className="card-sub">{p.tagline}</p>
+        </div>
+        <div className="card-meta">
+          <span className={"prod-status " + s.cls}>{s.dot} {s.label}</span>
+        </div>
+      </div>
+      <div className="p-stack">
+        {p.stack.map((x) => <span className="chip" key={x}>{x}</span>)}
+      </div>
+      {p.links.length > 0 && (
+        <div className="p-links">
+          {p.links.map((l) => (
+            <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="p-link">→ {l.label}</a>
+          ))}
+        </div>
+      )}
+    </article>
+  );
+};
+
+const MurpheyLabs = ({ density }) => (
+  <section className="block" data-screen-label="02 Murphey Labs">
+    <Header id="labs" num="02" title="MURPHEY LABS" sub="// shipped products · solo software studio" density={density} />
+    <div className="prose">
+      <p>
+        Developer tools out of <a href="https://murpheylabs.com" target="_blank" rel="noreferrer">murpheylabs.com</a> — a
+        solo studio, funded by contract AI-engineering work for frontier labs.
+      </p>
+    </div>
+    <div className="products">
+      {products.map((p) => <ProductCard key={p.name} p={p} />)}
+    </div>
+  </section>
+);
+
 // ─── Projects ───────────────────────────────────────────────────────
 const projects = [
   {
     n: "001",
-    title: "Hybrid Cloud Platform & CI/CD Pipeline",
-    period: "Jan 2026 → Present",
-    stack: ["AWS", "Terraform", "GitHub Actions", "Docker", "Tailscale"],
+    title: "Proxmox Homelab Infrastructure",
+    period: "Nov 2025 → Present",
+    stack: ["Proxmox VE", "Tailscale", "Caddy", "Ansible", "SOPS / age", "PBS", "Docker Compose"],
     summary:
-      "Terraform-provisioned hybrid AWS environment with a zero-downtime CI/CD pipeline bridging a Raspberry Pi 5 homelab and AWS private subnets via Tailscale.",
+      "Single-node Proxmox homelab on a GMKtec M6 Ultra — Tailscale-only access with zero inbound, IaC-defined, SOPS-encrypted secrets, fully monitored and backed up.",
     bullets: [
-      "Architected reproducible VPC + ECS Fargate + ECR infra as code.",
-      "Engineered GitHub Actions pipeline: container build → ECR push → Fargate deploy.",
-      "Bridged on-prem and cloud over Tailscale with no public ingress.",
+      "Failure-domain split: critical services (DNS, proxy, Vaultwarden) run as unprivileged LXCs; the app tier and AI workstation are isolated in separate VMs.",
+      "Zero-trust network: Tailscale-only with default-deny, tag-based ACLs (tag:admin / tag:server), zero inbound, no port-forwards.",
+      "Single Caddy ingress with wildcard TLS via Cloudflare DNS-01 — browser-trusted certs for tailnet-only services; split-horizon DNS via Pi-hole + Unbound.",
+      "Secrets encrypted at rest with SOPS + age (plaintext never hits the repo); service credentials in self-hosted Vaultwarden.",
+      "Nightly vzdump to Proxmox Backup Server on a dedicated disk, with DB-consistent pre-dump hooks (pg_dump / SQLite) plus weekly verify + GC.",
+      "Observability via Beszel (host/container metrics) + Uptime Kuma (service health) + self-hosted ntfy push; SSH hardening + unattended-upgrades via Ansible (WIP).",
     ],
-    links: [],
-    art: `┌──────────────┐      ╭───────────╮
-│ raspberry pi │ ───→ │  tailscale│
-└──────────────┘      ╰─────┬─────╯
-                            │
-                  ┌─────────┴─────────┐
-                  │   aws  vpc        │
-                  │  ┌──────┐ ┌─────┐ │
-                  │  │ ecs  │ │ ecr │ │
-                  │  └──────┘ └─────┘ │
-                  └───────────────────┘`,
+    links: [{ label: "github", href: "https://github.com/haydenmurphey/homelab-infra" }],
+    art: `      ╭─[ tailnet · zero inbound ]─╮
+      │                            │
+  ┌───┴────┐                  ┌────┴─────┐
+  │proxmox │ ── caddy :443 ──▶│  *.lab   │
+  │   ve   │   DNS-01 TLS     │ services │
+  └───┬────┘                  └──────────┘
+      │  LXC: dns·proxy·vault   VM: apps·ai·pbs
+      ▼
+  nightly vzdump ──▶ PBS (SSD #2)`,
   },
   {
     n: "002",
-    title: "Personal Homelab & Network Infrastructure",
-    period: "Nov 2025 → Present",
-    stack: ["Docker", "Caddy", "Tailscale", "Ollama", "Prometheus", "Grafana"],
-    summary:
-      "Multi-container homelab: reverse-proxied services on a Zero Trust mesh, self-hosted LLM inference, and full-stack observability.",
-    bullets: [
-      "Docker Compose + Caddy with automated TLS and localhost-only binding.",
-      "Zero Trust mesh via Tailscale, hardened with CrowdSec IPS + BitLocker FDE.",
-      "Self-hosted LLM via Ollama, private to the mesh — no external APIs.",
-      "Prometheus + Grafana for container health and network observability.",
-    ],
-    links: [],
-    art: `      ╭─[ tailscale mesh ]─╮
-      │                    │
-   ┌──┴──┐  ┌─────┐  ┌─────┴─┐
-   │caddy│──│docker│──│ollama │
-   └─────┘  └──┬──┘  └───────┘
-              │
-        ┌─────┴─────┐
-        │ prom+graf │
-        └───────────┘`,
-  },
-  {
-    n: "003",
     title: "Black Box: AST Interpreter & TUI",
     period: "Feb 2025 → May 2025",
     stack: ["Ruby", "Curses", "BNF", "Visitor Pattern"],
@@ -272,7 +308,7 @@ const projects = [
                        (text)              (runtime)`,
   },
   {
-    n: "004",
+    n: "003",
     title: "Fixture Flow",
     period: "Feb 2025 → May 2025",
     stack: ["JavaScript", "REST APIs", "LocalStorage", "WCAG"],
@@ -292,7 +328,7 @@ const projects = [
 └─────────────┘  └─────────────┘`,
   },
   {
-    n: "005",
+    n: "004",
     title: "Autonomous Search & Rescue Navigation (TurtleBot 3)",
     period: "2024 · CS 354",
     stack: ["Python", "ROS2", "Gazebo", "LiDAR", "OpenCV", "ArUco"],
@@ -313,7 +349,7 @@ const projects = [
       ╰───────────────────────╯`,
   },
   {
-    n: "006",
+    n: "005",
     title: "PintOS",
     period: "2024 · CS 450",
     stack: ["C", "x86", "Operating Systems"],
@@ -376,8 +412,8 @@ const ProjectCard = ({ p, density }) => {
 };
 
 const Projects = ({ density }) => (
-  <section className="block" data-screen-label="05 Projects">
-    <Header id="projects" num="05" title="PROJECTS" sub="// click to expand · sorted newest first" density={density} />
+  <section className="block" data-screen-label="06 Projects">
+    <Header id="projects" num="06" title="PROJECTS" sub="// click to expand · sorted newest first" density={density} />
     <div className="projects">
       {projects.map((p) => <ProjectCard key={p.n} p={p} density={density} />)}
     </div>
@@ -388,33 +424,41 @@ const Projects = ({ density }) => (
 const skillGroups = [
   {
     name: "Cloud & DevOps",
-    items: ["AWS", "Vercel", "Terraform", "Docker", "GitHub Actions", "CI/CD"],
+    items: ["AWS — EC2 · Lambda · S3 · VPC · IAM · CloudWatch", "Terraform", "Ansible", "Docker", "Kubernetes (k3s)", "GitHub Actions", "ArgoCD"],
   },
   {
-    name: "Frameworks & Web",
-    items: ["React", "Next.js", "Node.js", "REST APIs", "Caddy", "Nginx", "HTML / CSS"],
-  },
-  {
-    name: "Languages",
-    items: ["Python", "JavaScript", "Java", "C", "Rust", "Ruby", "Bash", "PowerShell", "Haskell"],
-  },
-  {
-    name: "Data",
-    items: ["PostgreSQL", "Supabase", "MariaDB", "SQL Server", "Data Warehousing", "NumPy", "pandas"],
+    name: "Observability",
+    items: ["Prometheus", "Grafana", "Loki", "Alertmanager", "Uptime Kuma", "Beszel"],
   },
   {
     name: "Networking & Security",
-    items: ["Tailscale (VPN)", "Cisco IOS (L2/L3)", "CrowdSec IPS", "TLS / SSL", "Zero Trust"],
+    items: ["Tailscale (Zero Trust)", "Caddy", "Pi-hole / Unbound", "Split-horizon DNS", "TLS / DNS-01 (Cloudflare)", "CrowdSec", "Full-disk encryption"],
+  },
+  {
+    name: "Languages",
+    items: ["Python", "JavaScript / TypeScript", "Java", "C", "Rust", "Ruby", "Bash", "PowerShell", "SQL", "Haskell"],
+  },
+  {
+    name: "Frameworks & Web",
+    items: ["React", "Next.js", "Node.js", "Vercel", "Flutter / Dart", "Nginx", "HTML / CSS"],
+  },
+  {
+    name: "Data & Backend",
+    items: ["PostgreSQL", "Supabase", "REST APIs", "JSON / YAML", "NumPy", "pandas"],
+  },
+  {
+    name: "AI / ML",
+    items: ["Prompt engineering", "AI code validation", "ML fundamentals (Stanford / DeepLearning.AI)", "Self-hosted LLM (Ollama)"],
   },
   {
     name: "Tools & Practices",
-    items: ["Git", "Linux / CLI", "Agile (SCRUM)", "Object-Oriented Design", "Automated Testing (JUnit, pytest)", "Ollama (self-hosted LLM)", "OpenCV", "ROS2", "Raspberry Pi", "JSON / YAML"],
+    items: ["Git", "Linux / CLI", "pytest", "Automated testing", "Agile (SCRUM)", "Object-Oriented Design", "ROS2", "OpenCV", "Raspberry Pi"],
   },
 ];
 
 const Skills = ({ density }) => (
-  <section className="block" data-screen-label="06 Skills">
-    <Header id="skills" num="06" title="SKILLS" density={density} />
+  <section className="block" data-screen-label="07 Skills">
+    <Header id="skills" num="07" title="SKILLS" density={density} />
     <div className="skills">
       {skillGroups.map((g) => (
         <div className="sk" key={g.name}>
@@ -435,13 +479,13 @@ const Skills = ({ density }) => (
 // ─── Experience ─────────────────────────────────────────────────────
 const experience = [
   {
-    role: "Software Validation – AI Trainer (contract)",
-    co: "DataAnnotation",
+    role: "AI Engineering Contractor (frontier labs, NDA)",
+    co: "Contract · NDA",
     period: "May 2025 → Present",
     bullets: [
-      "Validated AI-generated code against strict technical specs and logic requirements.",
-      "Built Python scripts to test RESTful API integrations; engineered prompts to optimize agentic reasoning + tool-use.",
-      "Reproduced edge-case bugs in disposable Docker environments for agentic pentesting.",
+      "Evaluate and red-team AI-generated code from frontier models against strict specs, logic, and security requirements.",
+      "Build Python harnesses to test RESTful API integrations; engineer prompts to probe agentic reasoning and tool-use.",
+      "Reproduce edge-case vulnerabilities in disposable Docker sandboxes for agentic pentesting.",
     ],
   },
   {
@@ -468,8 +512,8 @@ const experience = [
 ];
 
 const Experience = ({ density }) => (
-  <section className="block" data-screen-label="07 Experience">
-    <Header id="experience" num="07" title="EXPERIENCE" density={density} />
+  <section className="block" data-screen-label="08 Experience">
+    <Header id="experience" num="08" title="EXPERIENCE" density={density} />
     <ol className="timeline">
       {experience.map((e, i) => (
         <li className="tl-item" key={i}>
@@ -492,8 +536,8 @@ const Experience = ({ density }) => (
 
 // ─── Contact ────────────────────────────────────────────────────────
 const Contact = ({ density }) => (
-  <section className="block" data-screen-label="08 Contact">
-    <Header id="contact" num="08" title="CONTACT" sub="// best way to reach me: email" density={density} />
+  <section className="block" data-screen-label="09 Contact">
+    <Header id="contact" num="09" title="CONTACT" sub="// best way to reach me: email" density={density} />
     <div className="contact">
       <div className="c-grid">
         <div className="c-row"><span className="c-k">email   </span><a href="mailto:hsmurphey@gmail.com">hsmurphey@gmail.com</a></div>
@@ -518,13 +562,14 @@ const THEME_CYCLE = { cream: "cream-dark", "cream-dark": "neon", neon: "cream" }
 const NAV = [
   { id: "top", label: "home", n: "0" },
   { id: "about", label: "about", n: "1" },
-  { id: "education", label: "education", n: "2" },
-  { id: "certs", label: "certifications", n: "3" },
-  { id: "memberships", label: "memberships", n: "4" },
-  { id: "projects", label: "projects", n: "5" },
-  { id: "skills", label: "skills", n: "6" },
-  { id: "experience", label: "experience", n: "7" },
-  { id: "contact", label: "contact", n: "8" },
+  { id: "labs", label: "murphey labs", n: "2" },
+  { id: "education", label: "education", n: "3" },
+  { id: "certs", label: "certifications", n: "4" },
+  { id: "memberships", label: "memberships", n: "5" },
+  { id: "projects", label: "projects", n: "6" },
+  { id: "skills", label: "skills", n: "7" },
+  { id: "experience", label: "experience", n: "8" },
+  { id: "contact", label: "contact", n: "9" },
 ];
 
 const Sidebar = ({ active, onNav, activeTheme, onSetTheme }) => {
@@ -581,6 +626,9 @@ const Sidebar = ({ active, onNav, activeTheme, onSetTheme }) => {
       <div className="sb-links">
         <p className="sb-h">// links</p>
         <div className="sb-lnks">
+          <a href="https://murpheylabs.com" target="_blank" rel="noreferrer" className="sb-ext">
+            <span className="sb-ext-arr">→</span> murpheylabs.com
+          </a>
           <a href="https://github.com/haydenmurphey" target="_blank" rel="noreferrer" className="sb-ext">
             <span className="sb-ext-arr">→</span> github
           </a>
@@ -684,7 +732,7 @@ const App = () => {
       else if (e.key === "k") { e.preventDefault(); navTo(NAV[Math.max(0, idx - 1)].id); }
       else if (e.key === "g" && !e.shiftKey) { navTo("top"); }
       else if (e.key === "G") { navTo("contact"); }
-      else if (/^[0-8]$/.test(e.key)) {
+      else if (/^[0-9]$/.test(e.key)) {
         const found = NAV.find((n) => n.n === e.key);
         if (found) navTo(found.id);
       }
@@ -721,6 +769,7 @@ const App = () => {
       <main className="main">
         <Hero density={values.density} onNav={navTo} />
         <About density={values.density} />
+        <MurpheyLabs density={values.density} />
         <Education density={values.density} />
         <Certifications density={values.density} />
         <Memberships density={values.density} />
