@@ -6,5 +6,6 @@ I build various developer tools and other customer focused software. Currently f
  
 ### Building
  
-- **Murphey Labs** — developer & freelancer tools currently
+- **Murphey Labs**
+- **PinDex** - Chrome extension + web app for web developers to leave element-anchored visual feedback on client staging sites.
  
