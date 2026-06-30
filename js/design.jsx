@@ -7,7 +7,7 @@ const PIECES = [
   { title: "COMET FACE",  year: "2026", src: "./design_page/third.JPEG" },
 ];
 
-function DesignView({ isMobile, contentPhase }) {
+function DesignView({ lang = 'en', isMobile, contentPhase }) {
   const [hover, setHover] = useState(null);
   const [activeIdx, setActiveIdx]       = useState(0);
   const [hasNavigated, setHasNavigated] = useState(false);
@@ -78,7 +78,7 @@ function DesignView({ isMobile, contentPhase }) {
   return (
     <div className="design-view" style={outerStyle}>
       <div className="design-label-row">
-        <h1 className="design-label-row__heading">Design Work</h1>
+        <h1 className="design-label-row__heading">{lang === 'es' ? 'Trabajo de Diseño' : 'Design Work'}</h1>
         <span className="design-label-row__counter">
           [ {isMobile ? num : "01"} — {total} ]
         </span>

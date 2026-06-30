@@ -2,64 +2,78 @@
 const { useState, useEffect, useRef } = React;
 
 const SECTIONS = [
-  { id: 'education',       label: 'Education' },
-  { id: 'certifications',  label: 'Certifications' },
-  { id: 'skills',          label: 'Skills' },
+  { id: 'education',       label: { en: 'Education',      es: 'Educación' } },
+  { id: 'certifications',  label: { en: 'Certifications', es: 'Certificaciones' } },
+  { id: 'skills',          label: { en: 'Skills',         es: 'Habilidades' } },
 ];
+
+// UI labels for the CV panels, keyed by language.
+const CV_LABELS = {
+  en: { coursework: 'Coursework', music: 'Music', credential: 'Credential', issuer: 'Issuer', date: 'Date' },
+  es: { coursework: 'Cursos',     music: 'Música', credential: 'Credencial', issuer: 'Emisor', date: 'Fecha' },
+};
 
 const EDUCATION = {
   school:     'James Madison University',
-  degree:     'B.S. Computer Science',
-  minor:      'Minor in Music',
+  degree:     { en: 'B.S. Computer Science', es: 'Lic. en Ciencias de la Computación' },
+  minor:      { en: 'Minor in Music',        es: 'Especialización en Música' },
   location:   'Harrisonburg, VA',
-  date:       'Dec 2025',
-  coursework: ['Distributed Systems', 'Operating Systems', 'Networks & Security', 'Database Systems', 'Algorithms'],
-  music:      ['Guitar', 'Bass', 'Piano', 'Drums'],
+  date:       { en: 'Dec 2025', es: 'dic. 2025' },
+  coursework: {
+    en: ['Distributed Systems', 'Operating Systems', 'Networks & Security', 'Database Systems', 'Algorithms'],
+    es: ['Sistemas Distribuidos', 'Sistemas Operativos', 'Redes y Seguridad', 'Sistemas de Bases de Datos', 'Algoritmos'],
+  },
+  music:      {
+    en: ['Guitar', 'Bass', 'Piano', 'Drums'],
+    es: ['Guitarra', 'Bajo', 'Piano', 'Batería'],
+  },
 };
 
 const CERTS = [
-  { code: 'SAA-C03', name: 'AWS Certified Solutions Architect – Associate', issuer: 'Amazon Web Services',      date: 'Apr 2026' },
-  { code: 'CLF-C02', name: 'AWS Certified Cloud Practitioner',               issuer: 'Amazon Web Services',      date: 'Feb 2026' },
-  { code: 'ISC2-CC', name: 'Certified in Cybersecurity',                     issuer: '(ISC)²',                  date: 'Feb 2025' },
-  { code: 'ML-SPEC', name: 'Machine Learning Specialization',                issuer: 'Stanford / DeepLearning.AI', date: 'May 2026' },
+  { code: 'SAA-C03', name: 'AWS Certified Solutions Architect – Associate', issuer: 'Amazon Web Services',      date: { en: 'Apr 2026', es: 'abr. 2026' } },
+  { code: 'CLF-C02', name: 'AWS Certified Cloud Practitioner',               issuer: 'Amazon Web Services',      date: { en: 'Feb 2026', es: 'feb. 2026' } },
+  { code: 'ISC2-CC', name: 'Certified in Cybersecurity',                     issuer: '(ISC)²',                  date: { en: 'Feb 2025', es: 'feb. 2025' } },
+  { code: 'ML-SPEC', name: 'Machine Learning Specialization',                issuer: 'Stanford / DeepLearning.AI', date: { en: 'May 2026', es: 'may. 2026' } },
 ];
 
 const SKILLS = [
-  { group: 'Cloud & DevOps',        items: 'AWS (EC2, S3, IAM, Lambda, CloudWatch), Terraform, Ansible, Docker, k3s, GitHub Actions, ArgoCD' },
-  { group: 'Networking & Security', items: 'Tailscale, Caddy, Pi-hole, Unbound, DNS, TLS, CrowdSec, encryption' },
-  { group: 'Languages',             items: 'Python, JS / TS, Java, C, Rust, Ruby, Bash, SQL, Haskell' },
-  { group: 'Frameworks & Web',      items: 'React, Next.js, Node.js, Vercel, Flutter / Dart, Nginx, HTML / CSS' },
-  { group: 'Observability',         items: 'Prometheus, Grafana, Loki, Alertmanager, Uptime Kuma, Beszel' },
-  { group: 'Data & Backend',        items: 'PostgreSQL, Supabase, REST APIs, NumPy, pandas' },
-  { group: 'AI / ML',               items: 'Prompt engineering, AI code validation, ML fundamentals, Ollama' },
-  { group: 'Tools & Practices',     items: 'Git, Linux / CLI, pytest, Agile / SCRUM, ROS2, OpenCV, Raspberry Pi' },
+  { group: { en: 'Cloud & DevOps',        es: 'Cloud y DevOps' },        items: 'AWS (EC2, S3, IAM, Lambda, CloudWatch), Terraform, Ansible, Docker, k3s, GitHub Actions, ArgoCD' },
+  { group: { en: 'Networking & Security', es: 'Redes y Seguridad' },     items: 'Tailscale, Caddy, Pi-hole, Unbound, DNS, TLS, CrowdSec, encryption' },
+  { group: { en: 'Languages',             es: 'Lenguajes' },             items: 'Python, JS / TS, Java, C, Rust, Ruby, Bash, SQL, Haskell' },
+  { group: { en: 'Frameworks & Web',      es: 'Frameworks y Web' },      items: 'React, Next.js, Node.js, Vercel, Flutter / Dart, Nginx, HTML / CSS' },
+  { group: { en: 'Observability',         es: 'Observabilidad' },        items: 'Prometheus, Grafana, Loki, Alertmanager, Uptime Kuma, Beszel' },
+  { group: { en: 'Data & Backend',        es: 'Datos y Backend' },       items: 'PostgreSQL, Supabase, REST APIs, NumPy, pandas' },
+  { group: { en: 'AI / ML',               es: 'IA / ML' },               items: 'Prompt engineering, AI code validation, ML fundamentals, Ollama' },
+  { group: { en: 'Tools & Practices',     es: 'Herramientas y Prácticas' }, items: 'Git, Linux / CLI, pytest, Agile / SCRUM, ROS2, OpenCV, Raspberry Pi' },
 ];
 
-function EducationPanel() {
+function EducationPanel({ lang }) {
+  const L = CV_LABELS[lang] || CV_LABELS.en;
   return (
     <div className="cv__education">
       <div className="cv__school">{EDUCATION.school}</div>
-      <div className="cv__degree">{EDUCATION.degree} · {EDUCATION.minor}</div>
-      <div className="cv__meta">{EDUCATION.location} · {EDUCATION.date}</div>
+      <div className="cv__degree">{EDUCATION.degree[lang]} · {EDUCATION.minor[lang]}</div>
+      <div className="cv__meta">{EDUCATION.location} · {EDUCATION.date[lang]}</div>
 
-      <div className="cv__label">Coursework</div>
-      <div className="cv__list">{EDUCATION.coursework.join(' · ')}</div>
+      <div className="cv__label">{L.coursework}</div>
+      <div className="cv__list">{EDUCATION.coursework[lang].join(' · ')}</div>
 
-      <div className="cv__label">Music</div>
-      <div className="cv__list">{EDUCATION.music.join(' · ')}</div>
+      <div className="cv__label">{L.music}</div>
+      <div className="cv__list">{EDUCATION.music[lang].join(' · ')}</div>
     </div>
   );
 }
 
-function CertificationsPanel() {
+function CertificationsPanel({ lang }) {
+  const L = CV_LABELS[lang] || CV_LABELS.en;
   return (
     <table className="cv__cert-table">
       <thead>
         <tr className="cv__cert-head">
           <th></th>
-          <th>Credential</th>
-          <th>Issuer</th>
-          <th>Date</th>
+          <th>{L.credential}</th>
+          <th>{L.issuer}</th>
+          <th>{L.date}</th>
         </tr>
       </thead>
       <tbody>
@@ -71,7 +85,7 @@ function CertificationsPanel() {
               <span className="cv__cert-code">{c.code}</span>
             </td>
             <td className="cv__cert-issuer">{c.issuer}</td>
-            <td className="cv__cert-date">{c.date}</td>
+            <td className="cv__cert-date">{c.date[lang]}</td>
           </tr>
         ))}
       </tbody>
@@ -79,12 +93,12 @@ function CertificationsPanel() {
   );
 }
 
-function SkillsPanel() {
+function SkillsPanel({ lang }) {
   return (
     <div className="cv__skills-grid">
       {SKILLS.map((s) => (
-        <div key={s.group} className="cv__skill-group">
-          <div className="cv__skill-group-name">{s.group}</div>
+        <div key={s.group.en} className="cv__skill-group">
+          <div className="cv__skill-group-name">{s.group[lang]}</div>
           <div className="cv__skill-items">{s.items}</div>
         </div>
       ))}
@@ -92,9 +106,13 @@ function SkillsPanel() {
   );
 }
 
-const PANELS = [<EducationPanel />, <CertificationsPanel />, <SkillsPanel />];
-
-function CvView({ isMobile, contentPhase }) {
+function CvView({ lang = 'en', isMobile, contentPhase }) {
+  const t = window.PF.STRINGS[lang] || window.PF.STRINGS.en;
+  const PANELS = [
+    <EducationPanel lang={lang} />,
+    <CertificationsPanel lang={lang} />,
+    <SkillsPanel lang={lang} />,
+  ];
   const [activeIdx, setActiveIdx]     = useState(0);
   const [hasNavigated, setHasNavigated] = useState(false);
   const cooldown                  = useRef(false);
@@ -169,7 +187,7 @@ function CvView({ isMobile, contentPhase }) {
               onClick={() => navigate(i)}
               aria-current={i === activeIdx ? 'true' : undefined}
             >
-              {s.label}
+              {s.label[lang]}
             </button>
           ))}
         </nav>
@@ -208,7 +226,7 @@ function CvView({ isMobile, contentPhase }) {
       {isMobile && !hasNavigated && (
         <div className="swipe-cue swipe-cue--visible">
           <span className="swipe-cue__arrow">→</span>
-          <span className="swipe-cue__label">swipe</span>
+          <span className="swipe-cue__label">{t.swipe}</span>
         </div>
       )}
     </div>

@@ -4,8 +4,14 @@ const { useState, useEffect, useRef } = React;
 const PROJECTS = [
   {
     title: "Proxmox Homelab Infrastructure",
-    category: "Infrastructure / DevOps",
-    summary: "Single-node Proxmox homelab — Tailscale-only zero-inbound access, IaC-defined with SOPS-encrypted secrets, fully monitored and backed up.",
+    category: {
+      en: "Infrastructure / DevOps",
+      es: "Infraestructura / DevOps",
+    },
+    summary: {
+      en: "Single-node Proxmox homelab — Tailscale-only zero-inbound access, IaC-defined with SOPS-encrypted secrets, fully monitored and backed up.",
+      es: "Homelab Proxmox de un solo nodo — acceso exclusivo por Tailscale sin puertos entrantes, definido como IaC con secretos cifrados con SOPS, totalmente monitoreado y respaldado.",
+    },
     stack: ["Proxmox VE", "Tailscale", "Caddy", "Ansible", "SOPS/age", "Docker"],
     github: "https://github.com/haydenmurphey/homelab-infra",
     art: `      ╭─[ tailnet · zero inbound ]─╮
@@ -20,8 +26,14 @@ const PROJECTS = [
   },
   {
     title: "Black Box: AST Interpreter",
-    category: "Languages / Compilers",
-    summary: "Full-stack language interpreter — lexer, recursive-descent parser, AST, and a Curses-based TUI for live debugging of a custom dynamically-typed language.",
+    category: {
+      en: "Languages / Compilers",
+      es: "Lenguajes / Compiladores",
+    },
+    summary: {
+      en: "Full-stack language interpreter — lexer, recursive-descent parser, AST, and a Curses-based TUI for live debugging of a custom dynamically-typed language.",
+      es: "Intérprete de lenguaje completo — lexer, parser de descenso recursivo, AST y una interfaz de texto basada en Curses para depurar en vivo un lenguaje propio de tipado dinámico.",
+    },
     stack: ["Ruby", "Curses", "BNF", "Visitor Pattern"],
     github: "https://github.com/haydenmurphey/ruby-ast-interpreter",
     art: `  source ─► [lexer] ─► tokens ─► [parser] ─► AST
@@ -33,8 +45,14 @@ const PROJECTS = [
   },
   {
     title: "Fixture Flow",
-    category: "Web App / Accessibility",
-    summary: "Accessibility-first web app for tracking favorite soccer teams — curated dashboards over information overload. WCAG-compliant, LocalStorage-persisted, no login required.",
+    category: {
+      en: "Web App / Accessibility",
+      es: "Aplicación Web / Accesibilidad",
+    },
+    summary: {
+      en: "Accessibility-first web app for tracking favorite soccer teams — curated dashboards over information overload. WCAG-compliant, LocalStorage-persisted, no login required.",
+      es: "Aplicación web centrada en la accesibilidad para seguir a tus equipos de fútbol favoritos — paneles cuidados en lugar de sobrecarga de información. Conforme a WCAG, con persistencia en LocalStorage y sin necesidad de iniciar sesión.",
+    },
     stack: ["JavaScript", "REST APIs", "LocalStorage", "WCAG"],
     github: "https://github.com/haydenmurphey/fixtureflow",
     art: `┌─ favorites ─┐  ┌─ fixtures ──┐
@@ -45,8 +63,14 @@ const PROJECTS = [
   },
   {
     title: "Autonomous Search & Rescue",
-    category: "Robotics / AI / Vision",
-    summary: "TurtleBot 3 navigation system for simulated search and rescue — random-coverage with breadcrumb trail and real-time victim detection via LiDAR + ArUco markers.",
+    category: {
+      en: "Robotics / AI / Vision",
+      es: "Robótica / IA / Visión",
+    },
+    summary: {
+      en: "TurtleBot 3 navigation system for simulated search and rescue — random-coverage with breadcrumb trail and real-time victim detection via LiDAR + ArUco markers.",
+      es: "Sistema de navegación TurtleBot 3 para búsqueda y rescate simulados — cobertura aleatoria con rastro de migas y detección de víctimas en tiempo real mediante LiDAR y marcadores ArUco.",
+    },
     stack: ["Python", "ROS2", "Gazebo", "LiDAR", "OpenCV", "ArUco"],
     github: "https://github.com/haydenmurphey/ros2-turtlebot3-search-rescue",
     art: `      ╭─ map ─────────────────╮
@@ -58,8 +82,14 @@ const PROJECTS = [
   },
   {
     title: "PintOS",
-    category: "Systems / Operating Systems",
-    summary: "Group project extending the Stanford PintOS instructional kernel — threading, scheduling, system calls, and virtual memory in C on x86.",
+    category: {
+      en: "Systems / Operating Systems",
+      es: "Sistemas / Sistemas Operativos",
+    },
+    summary: {
+      en: "Group project extending the Stanford PintOS instructional kernel — threading, scheduling, system calls, and virtual memory in C on x86.",
+      es: "Proyecto en equipo que amplía el kernel educativo PintOS de Stanford — hilos, planificación, llamadas al sistema y memoria virtual en C sobre x86.",
+    },
     stack: ["C", "x86", "QEMU/Bochs", "PintOS"],
     github: "https://github.com/haydenmurphey/pintos",
     art: `┌─ kernel ────────────────────┐
@@ -81,7 +111,8 @@ const INCOMING_STYLE = { opacity: 0, transform: "perspective(450px) rotateX(18de
 const HIDING_STYLE_M   = { opacity: 0, transform: "translateX(-24px)", transition: "opacity 0.2s ease, transform 0.2s ease" };
 const INCOMING_STYLE_M = { opacity: 0, transform: "translateX(24px)",  transition: "none"                                    };
 
-function ProjectsView({ isMobile, contentPhase }) {
+function ProjectsView({ lang = 'en', isMobile, contentPhase }) {
+  const t = window.PF.STRINGS[lang] || window.PF.STRINGS.en;
   const [activeProject, setActiveProject] = useState(0);
   const [textStyle, setTextStyle] = useState(VISIBLE_STYLE);
   const [hasNavigated, setHasNavigated] = useState(false);
@@ -166,7 +197,7 @@ function ProjectsView({ isMobile, contentPhase }) {
       <div className="projects-spa__main">
         {/* LEFT: image carousel + heading */}
         <div className="projects-spa__left">
-          <h1 className="projects-spa__heading">Selected Projects</h1>
+          <h1 className="projects-spa__heading">{lang === 'es' ? 'Proyectos Seleccionados' : 'Selected Projects'}</h1>
 
           <div className="carousel">
             {PROJECTS.map((p, i) => {
@@ -204,8 +235,8 @@ function ProjectsView({ isMobile, contentPhase }) {
           <div style={{ ...textStyle, transformOrigin: "center center", textAlign: "center", width: "100%" }}>
             <p className="projects-spa__counter">[ {num} / {total} ]</p>
             <h2 className="projects-spa__title">{proj.title}</h2>
-            <p className="projects-spa__category">{proj.category}</p>
-            <p className="projects-spa__summary">{proj.summary}</p>
+            <p className="projects-spa__category">{proj.category[lang] || proj.category.en}</p>
+            <p className="projects-spa__summary">{proj.summary[lang] || proj.summary.en}</p>
             <div className="projects-spa__chips">
               {proj.stack.map((chip) => (
                 <span key={chip} className="projects-spa__chip">{chip}</span>
@@ -226,7 +257,7 @@ function ProjectsView({ isMobile, contentPhase }) {
       {isMobile && !hasNavigated && (
         <div className="swipe-cue swipe-cue--visible">
           <span className="swipe-cue__arrow">→</span>
-          <span className="swipe-cue__label">swipe</span>
+          <span className="swipe-cue__label">{t.swipe}</span>
         </div>
       )}
     </div>

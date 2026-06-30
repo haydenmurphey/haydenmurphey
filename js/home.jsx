@@ -71,7 +71,6 @@ function App({ showClock = true }) {
   const isTransitioning = useRef(false);
   const touchStartY = useRef(null);
 
-  useEffect(() => { if (urlParam) window.history.replaceState({}, '', './'); }, []);
   useEffect(() => { if (!isMobile && menuOpen) setMenuOpen(false); }, [isMobile, menuOpen]);
 
   useEffect(() => { activePanelRef.current = activePanel; }, [activePanel]);
@@ -149,6 +148,8 @@ function App({ showClock = true }) {
     transitioning.current = true;
     setMenuOpen(false);
     setContentPhase("exiting");
+    // Keep the URL in sync so a refresh restores the current view.
+    window.history.replaceState({}, '', toView === 'home' ? './' : './?v=' + toView);
 
     setTimeout(() => {
       setView(toView);
@@ -189,7 +190,7 @@ function App({ showClock = true }) {
             {!hasScrolled && (
               <div className={`scroll-cue${cueVisible ? " scroll-cue--visible" : ""}`}>
                 <span className="scroll-cue__arrow">▾</span>
-                <span className="scroll-cue__label">scroll</span>
+                <span className="scroll-cue__label">{t.scroll}</span>
               </div>
             )}
           </section>
@@ -205,6 +206,7 @@ function App({ showClock = true }) {
 
       {view === "projects" && (
         <ProjectsView
+          lang={lang}
           isMobile={isMobile}
           contentPhase={contentPhase}
         />
@@ -212,6 +214,7 @@ function App({ showClock = true }) {
 
       {view === "cv" && (
         <CvView
+          lang={lang}
           isMobile={isMobile}
           contentPhase={contentPhase}
         />
@@ -222,7 +225,7 @@ function App({ showClock = true }) {
       )}
 
       {view === "design" && (
-        <DesignView isMobile={isMobile} contentPhase={contentPhase} />
+        <DesignView lang={lang} isMobile={isMobile} contentPhase={contentPhase} />
       )}
 
       {isMobile && menuOpen && (

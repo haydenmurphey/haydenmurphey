@@ -33,6 +33,8 @@ const STRINGS = {
     labs: "murphey [labs]",
     menuOpen: "[ ≡ menu ]",
     menuClose: "[ × close ]",
+    scroll: "scroll",
+    swipe:  "swipe",
     about_label:      "About",
     about_title_line1: "Software Engineer",
     about_title_line2: "& Founder",
@@ -54,35 +56,60 @@ const STRINGS = {
     tagline: "Ingeniero de Software · Fundador, Murphey Labs",
     projects: "Proyectos",
     cv: "CV",
-    design: "Design",
+    design: "Diseño",
     contact: "Contacto",
     labs: "murphey [labs]",
     menuOpen: "[ ≡ menú ]",
     menuClose: "[ × cerrar ]",
+    scroll: "desplaza",
+    swipe:  "desliza",
     about_label:      "Sobre mí",
     about_title_line1: "Ingeniero de Software",
     about_title_line2: "y Fundador",
-    about_bio:        "Soy ingeniero de software y fundador. Construyo [productos] a través de Murphey Labs, con enfoque en [áreas]. Me atrae [lo que te impulsa] — desde [tipo de trabajo] hasta [tipo de trabajo].",
-    about_skills:     "Backend · Infraestructura · Cloud · Full-stack",
+    about_bio:        "Construyo herramientas para desarrolladores y otro software centrado en el cliente. Actualmente financio el trabajo de producto en Murphey Labs mediante ingeniería de IA por contrato — evaluando y haciendo red-teaming de código generado por IA para laboratorios de IA de frontera.",
+    about_skills:     "Seguridad · Cloud · Full-stack",
     about_cv:         "Ver CV",
     about_github:     "GitHub",
     contact_heading:       "Hablemos.",
-    contact_sub:           "// el email es la mejor forma de contactarme",
+    contact_sub:           "// el correo es el mejor punto de partida",
     contact_email:         "email",
     contact_github:        "github",
     contact_linkedin:      "linkedin",
     contact_labs:          "labs",
     contact_status_label:  "estado",
-    contact_status:        "● open to the right role",
+    contact_status:        "● abierto al puesto adecuado",
     contact_time_label:    "hora",
   },
 };
 
 /* ── Hooks ────────────────────────────────────────────────── */
 
-// Language state (defaults to "en"; easy to swap for persistence later).
+// Language state, persisted to localStorage so the choice survives refreshes
+// and carries across pages. Valid values: "en" | "es" (anything else → "en").
 function useLang() {
-  const [lang, setLang] = useState("en");
+  const [lang, setLangState] = useState(() => {
+    try {
+      const saved = localStorage.getItem("lang");
+      return saved === "es" ? "es" : "en";
+    } catch (e) {
+      return "en";
+    }
+  });
+
+  const setLang = (next) => {
+    const value = next === "es" ? "es" : "en";
+    setLangState(value);
+    try {
+      localStorage.setItem("lang", value);
+    } catch (e) {
+      /* storage unavailable (e.g. private mode) — non-fatal */
+    }
+  };
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   const t = STRINGS[lang] || STRINGS.en;
   return { lang, setLang, t };
 }
