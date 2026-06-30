@@ -77,26 +77,36 @@ const VISIBLE_STYLE  = { opacity: 1, transform: "none",                         
 const HIDING_STYLE   = { opacity: 0, transform: "perspective(450px) rotateX(-18deg) translateY(-10px)",               transition: "opacity 0.2s ease, transform 0.2s ease"  };
 const INCOMING_STYLE = { opacity: 0, transform: "perspective(450px) rotateX(18deg) translateY(10px)",                 transition: "none"                                     };
 
+// Mobile: slide horizontally to match the carousel's left/right motion
+const HIDING_STYLE_M   = { opacity: 0, transform: "translateX(-24px)", transition: "opacity 0.2s ease, transform 0.2s ease" };
+const INCOMING_STYLE_M = { opacity: 0, transform: "translateX(24px)",  transition: "none"                                    };
+
 function ProjectsView({ isMobile, contentPhase }) {
   const [activeProject, setActiveProject] = useState(0);
   const [textStyle, setTextStyle] = useState(VISIBLE_STYLE);
+  const [hasNavigated, setHasNavigated] = useState(false);
   const animating = useRef(false);
   const activeRef = useRef(0);
+  const touchX = useRef(0);
   const touchY = useRef(0);
   const changeRef = useRef(null);
+
+  const hideStyle     = isMobile ? HIDING_STYLE_M   : HIDING_STYLE;
+  const incomingStyle = isMobile ? INCOMING_STYLE_M : INCOMING_STYLE;
 
   function changeProject(dir) {
     if (animating.current) return;
     const next = Math.max(0, Math.min(PROJECTS.length - 1, activeRef.current + dir));
     if (next === activeRef.current) return;
 
+    setHasNavigated(true);
     animating.current = true;
-    setTextStyle(HIDING_STYLE);
+    setTextStyle(hideStyle);
 
     setTimeout(() => {
       activeRef.current = next;
       setActiveProject(next);
-      setTextStyle(INCOMING_STYLE);
+      setTextStyle(incomingStyle);
       requestAnimationFrame(() => {
         void document.body.offsetHeight;
         setTextStyle(VISIBLE_STYLE);
@@ -117,10 +127,14 @@ function ProjectsView({ isMobile, contentPhase }) {
       if (e.key === "ArrowDown" || e.key === "ArrowRight") changeRef.current(1);
       else if (e.key === "ArrowUp" || e.key === "ArrowLeft") changeRef.current(-1);
     };
-    const onTouchStart = (e) => { touchY.current = e.touches[0].clientY; };
+    const onTouchStart = (e) => {
+      touchX.current = e.touches[0].clientX;
+      touchY.current = e.touches[0].clientY;
+    };
     const onTouchEnd = (e) => {
+      const dx = touchX.current - e.changedTouches[0].clientX;
       const dy = touchY.current - e.changedTouches[0].clientY;
-      if (Math.abs(dy) > 50) changeRef.current(dy > 0 ? 1 : -1);
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) changeRef.current(dx > 0 ? 1 : -1);
     };
 
     window.addEventListener("wheel", onWheel, { passive: false });
@@ -161,7 +175,7 @@ function ProjectsView({ isMobile, contentPhase }) {
                 <div
                   key={i}
                   className="carousel__panel"
-                  style={{ transform: `translateY(${offset}%)` }}
+                  style={{ transform: isMobile ? `translateX(${offset}%)` : `translateY(${offset}%)` }}
                 >
                   <div className="carousel__placeholder">
                     <pre className="carousel__art">{p.art}</pre>
@@ -208,6 +222,13 @@ function ProjectsView({ isMobile, contentPhase }) {
           </div>
         </div>
       </div>
+
+      {isMobile && !hasNavigated && (
+        <div className="swipe-cue swipe-cue--visible">
+          <span className="swipe-cue__arrow">→</span>
+          <span className="swipe-cue__label">swipe</span>
+        </div>
+      )}
     </div>
   );
 }

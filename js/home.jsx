@@ -222,7 +222,7 @@ function App({ showClock = true }) {
       )}
 
       {view === "design" && (
-        <DesignView contentPhase={contentPhase} />
+        <DesignView isMobile={isMobile} contentPhase={contentPhase} />
       )}
 
       {isMobile && menuOpen && (

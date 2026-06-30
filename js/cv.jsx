@@ -95,10 +95,12 @@ function SkillsPanel() {
 const PANELS = [<EducationPanel />, <CertificationsPanel />, <SkillsPanel />];
 
 function CvView({ isMobile, contentPhase }) {
-  const [activeIdx, setActiveIdx] = useState(0);
+  const [activeIdx, setActiveIdx]     = useState(0);
+  const [hasNavigated, setHasNavigated] = useState(false);
   const cooldown                  = useRef(false);
   const activeRef                 = useRef(0);
-  const touchStart                = useRef(null);
+  const touchStartX               = useRef(null);
+  const touchStartY               = useRef(null);
 
   const outerStyle =
     contentPhase === 'entering' ? { opacity: 0, transition: 'none' } :
@@ -112,6 +114,7 @@ function CvView({ isMobile, contentPhase }) {
     cooldown.current = true;
     activeRef.current = nextIdx;
     setActiveIdx(nextIdx);
+    setHasNavigated(true);
     setTimeout(() => { cooldown.current = false; }, 500);
   }
 
@@ -127,13 +130,18 @@ function CvView({ isMobile, contentPhase }) {
       if (e.key === 'ArrowDown' || e.key === 'ArrowRight') navigateRef.current(activeRef.current + 1);
       if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  navigateRef.current(activeRef.current - 1);
     };
-    const onTouchStart = (e) => { touchStart.current = e.touches[0].clientY; };
+    const onTouchStart = (e) => {
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
+    };
     const onTouchEnd = (e) => {
-      if (touchStart.current === null) return;
-      const delta = touchStart.current - e.changedTouches[0].clientY;
-      if (Math.abs(delta) < 50) return;
-      navigateRef.current(activeRef.current + (delta > 0 ? 1 : -1));
-      touchStart.current = null;
+      if (touchStartX.current === null) return;
+      const dx = touchStartX.current - e.changedTouches[0].clientX;
+      const dy = touchStartY.current - e.changedTouches[0].clientY;
+      touchStartX.current = null;
+      touchStartY.current = null;
+      if (Math.abs(dx) < 50 || Math.abs(dx) <= Math.abs(dy)) return;
+      navigateRef.current(activeRef.current + (dx > 0 ? 1 : -1));
     };
 
     window.addEventListener('wheel',      onWheel,      { passive: true });
@@ -173,7 +181,9 @@ function CvView({ isMobile, contentPhase }) {
               className="cv__panel"
               style={{
                 opacity:       i === activeIdx ? 1 : 0,
-                transform:     i === activeIdx ? 'translateY(0)' : 'translateY(16px)',
+                transform:     i === activeIdx
+                                 ? 'translate(0)'
+                                 : (isMobile ? 'translateX(24px)' : 'translateY(16px)'),
                 pointerEvents: i === activeIdx ? 'auto' : 'none',
               }}
               aria-hidden={i !== activeIdx}
@@ -183,6 +193,24 @@ function CvView({ isMobile, contentPhase }) {
           ))}
         </div>
       </main>
+
+      {isMobile && (
+        <div className="position-dots">
+          {SECTIONS.map((s, i) => (
+            <span
+              key={s.id}
+              className={`position-dot${i === activeIdx ? " position-dot--active" : ""}`}
+            />
+          ))}
+        </div>
+      )}
+
+      {isMobile && !hasNavigated && (
+        <div className="swipe-cue swipe-cue--visible">
+          <span className="swipe-cue__arrow">→</span>
+          <span className="swipe-cue__label">swipe</span>
+        </div>
+      )}
     </div>
   );
 }

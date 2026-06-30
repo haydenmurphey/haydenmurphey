@@ -363,11 +363,71 @@ body {
   50%       { opacity: 0.35; }
 }
 
+/* Horizontal nudge for the mobile swipe hint arrow */
+.swipe-cue__arrow {
+  display: inline-block;
+  animation: swipeNudge 1.4s ease-in-out infinite;
+}
+@keyframes swipeNudge {
+  0%, 100% { transform: translateX(0);   opacity: 1;    }
+  50%       { transform: translateX(7px); opacity: 0.45; }
+}
+
+/* ── One-time swipe hint (Projects / CV mobile) ── */
+.swipe-cue {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 46px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 5;
+}
+.swipe-cue--visible { opacity: 1; }
+.swipe-cue__arrow { font-size: 15px; line-height: 1; }
+
+/* ── Mobile position dots (Home / CV) ── */
+.position-dots {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 4;
+  pointer-events: none;
+}
+.position-dot {
+  width: 6px;
+  height: 1.5px;
+  border-radius: 2px;
+  display: inline-block;
+  background: rgba(27, 24, 18, 0.18);
+  transition: width 0.35s ease, background 0.35s ease;
+}
+.position-dot--active {
+  width: 22px;
+  background: rgba(27, 24, 18, 0.55);
+}
+
 /* ════════════════ MOBILE HERO (<768) ════════════════ */
 .hero--mobile {
   padding: 14px 24px 36px;
 }
-.hero--mobile .hero__bottom { animation: fadeUp 0.9s ease 0.15s both; }
+.hero--mobile .hero__bottom {
+  animation: fadeUp 0.9s ease 0.15s both;
+  margin-bottom: clamp(36px, 8vh, 72px);
+}
 .hero--mobile .tagline {
   font-size: clamp(19px, 5.2vw, 26px);
   margin: 0 0 14px;
@@ -641,6 +701,9 @@ body {
   .about-panel {
     padding: 14px 24px 36px;
   }
+  .about__content {
+    margin-bottom: clamp(36px, 8vh, 72px);
+  }
   .about__title {
     font-size: clamp(26px, 9vw, 44px);
   }
@@ -891,6 +954,7 @@ body {
   flex-direction: column;
   overflow: hidden;
   background: var(--cream);
+  position: relative;
 }
 .cv-spa__main {
   display: flex;
@@ -1087,7 +1151,7 @@ body {
     align-items: stretch;
   }
   .projects-spa__left {
-    flex: none;
+    flex: 1;
     padding: 0 24px clamp(10px, 2vh, 18px);
     gap: 10px;
     overflow: visible;
@@ -1108,9 +1172,16 @@ body {
   }
   .carousel {
     height: min(200px, 32vh);
+    margin-top: auto;
+    margin-bottom: auto;
   }
   .progress-dots {
-    bottom: clamp(10px, 2vh, 20px);
+    position: fixed;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0;
+    z-index: 4;
   }
 }
 
@@ -1316,25 +1387,54 @@ a.contact-page__val:hover {
 
 /* ── Mobile overrides (<768px) ─────────────────── */
 @media (max-width: 767px) {
-  .design-gallery {
+  .design-gallery--carousel {
+    position: relative;
     flex-direction: column;
-    padding: 0 24px clamp(16px, 3vh, 32px);
-    gap: 10px;
+    padding: 0 24px;
   }
 
-  .design-strip {
-    height: auto;
-    flex-grow: 1 !important;
+  .design-carousel {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .design-carousel__panel {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.4s ease;
+  }
+
+  .design-carousel__panel .design-strip__img {
+    object-fit: contain;
+  }
+
+  .design-carousel__footer {
     flex-shrink: 0;
-    aspect-ratio: 3 / 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-top: 14px;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
   }
 
-  .design-strip__overlay {
-    opacity: 1 !important;
+  .design-carousel__caption {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
   }
 
-  .design-strip__title,
-  .design-strip__year {
-    transform: translateY(0) !important;
+  .design-carousel__footer .position-dots,
+  .design-carousel__footer .swipe-cue {
+    position: static;
+    transform: none;
+    bottom: auto;
   }
 }
