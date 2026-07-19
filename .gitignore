@@ -1,2 +1,6 @@
 .superpowers/
 docs/superpowers/
+
+# build
+node_modules/
+dist/

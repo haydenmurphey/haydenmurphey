@@ -56,7 +56,11 @@ function App({ showClock = true }) {
   const isMobile = useIsMobile();
   const [menuOpen, setMenuOpen] = useState(false);
   const urlParam = new URLSearchParams(window.location.search).get('v');
-  const initialView = ['projects', 'cv', 'contact', 'design', 'writing'].includes(urlParam) ? urlParam : 'home';
+  // Static post/section pages live at /writing/ and /writing/<slug>/ — boot straight into the Writing view.
+  const onWritingPath = /^\/writing(\/|$)/.test(window.location.pathname);
+  const initialView = onWritingPath
+    ? 'writing'
+    : (['projects', 'cv', 'contact', 'design', 'writing'].includes(urlParam) ? urlParam : 'home');
   const [view, setView] = useState(initialView);
   const [contentPhase, setContentPhase] = useState("visible");
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -149,7 +153,8 @@ function App({ showClock = true }) {
     setMenuOpen(false);
     setContentPhase("exiting");
     // Keep the URL in sync so a refresh restores the current view.
-    window.history.replaceState({}, '', toView === 'home' ? './' : './?v=' + toView);
+    // Absolute paths so this is correct even from a /writing/<slug>/ post page.
+    window.history.replaceState({}, '', toView === 'home' ? '/' : '/?v=' + toView);
 
     setTimeout(() => {
       setView(toView);

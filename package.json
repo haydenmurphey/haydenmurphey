@@ -1,0 +1,14 @@
+{
+  "name": "haydenmurphey-portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio for Hayden Murphey — static SPA built to dist/ with esbuild.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "node build.mjs && python3 -m http.server 8000 --directory dist"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  }
+}

@@ -3,23 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hayden Murphey</title>
-  <meta name="description" content="Hayden Murphey — Software Engineer · Founder, Murphey Labs.">
+  <title>Hayden Murphey — Software Engineer</title>
 
-  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <!-- META -->
+  <meta name="description" content="Hayden Murphey — Software Engineer and Founder of Murphey Labs. Security, cloud, and full-stack engineering.">
+  <link rel="canonical" href="https://haydenmurphey.site/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Hayden Murphey">
+  <meta property="og:title" content="Hayden Murphey — Software Engineer">
+  <meta property="og:description" content="Hayden Murphey — Software Engineer and Founder of Murphey Labs. Security, cloud, and full-stack engineering.">
+  <meta property="og:url" content="https://haydenmurphey.site/">
+  <meta property="og:image" content="https://haydenmurphey.site/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hayden Murphey — Software Engineer">
+  <meta name="twitter:description" content="Hayden Murphey — Software Engineer and Founder of Murphey Labs. Security, cloud, and full-stack engineering.">
+  <meta name="twitter:image" content="https://haydenmurphey.site/og-image.png">
+  <!-- /META -->
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="/styles.css">
 
   <!-- Syntax-highlighting theme for Writing code blocks (light; overridden in styles.css) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
 
   <!-- Markdown rendering for the Writing section -->
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/lib/marked.umd.min.js"></script>
@@ -29,19 +44,14 @@
 <body>
   <div id="root"></div>
 
-  <!-- Shared across all pages: i18n, clock, nav, mobile overlay -->
-  <script type="text/babel" src="./js/shared.jsx"></script>
-  <!-- Projects view component — loaded before home so window.PF.ProjectsView is available -->
-  <script type="text/babel" src="./js/projects.jsx"></script>
-  <!-- CV view component — loaded before home so window.PF.CvView is available -->
-  <script type="text/babel" src="./js/cv.jsx"></script>
-  <!-- Contact view component — loaded before home so window.PF.ContactView is available -->
-  <script type="text/babel" src="./js/contact.jsx"></script>
-  <!-- Design view component — loaded before home so window.PF.DesignView is available -->
-  <script type="text/babel" src="./js/design.jsx"></script>
-  <!-- Writing view component — loaded before home so window.PF.WritingView is available -->
-  <script type="text/babel" src="./js/writing.jsx"></script>
-  <!-- SPA root — manages home/projects/cv/contact/design/writing view state -->
-  <script type="text/babel" src="./js/home.jsx"></script>
+  <!-- App bundles: precompiled from js/*.jsx by build.mjs. Load order matters —
+       shared + each view register on window.PF before the SPA root (home) runs. -->
+  <script src="/js/shared.js"></script>
+  <script src="/js/projects.js"></script>
+  <script src="/js/cv.js"></script>
+  <script src="/js/contact.js"></script>
+  <script src="/js/design.js"></script>
+  <script src="/js/writing.js"></script>
+  <script src="/js/home.js"></script>
 </body>
 </html>

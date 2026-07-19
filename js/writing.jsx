@@ -10,8 +10,9 @@
    ============================================================ */
 const { useState, useEffect, useRef } = React;
 
-const MANIFEST_URL = "./posts/manifest.json";
-const POST_DIR = "./posts/";
+// Absolute so fetches resolve from any depth (e.g. the /writing/<slug>/ post pages).
+const MANIFEST_URL = "/posts/manifest.json";
+const POST_DIR = "/posts/";
 
 // Configure marked + highlight.js exactly once (globals come from CDN in index.html).
 function ensureMarkedConfigured() {
@@ -37,8 +38,12 @@ function ensureMarkedConfigured() {
   window.__markedReady = true;
 }
 
-// Read the current ?post slug from the URL (null when on the index).
+// Read the current post slug from the URL (null when on the index).
+// Canonical form is a path — /writing/<slug>/ — with the legacy
+// ?post=<slug> query kept as a fallback for old links.
 function currentSlug() {
+  const m = window.location.pathname.match(/^\/writing\/([^/]+)\/?$/);
+  if (m) return decodeURIComponent(m[1]);
   return new URLSearchParams(window.location.search).get("post");
 }
 
@@ -143,13 +148,13 @@ function WritingView({ lang = "en", isMobile, contentPhase }) {
   }, [body]);
 
   function openPost(nextSlug) {
-    window.history.pushState({}, "", "./?v=writing&post=" + nextSlug);
+    window.history.pushState({}, "", "/writing/" + nextSlug + "/");
     setSlug(nextSlug);
   }
 
   function goIndex(e) {
     if (e) e.preventDefault();
-    window.history.pushState({}, "", "./?v=writing");
+    window.history.pushState({}, "", "/writing/");
     setSlug(null);
   }
 
@@ -212,7 +217,7 @@ function Index({ t, lang, posts, error, onOpen }) {
             <li key={p.slug} className="writing__item">
               <a
                 className="writing__link"
-                href={"./?v=writing&post=" + p.slug}
+                href={"/writing/" + p.slug + "/"}
                 onClick={(e) => {
                   e.preventDefault();
                   onOpen(p.slug);
@@ -245,7 +250,7 @@ function Index({ t, lang, posts, error, onOpen }) {
 function Article({ t, lang, entry, body, error, proseRef, onBack }) {
   return (
     <article className="writing__article">
-      <a className="writing__back" href="./?v=writing" onClick={onBack}>
+      <a className="writing__back" href="/writing/" onClick={onBack}>
         ← {t.writing_back}
       </a>
 
