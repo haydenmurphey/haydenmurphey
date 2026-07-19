@@ -2,9 +2,9 @@
 const { useState, useEffect, useRef } = React;
 
 const PIECES = [
-  { title: "SIGNAL",      year: "2025", src: "./design_page/first.jpg"  },
-  { title: "FLY",         year: "2025", src: "./design_page/second.jpg" },
-  { title: "COMET FACE",  year: "2026", src: "./design_page/third.JPEG" },
+  { title: "SIGNAL",      year: "2025", src: "/design_page/first.jpg"  },
+  { title: "FLY",         year: "2025", src: "/design_page/second.jpg" },
+  { title: "COMET FACE",  year: "2026", src: "/design_page/third.JPEG" },
 ];
 
 function DesignView({ lang = 'en', isMobile, contentPhase }) {

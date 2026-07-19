@@ -55,12 +55,15 @@ function App({ showClock = true }) {
   const { lang, setLang, t } = useLang();
   const isMobile = useIsMobile();
   const [menuOpen, setMenuOpen] = useState(false);
+  // Clean paths are canonical (/projects/, /writing/, /writing/<slug>/, …).
+  // The first path segment picks the view; legacy ?v= and the *.html stubs
+  // remain as fallbacks so old links keep working.
+  const VIEWS = ['projects', 'cv', 'contact', 'design', 'writing'];
+  const seg = window.location.pathname.replace(/^\/+|\/+$/g, '').split('/')[0];
   const urlParam = new URLSearchParams(window.location.search).get('v');
-  // Static post/section pages live at /writing/ and /writing/<slug>/ — boot straight into the Writing view.
-  const onWritingPath = /^\/writing(\/|$)/.test(window.location.pathname);
-  const initialView = onWritingPath
-    ? 'writing'
-    : (['projects', 'cv', 'contact', 'design', 'writing'].includes(urlParam) ? urlParam : 'home');
+  const initialView = VIEWS.includes(seg)
+    ? seg
+    : (VIEWS.includes(urlParam) ? urlParam : 'home');
   const [view, setView] = useState(initialView);
   const [contentPhase, setContentPhase] = useState("visible");
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -153,8 +156,9 @@ function App({ showClock = true }) {
     setMenuOpen(false);
     setContentPhase("exiting");
     // Keep the URL in sync so a refresh restores the current view.
-    // Absolute paths so this is correct even from a /writing/<slug>/ post page.
-    window.history.replaceState({}, '', toView === 'home' ? '/' : '/?v=' + toView);
+    // Clean canonical paths (/projects/, /writing/, …); absolute so it's
+    // correct even from a /writing/<slug>/ post page.
+    window.history.replaceState({}, '', toView === 'home' ? '/' : '/' + toView + '/');
 
     setTimeout(() => {
       setView(toView);

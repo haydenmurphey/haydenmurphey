@@ -29,12 +29,15 @@ const DEFAULT_DESC =
 
 const VIEW_META = {
   home:     { title: "Hayden Murphey — Software Engineer", desc: DEFAULT_DESC, url: SITE + "/" },
-  projects: { title: "Projects — Hayden Murphey",  desc: "Selected engineering projects — infrastructure, systems, security, and AI/robotics work.", url: SITE + "/projects.html" },
+  projects: { title: "Projects — Hayden Murphey",  desc: "Selected engineering projects — infrastructure, systems, security, and AI/robotics work.", url: SITE + "/projects/" },
   writing:  { title: "Writing — Hayden Murphey",   desc: "Notes and technical writeups on security, Linux, cloud, and homelab engineering.", url: SITE + "/writing/" },
-  design:   { title: "Design — Hayden Murphey",    desc: "Selected visual and design work.", url: SITE + "/design.html" },
-  cv:       { title: "CV — Hayden Murphey",        desc: "Education, certifications (AWS, ISC2), and technical skills.", url: SITE + "/cv.html" },
-  contact:  { title: "Contact — Hayden Murphey",   desc: "Get in touch with Hayden Murphey — email, GitHub, LinkedIn, Murphey Labs.", url: SITE + "/contact.html" },
+  design:   { title: "Design — Hayden Murphey",    desc: "Selected visual and design work.", url: SITE + "/design/" },
+  cv:       { title: "CV — Hayden Murphey",        desc: "Education, certifications (AWS, ISC2), and technical skills.", url: SITE + "/cv/" },
+  contact:  { title: "Contact — Hayden Murphey",   desc: "Get in touch with Hayden Murphey — email, GitHub, LinkedIn, Murphey Labs.", url: SITE + "/contact/" },
 };
+
+// Views that get a clean static path (/projects/, /writing/, …).
+const PATH_VIEWS = ["projects", "cv", "design", "contact", "writing"];
 
 // Build the <head> social/meta block for a page.
 function metaBlock({ title, desc, url, type = "website", image = OG_IMAGE }) {
@@ -121,16 +124,18 @@ async function main() {
     await fs.writeFile(path.join(dist, file), applyMeta(src, { ...VIEW_META[view], type: "website" }));
   }
 
-  // 4 ── Per-post pages + /writing/ index (boot the SPA) ───────
+  // 4 ── Static per-view pages (clean paths) + per-post pages ──
+  // Each page boots the SPA (home.jsx reads the path) and carries per-view OG.
+  for (const view of PATH_VIEWS) {
+    const outDir = path.join(dist, view);
+    await fs.mkdir(outDir, { recursive: true });
+    await fs.writeFile(
+      path.join(outDir, "index.html"),
+      applyMeta(indexSrc, { ...VIEW_META[view], type: "website" })
+    );
+  }
+
   const manifest = JSON.parse(await fs.readFile(path.join(root, "posts", "manifest.json"), "utf8"));
-
-  // /writing/ landing (writing section OG), boots SPA to the index.
-  await fs.mkdir(path.join(dist, "writing"), { recursive: true });
-  await fs.writeFile(
-    path.join(dist, "writing", "index.html"),
-    applyMeta(indexSrc, { ...VIEW_META.writing, type: "website" })
-  );
-
   for (const post of manifest) {
     const url = `${SITE}/writing/${post.slug}/`;
     const html = applyMeta(indexSrc, {

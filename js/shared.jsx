@@ -10,13 +10,13 @@ const { useState, useEffect } = React;
 
 /* ── Static config (links live in one place) ─────────────── */
 const LINKS = {
-  home: "index.html",
-  projects: "projects.html",
-  writing: "writing.html",
-  cv: "./cv.html",
-  cvPdf: "./hayden_murphey_2026.pdf",
-  design: "design.html",
-  contact: "contact.html",
+  home: "/",
+  projects: "/projects/",
+  writing: "/writing/",
+  cv: "/cv/",
+  cvPdf: "/hayden_murphey_2026.pdf",
+  design: "/design/",
+  contact: "/contact/",
   labs: "https://murpheylabs.com",
   github: "https://github.com/haydenmurphey",
   linkedin: "https://linkedin.com/in/haydenmurphey",
