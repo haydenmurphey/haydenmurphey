@@ -12,6 +12,7 @@ const { useState, useEffect } = React;
 const LINKS = {
   home: "index.html",
   projects: "projects.html",
+  writing: "writing.html",
   cv: "./cv.html",
   cvPdf: "./hayden_murphey_2026.pdf",
   design: "design.html",
@@ -27,6 +28,7 @@ const STRINGS = {
   en: {
     tagline: "Software Engineer · Founder, Murphey Labs",
     projects: "Projects",
+    writing: "Writing",
     cv: "CV",
     design: "Design",
     contact: "Contact",
@@ -51,10 +53,17 @@ const STRINGS = {
     contact_status_label:  "status",
     contact_status:        "● open to the right role",
     contact_time_label:    "time",
+    writing_heading:   "Writing",
+    writing_sub:       "// notes & technical writeups",
+    writing_back:      "back to Writing",
+    writing_loading:   "loading…",
+    writing_empty:     "No posts yet — check back soon.",
+    writing_error:     "Couldn't load this post.",
   },
   es: {
     tagline: "Ingeniero de Software · Fundador, Murphey Labs",
     projects: "Proyectos",
+    writing: "Escritos",
     cv: "CV",
     design: "Diseño",
     contact: "Contacto",
@@ -79,6 +88,12 @@ const STRINGS = {
     contact_status_label:  "estado",
     contact_status:        "● abierto al puesto adecuado",
     contact_time_label:    "hora",
+    writing_heading:   "Escritos",
+    writing_sub:       "// notas y artículos técnicos",
+    writing_back:      "volver a Escritos",
+    writing_loading:   "cargando…",
+    writing_empty:     "Aún no hay publicaciones — vuelve pronto.",
+    writing_error:     "No se pudo cargar esta publicación.",
   },
 };
 
@@ -178,12 +193,14 @@ function LangToggle({ lang, setLang }) {
 // Top bar. Desktop renders the full nav row; mobile renders the menu button.
 // activePage: 'home' | 'projects' | 'cv' | 'design' | null — underlines the active link.
 // onProjectsClick / onHomeClick: intercept SPA navigation instead of href.
-function Nav({ lang, setLang, t, isMobile, onMenuToggle, activePage, onProjectsClick, onHomeClick, onCvClick, onContactClick, onDesignClick }) {
+function Nav({ lang, setLang, t, isMobile, onMenuToggle, activePage, onProjectsClick, onHomeClick, onCvClick, onContactClick, onDesignClick, onWritingClick }) {
   const projectsActive = activePage === 'projects';
+  const writingActive  = activePage === 'writing';
   const cvActive       = activePage === 'cv';
   const contactActive  = activePage === 'contact';
   const designActive   = activePage === 'design';
   const handleProjects = onProjectsClick ? (e) => { e.preventDefault(); onProjectsClick(); } : undefined;
+  const handleWriting  = onWritingClick  ? (e) => { e.preventDefault(); onWritingClick();  } : undefined;
   const handleHome     = onHomeClick     ? (e) => { e.preventDefault(); onHomeClick();     } : undefined;
   const handleCv       = onCvClick       ? (e) => { e.preventDefault(); onCvClick();       } : undefined;
   const handleContact  = onContactClick  ? (e) => { e.preventDefault(); onContactClick();  } : undefined;
@@ -202,6 +219,11 @@ function Nav({ lang, setLang, t, isMobile, onMenuToggle, activePage, onProjectsC
             href={LINKS.projects}
             onClick={handleProjects}
           >{t.projects}</a>
+          <a
+            className={writingActive ? 'nav__link--active' : 'nav__link--primary'}
+            href={LINKS.writing}
+            onClick={handleWriting}
+          >{t.writing}</a>
           <a
             className={designActive ? 'nav__link--active' : 'nav__link--primary'}
             href={LINKS.design}
@@ -224,9 +246,12 @@ function Nav({ lang, setLang, t, isMobile, onMenuToggle, activePage, onProjectsC
 
 // Full-screen mobile nav overlay.
 // onProjectsClick: if provided, intercepts the Projects link for SPA nav.
-function MobileMenu({ lang, setLang, t, onClose, onProjectsClick, onCvClick, onContactClick, onDesignClick, activePage }) {
+function MobileMenu({ lang, setLang, t, onClose, onProjectsClick, onCvClick, onContactClick, onDesignClick, onWritingClick, activePage }) {
   const handleProjects = onProjectsClick
     ? (e) => { e.preventDefault(); onProjectsClick(); }
+    : onClose;
+  const handleWriting = onWritingClick
+    ? (e) => { e.preventDefault(); onWritingClick(); }
     : onClose;
   const handleCv = onCvClick
     ? (e) => { e.preventDefault(); onCvClick(); }
@@ -247,6 +272,7 @@ function MobileMenu({ lang, setLang, t, onClose, onProjectsClick, onCvClick, onC
       </div>
       <nav className="overlay__nav">
         <a className={activePage === 'projects' ? 'nav__link--active' : 'nav__link--primary'} href={LINKS.projects} onClick={handleProjects}>{t.projects}</a>
+        <a className={activePage === 'writing' ? 'nav__link--active' : 'nav__link--primary'} href={LINKS.writing} onClick={handleWriting}>{t.writing}</a>
         <a
           className={activePage === 'design' ? 'nav__link--active' : 'nav__link--primary'}
           href={LINKS.design}

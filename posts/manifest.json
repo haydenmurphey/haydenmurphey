@@ -1,0 +1,16 @@
+[
+  {
+    "slug": "car-hackers-handbook",
+    "title": "Reading: The Car Hacker's Handbook by Craig Smith",
+    "date": "2026-01-13",
+    "description": "A deep dive on the methodologies of offensive security in the world of cars — physical and remote access vectors.",
+    "tags": ["Security", "Automotive", "CAN Bus", "Book Notes"]
+  },
+  {
+    "slug": "refind-custom-theming",
+    "title": "A Guide to rEFInd and Custom Theming",
+    "date": "2025-01-18",
+    "description": "Implementing the rEFInd boot manager on Linux for a multi-boot system, with custom themes and troubleshooting.",
+    "tags": ["Linux", "Bootloader", "rEFInd", "Theming"]
+  }
+]

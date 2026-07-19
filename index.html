@@ -14,9 +14,17 @@
 
   <link rel="stylesheet" href="./styles.css">
 
+  <!-- Syntax-highlighting theme for Writing code blocks (light; overridden in styles.css) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+
+  <!-- Markdown rendering for the Writing section -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/lib/marked.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked-highlight@2.1.1/lib/index.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 </head>
 <body>
   <div id="root"></div>
@@ -31,7 +39,9 @@
   <script type="text/babel" src="./js/contact.jsx"></script>
   <!-- Design view component — loaded before home so window.PF.DesignView is available -->
   <script type="text/babel" src="./js/design.jsx"></script>
-  <!-- SPA root — manages home/projects/cv/contact/design view state -->
+  <!-- Writing view component — loaded before home so window.PF.WritingView is available -->
+  <script type="text/babel" src="./js/writing.jsx"></script>
+  <!-- SPA root — manages home/projects/cv/contact/design/writing view state -->
   <script type="text/babel" src="./js/home.jsx"></script>
 </body>
 </html>

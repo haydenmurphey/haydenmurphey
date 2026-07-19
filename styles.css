@@ -1438,3 +1438,260 @@ a.contact-page__val:hover {
     bottom: auto;
   }
 }
+
+/* ════════════════ WRITING VIEW ════════════════ */
+/* Unlike the other SPA views, this one flows and scrolls with the page
+   (articles are long) — so no fixed viewport height here. */
+.writing {
+  flex: 1;
+  background: var(--cream);
+  padding: clamp(24px, 4vh, 56px) clamp(24px, 5vw, 52px) clamp(64px, 10vh, 120px);
+  display: flex;
+  justify-content: center;
+}
+
+.writing__index,
+.writing__article {
+  width: 100%;
+  max-width: 720px;
+}
+
+/* ── Index ─────────────────────────────────────── */
+.writing__head {
+  margin-bottom: clamp(28px, 5vh, 52px);
+}
+.writing__heading {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(34px, 5vw, 56px);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin: 0 0 10px;
+  color: var(--ink);
+}
+.writing__sub {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0;
+}
+
+.writing__status {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 24px 0;
+}
+
+.writing__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.writing__item {
+  border-top: 1px solid rgba(27, 24, 18, 0.12);
+}
+.writing__item:last-child {
+  border-bottom: 1px solid rgba(27, 24, 18, 0.12);
+}
+.writing__link {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: clamp(20px, 3vh, 30px) 0;
+  text-decoration: none;
+  color: var(--ink);
+  transition: opacity 0.2s ease;
+}
+.writing__link:hover {
+  opacity: 0.62;
+}
+.writing__date {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.writing__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(22px, 2.6vw, 30px);
+  line-height: 1.15;
+  color: var(--ink);
+}
+.writing__desc {
+  font-family: var(--serif);
+  font-size: clamp(16px, 1.7vw, 19px);
+  line-height: 1.5;
+  color: var(--muted);
+}
+.writing__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 4px;
+}
+.writing__tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  padding: 3px 9px;
+  border: 1px solid rgba(27, 24, 18, 0.16);
+  color: var(--muted);
+  border-radius: 2px;
+}
+
+/* ── Article ───────────────────────────────────── */
+.writing__back {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  text-decoration: none;
+  margin-bottom: clamp(24px, 4vh, 40px);
+  transition: opacity 0.2s ease;
+}
+.writing__back:hover {
+  opacity: 0.6;
+}
+.writing__articlehead {
+  margin-bottom: clamp(28px, 5vh, 44px);
+  padding-bottom: clamp(20px, 3vh, 28px);
+  border-bottom: 1px solid rgba(27, 24, 18, 0.12);
+}
+.writing__date--article {
+  margin: 0 0 12px;
+}
+.writing__articletitle {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(30px, 4.4vw, 48px);
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--ink);
+}
+
+/* ── Prose (rendered markdown) ─────────────────── */
+.prose {
+  font-family: var(--serif);
+  font-size: clamp(17px, 1.9vw, 20px);
+  line-height: 1.72;
+  color: var(--ink);
+}
+.prose > *:first-child { margin-top: 0; }
+.prose > *:last-child { margin-bottom: 0; }
+
+.prose h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(27px, 3.4vw, 38px);
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+  margin: 1.4em 0 0.5em;
+}
+.prose h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  margin: 1.8em 0 0.5em;
+}
+.prose h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(20px, 2.4vw, 26px);
+  line-height: 1.2;
+  margin: 1.6em 0 0.5em;
+}
+.prose p {
+  margin: 0 0 1.15em;
+}
+.prose a {
+  color: var(--terracotta);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(196, 122, 82, 0.4);
+  transition: opacity 0.2s ease;
+}
+.prose a:hover { opacity: 0.65; }
+
+.prose ul,
+.prose ol {
+  margin: 0 0 1.15em;
+  padding-left: 1.4em;
+}
+.prose li {
+  margin: 0.35em 0;
+}
+.prose strong { font-weight: 600; }
+.prose em { font-style: italic; }
+.prose hr {
+  border: none;
+  border-top: 1px solid rgba(27, 24, 18, 0.14);
+  margin: 2em 0;
+}
+
+.prose blockquote {
+  margin: 1.4em 0;
+  padding: 0.2em 0 0.2em 1.1em;
+  border-left: 2px solid var(--terracotta);
+  color: var(--muted);
+  font-style: italic;
+}
+.prose blockquote p:last-child { margin-bottom: 0; }
+
+/* Inline code */
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.82em;
+  background: rgba(27, 24, 18, 0.06);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+/* Code blocks */
+.prose pre {
+  margin: 1.5em 0;
+  padding: clamp(16px, 2vw, 22px);
+  border-radius: 4px;
+  overflow-x: auto;
+  background: #fbf9f2;
+  border: 1px solid rgba(27, 24, 18, 0.12);
+  box-shadow: 0 2px 18px rgba(27, 24, 18, 0.05);
+}
+.prose pre code {
+  font-family: var(--mono);
+  font-size: clamp(12px, 1.3vw, 13.5px);
+  line-height: 1.65;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: var(--ink);
+}
+/* highlight.js (github theme) — keep its token colors, drop its own bg
+   so code panels sit on the cream palette. */
+.prose pre code.hljs {
+  background: transparent;
+  padding: 0;
+}
+
+/* ── Mobile ────────────────────────────────────── */
+@media (max-width: 767px) {
+  .writing {
+    padding: clamp(16px, 3vh, 28px) 20px 72px;
+  }
+  .prose pre {
+    /* let code blocks bleed to the edges for more room on small screens */
+    margin-left: -20px;
+    margin-right: -20px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}

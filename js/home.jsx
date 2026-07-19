@@ -56,7 +56,7 @@ function App({ showClock = true }) {
   const isMobile = useIsMobile();
   const [menuOpen, setMenuOpen] = useState(false);
   const urlParam = new URLSearchParams(window.location.search).get('v');
-  const initialView = ['projects', 'cv', 'contact', 'design'].includes(urlParam) ? urlParam : 'home';
+  const initialView = ['projects', 'cv', 'contact', 'design', 'writing'].includes(urlParam) ? urlParam : 'home';
   const [view, setView] = useState(initialView);
   const [contentPhase, setContentPhase] = useState("visible");
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -162,7 +162,7 @@ function App({ showClock = true }) {
     }, 300);
   }
 
-  const { ProjectsView, CvView, ContactView, DesignView } = window.PF;
+  const { ProjectsView, CvView, ContactView, DesignView, WritingView } = window.PF;
 
   return (
     <div className={`page${view === "home" ? " page--home" : ""}${view === "contact" ? " page--contact" : ""}${view === "design" ? " page--design" : ""}`}>
@@ -174,6 +174,7 @@ function App({ showClock = true }) {
         onMenuToggle={() => setMenuOpen((v) => !v)}
         activePage={view}
         onProjectsClick={view !== "projects" ? () => transition("projects") : null}
+        onWritingClick={view !== "writing" ? () => transition("writing") : null}
         onCvClick={view !== "cv" ? () => transition("cv") : null}
         onContactClick={view !== "contact" ? () => transition("contact") : null}
         onDesignClick={view !== "design" ? () => transition("design") : null}
@@ -228,6 +229,10 @@ function App({ showClock = true }) {
         <DesignView lang={lang} isMobile={isMobile} contentPhase={contentPhase} />
       )}
 
+      {view === "writing" && (
+        <WritingView lang={lang} isMobile={isMobile} contentPhase={contentPhase} />
+      )}
+
       {isMobile && menuOpen && (
         <MobileMenu
           lang={lang}
@@ -236,6 +241,7 @@ function App({ showClock = true }) {
           activePage={view}
           onClose={() => setMenuOpen(false)}
           onProjectsClick={view !== "projects" ? () => { setMenuOpen(false); transition("projects"); } : null}
+          onWritingClick={view !== "writing" ? () => { setMenuOpen(false); transition("writing"); } : null}
           onCvClick={view !== "cv" ? () => { setMenuOpen(false); transition("cv"); } : null}
           onContactClick={view !== "contact" ? () => { setMenuOpen(false); transition("contact"); } : null}
           onDesignClick={view !== "design" ? () => { setMenuOpen(false); transition("design"); } : null}
