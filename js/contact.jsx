@@ -17,9 +17,8 @@ function ContactPage({ t, contentPhase }) {
   return (
     <section className={`contact-page${contentPhase === "exiting" ? " view-exit" : ""}`}>
       <aside className="contact-rail">
-        <span className="contact-rail__mono reveal reveal--1" aria-hidden="true">HM</span>
-        <h1 className="contact-rail__head reveal reveal--2">{t.contact_heading}</h1>
-        <div className="contact-rail__foot reveal reveal--3">
+        <h1 className="contact-rail__head reveal reveal--1">{t.contact_heading}</h1>
+        <div className="contact-rail__foot reveal reveal--2">
           <span className="contact-rail__status">
             <span className="contact-rail__dot" aria-hidden="true"></span>
             {t.contact_status}
