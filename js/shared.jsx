@@ -131,8 +131,10 @@ function useLang() {
   return { lang, setLang, t };
 }
 
-// Live clock: HH:MM:SS + resolved IANA timezone, ticks each second.
-function useClock() {
+// Live clock: HH:MM:SS + timezone label, ticks each second.
+// Pass an IANA tzName (e.g. "America/New_York") to lock the clock to a fixed
+// zone with a short label (EDT/EST); omit it for the viewer's local zone.
+function useClock(tzName) {
   const [time, setTime] = useState("00:00:00");
   const [tz, setTz] = useState("Local");
 
@@ -140,17 +142,39 @@ function useClock() {
     const pad = (n) => String(n).padStart(2, "0");
     const tick = () => {
       const d = new Date();
-      setTime(pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds()));
-      try {
-        setTz(Intl.DateTimeFormat().resolvedOptions().timeZone || "Local");
-      } catch (e) {
-        setTz("Local");
+      if (tzName) {
+        setTime(
+          d.toLocaleTimeString("en-GB", {
+            hour12: false,
+            timeZone: tzName,
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          })
+        );
+        try {
+          const parts = new Intl.DateTimeFormat("en-US", {
+            timeZone: tzName,
+            timeZoneName: "short",
+          }).formatToParts(d);
+          const zn = parts.find((p) => p.type === "timeZoneName");
+          setTz(zn ? zn.value : tzName);
+        } catch (e) {
+          setTz(tzName);
+        }
+      } else {
+        setTime(pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds()));
+        try {
+          setTz(Intl.DateTimeFormat().resolvedOptions().timeZone || "Local");
+        } catch (e) {
+          setTz("Local");
+        }
       }
     };
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [tzName]);
 
   return { time, tz };
 }
