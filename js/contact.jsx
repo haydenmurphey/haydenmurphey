@@ -1,36 +1,49 @@
 /* global React */
-const { LINKS, STRINGS } = window.PF;
+const { LINKS, STRINGS, useClock } = window.PF;
+
+const CONTACT_TZ = "America/New_York";
 
 function channels(t) {
   return [
-    { key: t.contact_email,    href: LINKS.email,    display: "hsmurphey@gmail.com",           external: false },
-    { key: t.contact_github,   href: LINKS.github,   display: "github.com/haydenmurphey",       external: true  },
-    { key: t.contact_linkedin, href: LINKS.linkedin, display: "linkedin.com/in/haydenmurphey",  external: true  },
-    { key: t.contact_labs,     href: LINKS.labs,     display: "murpheylabs.com",                external: true  },
+    { label: t.contact_email,    href: LINKS.email,    display: "hsmurphey@gmail.com",          external: false },
+    { label: t.contact_github,   href: LINKS.github,   display: "github.com/haydenmurphey",      external: true  },
+    { label: t.contact_linkedin, href: LINKS.linkedin, display: "linkedin.com/in/haydenmurphey", external: true  },
+    { label: t.contact_labs,     href: LINKS.labs,     display: "murpheylabs.com",               external: true  },
   ];
 }
 
 function ContactPage({ t, contentPhase }) {
+  const { time, tz } = useClock(CONTACT_TZ);
   return (
     <section className={`contact-page${contentPhase === "exiting" ? " view-exit" : ""}`}>
-      <div className="contact-page__header">
-        <h1 className="contact-page__heading">{t.contact_heading}</h1>
-        <p className="contact-page__sub">{t.contact_sub}</p>
-      </div>
-
-      <pre className="contact-page__rule" aria-hidden="true">{"═".repeat(56)}</pre>
-
-      <div className="contact-page__grid">
-        {channels(t).map(({ key, href, display, external }) => (
-          <div className="contact-page__row" key={key}>
-            <span className="contact-page__key">{key}</span>
-            <span className="contact-page__sep">::</span>
-            <a
-              className="contact-page__val"
-              href={href}
-              {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
-            >{display}</a>
-          </div>
+      <aside className="contact-rail">
+        <span className="contact-rail__kicker reveal reveal--1">{t.contact_kicker}</span>
+        <span className="contact-rail__mono reveal reveal--1" aria-hidden="true">HM</span>
+        <h1 className="contact-rail__head reveal reveal--2">{t.contact_heading}</h1>
+        <div className="contact-rail__foot reveal reveal--3">
+          <span className="contact-rail__status">
+            <span className="contact-rail__dot" aria-hidden="true"></span>
+            {t.contact_status}
+          </span>
+          <span className="contact-rail__clock">
+            {t.contact_time_label}&nbsp;&nbsp;<b>{time}</b> · {tz}
+          </span>
+        </div>
+      </aside>
+      <div className="contact-index">
+        {channels(t).map(({ label, href, display, external }, i) => (
+          <a
+            className={`contact-item reveal reveal--${i + 3}`}
+            key={label}
+            href={href}
+            {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+          >
+            <span className="contact-item__lead">{label}</span>
+            <span className="contact-item__meta">
+              <span className="contact-item__addr">{display}</span>
+              <span className="contact-item__arw" aria-hidden="true">→</span>
+            </span>
+          </a>
         ))}
       </div>
     </section>
