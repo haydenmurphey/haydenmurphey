@@ -1208,18 +1208,10 @@ body {
   border-right: 1px solid rgba(27, 24, 18, 0.12);
 }
 
-.contact-rail__kicker {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
 .contact-rail__mono {
   width: 46px;
   height: 46px;
-  margin-top: 20px;
+  margin-top: 0;
   border: 1px solid var(--ink);
   border-radius: 50%;
   display: flex;
@@ -1289,6 +1281,7 @@ body {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  padding: clamp(56px, 9vh, 130px) 0 clamp(24px, 3.5vh, 48px);
 }
 
 .contact-item {
@@ -1404,7 +1397,7 @@ body {
     margin-top: 24px;
     font-size: clamp(52px, 16vw, 88px);
   }
-  .contact-index { flex: none; }
+  .contact-index { flex: none; padding: 0; }
   .contact-item {
     flex: none;
     flex-direction: column;
