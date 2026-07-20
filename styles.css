@@ -1385,15 +1385,40 @@ body {
 }
 
 @media (max-width: 767px) {
+  .page--contact {
+    height: auto;
+    overflow: visible;
+  }
   .contact-page {
-    padding: 0 24px clamp(16px, 3vh, 40px);
+    flex-direction: column;
+    overflow: visible;
   }
-  .contact-page__header {
-    margin-top: clamp(52px, 8vh, 100px);
+  .contact-rail {
+    width: 100%;
+    min-width: 0;
+    padding: clamp(40px, 12vh, 88px) 24px 28px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(27, 24, 18, 0.12);
   }
-  .contact-page__key {
-    min-width: 60px;
+  .contact-rail__head {
+    margin-top: 24px;
+    font-size: clamp(52px, 16vw, 88px);
   }
+  .contact-index { flex: none; }
+  .contact-item {
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+    min-height: 84px;
+    padding: 18px 24px;
+  }
+  .contact-item:hover { padding-left: 24px; }
+  .contact-item::before { display: none; }
+  .contact-item__lead { font-size: clamp(30px, 9vw, 40px); }
+  .contact-item__addr { opacity: 1; transform: none; }
+  .contact-item__arw { display: none; }
 }
 
 /* ════════════════ DESIGN PAGE ════════════════ */
