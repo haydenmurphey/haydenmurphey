@@ -2,70 +2,111 @@
 const { useState, useEffect, useRef } = React;
 
 const SECTIONS = [
-  { id: 'education',       label: { en: 'Education',      es: 'Educación' } },
-  { id: 'certifications',  label: { en: 'Certifications', es: 'Certificaciones' } },
-  { id: 'skills',          label: { en: 'Skills',         es: 'Habilidades' } },
+  { id: 'experience',      label: 'Experience' },
+  { id: 'education',       label: 'Education' },
+  { id: 'certifications',  label: 'Certifications' },
+  { id: 'skills',          label: 'Skills' },
 ];
 
-// UI labels for the CV panels, keyed by language.
-const CV_LABELS = {
-  en: { coursework: 'Coursework', music: 'Music', credential: 'Credential', issuer: 'Issuer', date: 'Date' },
-  es: { coursework: 'Cursos',     music: 'Música', credential: 'Credencial', issuer: 'Emisor', date: 'Fecha' },
-};
+// UI labels for the CV panels.
+const CV_LABELS = { coursework: 'Coursework', music: 'Music', credential: 'Credential', issuer: 'Issuer', date: 'Date' };
 
 const EDUCATION = {
   school:     'James Madison University',
-  degree:     { en: 'B.S. Computer Science', es: 'Lic. en Ciencias de la Computación' },
-  minor:      { en: 'Minor in Music',        es: 'Especialización en Música' },
+  degree:     'B.S. Computer Science',
+  minor:      'Minor in Music',
   location:   'Harrisonburg, VA',
-  date:       { en: 'Dec 2025', es: 'dic. 2025' },
-  coursework: {
-    en: ['Distributed Systems', 'Operating Systems', 'Networks & Security', 'Database Systems', 'Algorithms'],
-    es: ['Sistemas Distribuidos', 'Sistemas Operativos', 'Redes y Seguridad', 'Sistemas de Bases de Datos', 'Algoritmos'],
-  },
-  music:      {
-    en: ['Guitar', 'Bass', 'Piano', 'Drums'],
-    es: ['Guitarra', 'Bajo', 'Piano', 'Batería'],
-  },
+  date:       'Dec 2025',
+  coursework: ['Distributed Systems', 'Operating Systems', 'Networks & Security', 'Database Systems', 'Algorithms'],
+  music:      ['Guitar', 'Bass', 'Piano', 'Drums'],
 };
 
+const EXPERIENCE = [
+  {
+    org:   'Mercor',
+    role:  'AI Output Evaluator · Frontier AI Labs (contract)',
+    meta:  'Remote · May 2026 – Present',
+    points: [
+      'Evaluate AI-generated outputs for frontier labs against task requirements, identifying errors and tracing them to their root cause.',
+      'Review and correct model work, fixing flawed code and responses so they meet spec, and document findings for model training.',
+    ],
+  },
+  {
+    org:   'DataAnnotation',
+    role:  'Software Validation & AI Trainer (contract)',
+    meta:  'Remote · May 2025 – Present',
+    points: [
+      'Validated AI-generated code against technical specs across 500+ software-engineering and cybersecurity tasks, surfacing logic and edge-case failures.',
+      'Wrote Python scripts to test REST API integrations and agentic-workflow failure modes.',
+      'Reproduced bugs in disposable Docker environments to run regression checks across languages and frameworks.',
+    ],
+  },
+  {
+    org:   'Townes Site Engineering',
+    role:  'Geotechnical Technician',
+    meta:  'Richmond, VA · May 2021 – Aug 2025',
+    secondary: true,
+    points: [
+      'Coordinated daily with field crews, lab staff, and project managers across 40+ projects; logged 10,000+ test specimens with strict accuracy.',
+    ],
+  },
+];
+
 const CERTS = [
-  { code: 'SAA-C03', name: 'AWS Certified Solutions Architect – Associate', issuer: 'Amazon Web Services',      date: { en: 'Apr 2026', es: 'abr. 2026' } },
-  { code: 'CLF-C02', name: 'AWS Certified Cloud Practitioner',               issuer: 'Amazon Web Services',      date: { en: 'Feb 2026', es: 'feb. 2026' } },
-  { code: 'ISC2-CC', name: 'Certified in Cybersecurity',                     issuer: '(ISC)²',                  date: { en: 'Feb 2025', es: 'feb. 2025' } },
-  { code: 'ML-SPEC', name: 'Machine Learning Specialization',                issuer: 'Stanford / DeepLearning.AI', date: { en: 'May 2026', es: 'may. 2026' } },
+  { code: 'SAA-C03', name: 'AWS Certified Solutions Architect – Associate', issuer: 'Amazon Web Services',      date: 'Apr 2026' },
+  { code: 'CLF-C02', name: 'AWS Certified Cloud Practitioner',               issuer: 'Amazon Web Services',      date: 'Feb 2026' },
+  { code: 'ISC2-CC', name: 'Certified in Cybersecurity',                     issuer: '(ISC)²',                  date: 'Feb 2025' },
+  { code: 'ML-SPEC', name: 'Machine Learning Specialization',                issuer: 'Stanford / DeepLearning.AI', date: 'May 2026' },
 ];
 
 const SKILLS = [
-  { group: { en: 'Cloud & DevOps',        es: 'Cloud y DevOps' },        items: 'AWS (EC2, S3, IAM, Lambda, CloudWatch), Terraform, Ansible, Docker, k3s, GitHub Actions, ArgoCD' },
-  { group: { en: 'Networking & Security', es: 'Redes y Seguridad' },     items: 'Tailscale, Caddy, Pi-hole, Unbound, DNS, TLS, CrowdSec, encryption' },
-  { group: { en: 'Languages',             es: 'Lenguajes' },             items: 'Python, JS / TS, Java, C, Rust, Ruby, Bash, SQL, Haskell' },
-  { group: { en: 'Frameworks & Web',      es: 'Frameworks y Web' },      items: 'React, Next.js, Node.js, Vercel, Flutter / Dart, Nginx, HTML / CSS' },
-  { group: { en: 'Observability',         es: 'Observabilidad' },        items: 'Prometheus, Grafana, Loki, Alertmanager, Uptime Kuma, Beszel' },
-  { group: { en: 'Data & Backend',        es: 'Datos y Backend' },       items: 'PostgreSQL, Supabase, REST APIs, NumPy, pandas' },
-  { group: { en: 'AI / ML',               es: 'IA / ML' },               items: 'Prompt engineering, AI code validation, ML fundamentals, Ollama' },
-  { group: { en: 'Tools & Practices',     es: 'Herramientas y Prácticas' }, items: 'Git, Linux / CLI, pytest, Agile / SCRUM, ROS2, OpenCV, Raspberry Pi' },
+  { group: 'Cloud & DevOps',        items: 'AWS (EC2, S3, IAM, Lambda, CloudWatch), Proxmox, Ansible, Docker, k3s, GitHub Actions' },
+  { group: 'Networking & Security', items: 'Tailscale, Caddy, Pi-hole, Unbound, DNS, TLS, CrowdSec, encryption' },
+  { group: 'Languages',             items: 'Python, JS / TS, Java, C, Rust, Ruby, Bash, SQL, Haskell' },
+  { group: 'Frameworks & Web',      items: 'React, Next.js, Node.js, Vercel, Flutter / Dart, Nginx, HTML / CSS' },
+  { group: 'Monitoring & Alerting', items: 'Alertmanager, Uptime Kuma, Beszel, ntfy' },
+  { group: 'AI / LLM Systems',      items: 'Prompt engineering, LLM output evaluation & red-teaming, agentic workflow testing, MCP, LiteLLM, Langfuse, Claude Code, Cursor, local models (Ollama, Whisper)' },
+  { group: 'Testing & Debugging',   items: 'Postman, REST API testing, pytest, JUnit, root-cause analysis, log analysis (Docker logs), Docker repro environments' },
+  { group: 'Data & Backend',        items: 'SQL, PostgreSQL, SQL Server, Supabase, REST APIs, NumPy, pandas' },
+  { group: 'Tools & Practices',     items: 'Git, Linux / CLI, pytest, Agile / SCRUM, ROS2, OpenCV, Raspberry Pi' },
 ];
 
-function EducationPanel({ lang }) {
-  const L = CV_LABELS[lang] || CV_LABELS.en;
+function EducationPanel() {
+  const L = CV_LABELS;
   return (
     <div className="cv__education">
       <div className="cv__school">{EDUCATION.school}</div>
-      <div className="cv__degree">{EDUCATION.degree[lang]} · {EDUCATION.minor[lang]}</div>
-      <div className="cv__meta">{EDUCATION.location} · {EDUCATION.date[lang]}</div>
+      <div className="cv__degree">{EDUCATION.degree} · {EDUCATION.minor}</div>
+      <div className="cv__meta">{EDUCATION.location} · {EDUCATION.date}</div>
 
       <div className="cv__label">{L.coursework}</div>
-      <div className="cv__list">{EDUCATION.coursework[lang].join(' · ')}</div>
+      <div className="cv__list">{EDUCATION.coursework.join(' · ')}</div>
 
       <div className="cv__label">{L.music}</div>
-      <div className="cv__list">{EDUCATION.music[lang].join(' · ')}</div>
+      <div className="cv__list">{EDUCATION.music.join(' · ')}</div>
     </div>
   );
 }
 
-function CertificationsPanel({ lang }) {
-  const L = CV_LABELS[lang] || CV_LABELS.en;
+function ExperiencePanel() {
+  return (
+    <div className="cv__experience">
+      {EXPERIENCE.map((job) => (
+        <div key={job.org} className={`cv__job${job.secondary ? ' cv__job--secondary' : ''}`}>
+          <div className="cv__job-org">{job.org}</div>
+          <div className="cv__degree">{job.role}</div>
+          <div className="cv__meta">{job.meta}</div>
+          <ul className="cv__bullets">
+            {job.points.map((pt) => <li key={pt}>{pt}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CertificationsPanel() {
+  const L = CV_LABELS;
   return (
     <table className="cv__cert-table">
       <thead>
@@ -85,7 +126,7 @@ function CertificationsPanel({ lang }) {
               <span className="cv__cert-code">{c.code}</span>
             </td>
             <td className="cv__cert-issuer">{c.issuer}</td>
-            <td className="cv__cert-date">{c.date[lang]}</td>
+            <td className="cv__cert-date">{c.date}</td>
           </tr>
         ))}
       </tbody>
@@ -93,12 +134,12 @@ function CertificationsPanel({ lang }) {
   );
 }
 
-function SkillsPanel({ lang }) {
+function SkillsPanel() {
   return (
     <div className="cv__skills-grid">
       {SKILLS.map((s) => (
-        <div key={s.group.en} className="cv__skill-group">
-          <div className="cv__skill-group-name">{s.group[lang]}</div>
+        <div key={s.group} className="cv__skill-group">
+          <div className="cv__skill-group-name">{s.group}</div>
           <div className="cv__skill-items">{s.items}</div>
         </div>
       ))}
@@ -106,24 +147,18 @@ function SkillsPanel({ lang }) {
   );
 }
 
-function CvView({ lang = 'en', isMobile, contentPhase }) {
-  const t = window.PF.STRINGS[lang] || window.PF.STRINGS.en;
+function CvView({ isMobile, registerStep }) {
+  const t = window.PF.STRINGS;
   const PANELS = [
-    <EducationPanel lang={lang} />,
-    <CertificationsPanel lang={lang} />,
-    <SkillsPanel lang={lang} />,
+    <ExperiencePanel />,
+    <EducationPanel />,
+    <CertificationsPanel />,
+    <SkillsPanel />,
   ];
   const [activeIdx, setActiveIdx]     = useState(0);
   const [hasNavigated, setHasNavigated] = useState(false);
   const cooldown                  = useRef(false);
   const activeRef                 = useRef(0);
-  const touchStartX               = useRef(null);
-  const touchStartY               = useRef(null);
-
-  const outerStyle =
-    contentPhase === 'entering' ? { opacity: 0, transition: 'none' } :
-    contentPhase === 'exiting'  ? { opacity: 0, transition: 'opacity 0.3s ease' } :
-                                   { opacity: 1, transition: 'opacity 0.4s ease' };
 
   function navigate(nextIdx) {
     if (cooldown.current) return;
@@ -136,46 +171,17 @@ function CvView({ lang = 'en', isMobile, contentPhase }) {
     setTimeout(() => { cooldown.current = false; }, 500);
   }
 
-  const navigateRef = useRef(navigate);
-  navigateRef.current = navigate;
-
-  useEffect(() => {
-    const onWheel = (e) => {
-      if (Math.abs(e.deltaY) < 5) return;
-      navigateRef.current(activeRef.current + (e.deltaY > 0 ? 1 : -1));
-    };
-    const onKey = (e) => {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') navigateRef.current(activeRef.current + 1);
-      if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  navigateRef.current(activeRef.current - 1);
-    };
-    const onTouchStart = (e) => {
-      touchStartX.current = e.touches[0].clientX;
-      touchStartY.current = e.touches[0].clientY;
-    };
-    const onTouchEnd = (e) => {
-      if (touchStartX.current === null) return;
-      const dx = touchStartX.current - e.changedTouches[0].clientX;
-      const dy = touchStartY.current - e.changedTouches[0].clientY;
-      touchStartX.current = null;
-      touchStartY.current = null;
-      if (Math.abs(dx) < 50 || Math.abs(dx) <= Math.abs(dy)) return;
-      navigateRef.current(activeRef.current + (dx > 0 ? 1 : -1));
-    };
-
-    window.addEventListener('wheel',      onWheel,      { passive: true });
-    window.addEventListener('keydown',    onKey);
-    window.addEventListener('touchstart', onTouchStart, { passive: true });
-    window.addEventListener('touchend',   onTouchEnd);
-    return () => {
-      window.removeEventListener('wheel',      onWheel);
-      window.removeEventListener('keydown',    onKey);
-      window.removeEventListener('touchstart', onTouchStart);
-      window.removeEventListener('touchend',   onTouchEnd);
-    };
-  }, []);
+  // Deck hook: step through the CV sections; at either end, hand off to the deck.
+  if (registerStep) registerStep((dir) => {
+    if (cooldown.current) return true;
+    const next = activeRef.current + dir;
+    if (next < 0 || next >= SECTIONS.length) return false;
+    navigate(next);
+    return true;
+  });
 
   return (
-    <div className={`cv-spa${isMobile ? ' cv-spa--mobile' : ''}`} style={outerStyle}>
+    <div className={`cv-spa${isMobile ? ' cv-spa--mobile' : ''}`}>
       <main className="cv-spa__main">
         <nav className="cv-spa__left" aria-label="CV sections">
           {SECTIONS.map((s, i) => (
@@ -187,7 +193,7 @@ function CvView({ lang = 'en', isMobile, contentPhase }) {
               onClick={() => navigate(i)}
               aria-current={i === activeIdx ? 'true' : undefined}
             >
-              {s.label[lang]}
+              {s.label}
             </button>
           ))}
         </nav>

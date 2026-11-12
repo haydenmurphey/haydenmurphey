@@ -1,8 +1,8 @@
 /* global React */
 /* ============================================================
    shared.jsx — reusable across every page of the portfolio.
-   Exposes on `window`: STRINGS, useClock, useIsMobile, useLang,
-   LangToggle, Nav, MobileMenu.
+   Exposes on `window.PF`: LINKS, STRINGS, useClock, useIsMobile,
+   Nav, MobileMenu, CursorDot.
    Loaded before each page's own *.jsx (shared global scope).
    ============================================================ */
 
@@ -12,122 +12,42 @@ const { useState, useEffect } = React;
 const LINKS = {
   home: "/",
   projects: "/projects/",
-  writing: "/writing/",
   cv: "/cv/",
   cvPdf: "/hayden_murphey_2026.pdf",
   design: "/design/",
   contact: "/contact/",
-  labs: "https://murpheylabs.com",
   github: "https://github.com/haydenmurphey",
   linkedin: "https://linkedin.com/in/haydenmurphey",
   email: "mailto:hsmurphey@gmail.com",
 };
 
-/* ── i18n copy ────────────────────────────────────────────── */
+/* ── UI copy ──────────────────────────────────────────────── */
 const STRINGS = {
-  en: {
-    tagline: "Software Engineer · Founder, Murphey Labs",
-    projects: "Projects",
-    writing: "Writing",
-    cv: "CV",
-    design: "Design",
-    contact: "Contact",
-    labs: "murphey [labs]",
-    menuOpen: "[ ≡ menu ]",
-    menuClose: "[ × close ]",
-    scroll: "scroll",
-    swipe:  "swipe",
-    about_label:      "About",
-    about_title_line1: "Software Engineer",
-    about_title_line2: "& Founder",
-    about_bio:        "I build various developer tools and other customer focused software in my free time while working for frontier AI labs (under NDA).",
-    about_skills:     "Security · Cloud · Full-stack",
-    about_cv:         "View CV",
-    about_github:     "GitHub",
-    contact_heading:       "Reach out.",
-    contact_sub:           "// email is the best place to start",
-    contact_email:         "Email",
-    contact_github:        "GitHub",
-    contact_linkedin:      "LinkedIn",
-    contact_labs:          "Murphey Labs",
-    contact_status_label:  "status",
-    contact_status:        "open to the right role",
-    contact_time_label:    "my time",
-    writing_heading:   "Writing",
-    writing_sub:       "// notes & technical writeups",
-    writing_back:      "back to Writing",
-    writing_loading:   "loading…",
-    writing_empty:     "No posts yet — check back soon.",
-    writing_error:     "Couldn't load this post.",
-  },
-  es: {
-    tagline: "Ingeniero de Software · Fundador, Murphey Labs",
-    projects: "Proyectos",
-    writing: "Escritos",
-    cv: "CV",
-    design: "Diseño",
-    contact: "Contacto",
-    labs: "murphey [labs]",
-    menuOpen: "[ ≡ menú ]",
-    menuClose: "[ × cerrar ]",
-    scroll: "desplaza",
-    swipe:  "desliza",
-    about_label:      "Sobre mí",
-    about_title_line1: "Ingeniero de Software",
-    about_title_line2: "y Fundador",
-    about_bio:        "Construyo herramientas para desarrolladores y otro software centrado en el cliente. Actualmente financio el trabajo de producto en Murphey Labs mediante ingeniería de IA por contrato — evaluando y haciendo red-teaming de código generado por IA para laboratorios de IA de frontera.",
-    about_skills:     "Seguridad · Cloud · Full-stack",
-    about_cv:         "Ver CV",
-    about_github:     "GitHub",
-    contact_heading:       "Hablemos.",
-    contact_sub:           "// el correo es el mejor punto de partida",
-    contact_email:         "Email",
-    contact_github:        "GitHub",
-    contact_linkedin:      "LinkedIn",
-    contact_labs:          "Murphey Labs",
-    contact_status_label:  "estado",
-    contact_status:        "abierto al puesto adecuado",
-    contact_time_label:    "mi hora",
-    writing_heading:   "Escritos",
-    writing_sub:       "// notas y artículos técnicos",
-    writing_back:      "volver a Escritos",
-    writing_loading:   "cargando…",
-    writing_empty:     "Aún no hay publicaciones — vuelve pronto.",
-    writing_error:     "No se pudo cargar esta publicación.",
-  },
+  tagline: "Software Engineer",
+  projects: "Projects",
+  cv: "CV",
+  design: "Design",
+  contact: "Contact",
+  menuOpen: "[ ≡ menu ]",
+  menuClose: "[ × close ]",
+  scroll: "scroll",
+  swipe:  "swipe",
+  about_label:      "About",
+  about_title_line1: "Software Engineer",
+  about_bio:        "I debug and evaluate AI systems. Through contract work for frontier AI labs, I red-team model-generated code, test APIs and agent workflows, and trace failures to their root cause. Outside that, I run a self-hosted, monitored homelab where I break and fix things to learn how they work.",
+  about_skills:     "AI Systems · Debugging · Cloud · Security",
+  about_cv:         "View CV",
+  about_github:     "GitHub",
+  contact_heading:       "Reach out",
+  contact_email:         "Email",
+  contact_github:        "GitHub",
+  contact_linkedin:      "LinkedIn",
+  contact_status_label:  "status",
+  contact_status:        "open to the right role",
+  contact_time_label:    "my time",
 };
 
 /* ── Hooks ────────────────────────────────────────────────── */
-
-// Language state, persisted to localStorage so the choice survives refreshes
-// and carries across pages. Valid values: "en" | "es" (anything else → "en").
-function useLang() {
-  const [lang, setLangState] = useState(() => {
-    try {
-      const saved = localStorage.getItem("lang");
-      return saved === "es" ? "es" : "en";
-    } catch (e) {
-      return "en";
-    }
-  });
-
-  const setLang = (next) => {
-    const value = next === "es" ? "es" : "en";
-    setLangState(value);
-    try {
-      localStorage.setItem("lang", value);
-    } catch (e) {
-      /* storage unavailable (e.g. private mode) — non-fatal */
-    }
-  };
-
-  useEffect(() => {
-    document.documentElement.lang = lang;
-  }, [lang]);
-
-  const t = STRINGS[lang] || STRINGS.en;
-  return { lang, setLang, t };
-}
 
 // Live clock: HH:MM:SS + timezone label, ticks each second.
 // Pass an IANA tzName (e.g. "America/New_York") to lock the clock to a fixed
@@ -192,39 +112,17 @@ function useIsMobile() {
 
 /* ── Components ───────────────────────────────────────────── */
 
-function LangToggle({ lang, setLang }) {
-  return (
-    <span className="lang-toggle">
-      <button
-        type="button"
-        className={"lang-toggle__btn" + (lang === "en" ? " is-active" : "")}
-        onClick={() => setLang("en")}
-      >
-        EN
-      </button>
-      <span className="lang-toggle__sep">/</span>
-      <button
-        type="button"
-        className={"lang-toggle__btn" + (lang === "es" ? " is-active" : "")}
-        onClick={() => setLang("es")}
-      >
-        ES
-      </button>
-    </span>
-  );
-}
-
-// Top bar. Desktop renders the full nav row; mobile renders the menu button.
-// activePage: 'home' | 'projects' | 'cv' | 'design' | null — underlines the active link.
-// onProjectsClick / onHomeClick: intercept SPA navigation instead of href.
-function Nav({ lang, setLang, t, isMobile, onMenuToggle, activePage, onProjectsClick, onHomeClick, onCvClick, onContactClick, onDesignClick, onWritingClick }) {
+// Top bar. Rendered once by the SPA root (home.jsx) and kept mounted across
+// view changes, so the header never leaves while content transitions below it.
+// Desktop renders the full nav row; mobile renders the menu button.
+// activePage: 'home' | 'projects' | 'cv' | 'design' | 'contact' — underlines the active link.
+// on*Click: intercept SPA navigation instead of href.
+function Nav({ t, isMobile, onMenuToggle, activePage, onProjectsClick, onHomeClick, onCvClick, onContactClick, onDesignClick }) {
   const projectsActive = activePage === 'projects';
-  const writingActive  = activePage === 'writing';
   const cvActive       = activePage === 'cv';
   const contactActive  = activePage === 'contact';
   const designActive   = activePage === 'design';
   const handleProjects = onProjectsClick ? (e) => { e.preventDefault(); onProjectsClick(); } : undefined;
-  const handleWriting  = onWritingClick  ? (e) => { e.preventDefault(); onWritingClick();  } : undefined;
   const handleHome     = onHomeClick     ? (e) => { e.preventDefault(); onHomeClick();     } : undefined;
   const handleCv       = onCvClick       ? (e) => { e.preventDefault(); onCvClick();       } : undefined;
   const handleContact  = onContactClick  ? (e) => { e.preventDefault(); onContactClick();  } : undefined;
@@ -244,11 +142,6 @@ function Nav({ lang, setLang, t, isMobile, onMenuToggle, activePage, onProjectsC
             onClick={handleProjects}
           >{t.projects}</a>
           <a
-            className={writingActive ? 'nav__link--active' : 'nav__link--primary'}
-            href={LINKS.writing}
-            onClick={handleWriting}
-          >{t.writing}</a>
-          <a
             className={designActive ? 'nav__link--active' : 'nav__link--primary'}
             href={LINKS.design}
             onClick={handleDesign}
@@ -259,9 +152,6 @@ function Nav({ lang, setLang, t, isMobile, onMenuToggle, activePage, onProjectsC
             onClick={handleCv}
           >{t.cv}</a>
           <a className={contactActive ? 'nav__link--active' : 'nav__link--primary'} href={LINKS.contact} onClick={handleContact}>{t.contact}</a>
-          <a className="nav__labs" href={LINKS.labs} target="_blank" rel="noreferrer">{t.labs}</a>
-          <span className="nav__divider">|</span>
-          <LangToggle lang={lang} setLang={setLang} />
         </nav>
       )}
     </div>
@@ -269,13 +159,10 @@ function Nav({ lang, setLang, t, isMobile, onMenuToggle, activePage, onProjectsC
 }
 
 // Full-screen mobile nav overlay.
-// onProjectsClick: if provided, intercepts the Projects link for SPA nav.
-function MobileMenu({ lang, setLang, t, onClose, onProjectsClick, onCvClick, onContactClick, onDesignClick, onWritingClick, activePage }) {
+// on*Click: if provided, intercepts the link for SPA nav.
+function MobileMenu({ t, onClose, onProjectsClick, onCvClick, onContactClick, onDesignClick, activePage }) {
   const handleProjects = onProjectsClick
     ? (e) => { e.preventDefault(); onProjectsClick(); }
-    : onClose;
-  const handleWriting = onWritingClick
-    ? (e) => { e.preventDefault(); onWritingClick(); }
     : onClose;
   const handleCv = onCvClick
     ? (e) => { e.preventDefault(); onCvClick(); }
@@ -296,7 +183,6 @@ function MobileMenu({ lang, setLang, t, onClose, onProjectsClick, onCvClick, onC
       </div>
       <nav className="overlay__nav">
         <a className={activePage === 'projects' ? 'nav__link--active' : 'nav__link--primary'} href={LINKS.projects} onClick={handleProjects}>{t.projects}</a>
-        <a className={activePage === 'writing' ? 'nav__link--active' : 'nav__link--primary'} href={LINKS.writing} onClick={handleWriting}>{t.writing}</a>
         <a
           className={activePage === 'design' ? 'nav__link--active' : 'nav__link--primary'}
           href={LINKS.design}
@@ -304,10 +190,8 @@ function MobileMenu({ lang, setLang, t, onClose, onProjectsClick, onCvClick, onC
         >{t.design}</a>
         <a className={activePage === 'cv' ? 'nav__link--active' : 'nav__link--primary'} href={LINKS.cv} onClick={handleCv}>{t.cv}</a>
         <a className={activePage === 'contact' ? 'nav__link--active' : 'nav__link--primary'} href={LINKS.contact} onClick={handleContact}>{t.contact}</a>
-        <a className="overlay__labs" href={LINKS.labs} target="_blank" rel="noreferrer" onClick={onClose}>{t.labs}</a>
       </nav>
       <div className="overlay__footer">
-        <LangToggle lang={lang} setLang={setLang} />
         <div className="overlay__social">
           <a href={LINKS.github} target="_blank" rel="noreferrer">GitHub</a>
           <a href={LINKS.email}>Email</a>
@@ -317,14 +201,83 @@ function MobileMenu({ lang, setLang, t, onClose, onProjectsClick, onCvClick, onC
   );
 }
 
+// Orange dot that trails the pointer (mouse/trackpad only). It eases toward
+// the cursor each frame, grows into a ring over links/buttons, and shrinks
+// while pressed. Position is written straight to the DOM — no re-renders.
+function CursorDot() {
+  const ref = React.useRef(null);
+  const [enabled] = useState(() =>
+    typeof window !== "undefined" &&
+    window.matchMedia &&
+    !window.matchMedia("(hover: none), (pointer: coarse)").matches
+  );
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!enabled || !el) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const target = { x: -100, y: -100 };
+    const pos = { x: -100, y: -100 };
+    let seen = false;
+    let raf;
+
+    const render = () => {
+      const k = reduce ? 1 : 0.2;
+      pos.x += (target.x - pos.x) * k;
+      pos.y += (target.y - pos.y) * k;
+      el.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
+      raf = requestAnimationFrame(render);
+    };
+    raf = requestAnimationFrame(render);
+
+    const onMove = (e) => {
+      target.x = e.clientX;
+      target.y = e.clientY;
+      if (!seen) {               // first move: start at the pointer, not off-screen
+        seen = true;
+        pos.x = target.x;
+        pos.y = target.y;
+      }
+      el.classList.remove("cursor-dot--hidden");
+    };
+    const onOver = (e) => {
+      const hit = e.target.closest && e.target.closest('a, button, [role="button"]');
+      el.classList.toggle("cursor-dot--hover", !!hit);
+    };
+    const onDown = () => el.classList.add("cursor-dot--down");
+    const onUp = () => el.classList.remove("cursor-dot--down");
+    const onLeave = () => el.classList.add("cursor-dot--hidden");
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerover", onOver, { passive: true });
+    window.addEventListener("pointerdown", onDown, { passive: true });
+    window.addEventListener("pointerup", onUp, { passive: true });
+    document.documentElement.addEventListener("mouseleave", onLeave);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerover", onOver);
+      window.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointerup", onUp);
+      document.documentElement.removeEventListener("mouseleave", onLeave);
+    };
+  }, [enabled]);
+
+  if (!enabled) return null;
+  return (
+    <div ref={ref} className="cursor-dot cursor-dot--hidden" aria-hidden="true">
+      <span className="cursor-dot__inner" />
+    </div>
+  );
+}
+
 /* ── Export to global scope for page scripts ──────────────── */
 window.PF = {
   LINKS,
   STRINGS,
-  useLang,
   useClock,
   useIsMobile,
-  LangToggle,
   Nav,
   MobileMenu,
+  CursorDot,
 };

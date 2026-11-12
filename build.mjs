@@ -5,8 +5,8 @@
       in-browser Babel step) — global React / window.PF model kept.
    2. Copies static assets.
    3. Injects per-page social/OG metadata into index.html + the
-      view stubs, and generates a static page per Writing post
-      (and the /writing/ index) so crawlers get real previews.
+      view stubs, and emits a static page per view so crawlers
+      get real previews.
    4. Emits sitemap.xml + robots.txt.
 
    Run: npm run build   (or: node build.mjs)
@@ -25,19 +25,18 @@ const OG_IMAGE = SITE + "/og-image.png";
 // ── Per-page metadata (single source of truth) ───────────────
 const AUTHOR = "Hayden Murphey";
 const DEFAULT_DESC =
-  "Hayden Murphey — Software Engineer and Founder of Murphey Labs. Security, cloud, and full-stack engineering.";
+  "Hayden Murphey — Software Engineer: AI, cloud, and security.";
 
 const VIEW_META = {
   home:     { title: "Hayden Murphey — Software Engineer", desc: DEFAULT_DESC, url: SITE + "/" },
   projects: { title: "Projects — Hayden Murphey",  desc: "Selected engineering projects — infrastructure, systems, security, and AI/robotics work.", url: SITE + "/projects/" },
-  writing:  { title: "Writing — Hayden Murphey",   desc: "Notes and technical writeups on security, Linux, cloud, and homelab engineering.", url: SITE + "/writing/" },
   design:   { title: "Design — Hayden Murphey",    desc: "Selected visual and design work.", url: SITE + "/design/" },
-  cv:       { title: "CV — Hayden Murphey",        desc: "Education, certifications (AWS, ISC2), and technical skills.", url: SITE + "/cv/" },
-  contact:  { title: "Contact — Hayden Murphey",   desc: "Get in touch with Hayden Murphey — email, GitHub, LinkedIn, Murphey Labs.", url: SITE + "/contact/" },
+  cv:       { title: "CV — Hayden Murphey",        desc: "Experience, education, certifications (AWS, ISC2), and technical skills.", url: SITE + "/cv/" },
+  contact:  { title: "Contact — Hayden Murphey",   desc: "Get in touch with Hayden Murphey — email, GitHub, LinkedIn.", url: SITE + "/contact/" },
 };
 
-// Views that get a clean static path (/projects/, /writing/, …).
-const PATH_VIEWS = ["projects", "cv", "design", "contact", "writing"];
+// Views that get a clean static path (/projects/, /cv/, …).
+const PATH_VIEWS = ["projects", "cv", "design", "contact"];
 
 // Build the <head> social/meta block for a page.
 function metaBlock({ title, desc, url, type = "website", image = OG_IMAGE }) {
@@ -102,7 +101,6 @@ async function main() {
 
   // 2 ── Copy static assets ───────────────────────────────────
   await copyIfExists("styles.css");
-  await copyIfExists("posts");
   await copyIfExists("images");
   await copyIfExists("design_page");
   await copyIfExists("favicon.ico");
@@ -118,13 +116,13 @@ async function main() {
   const indexHtml = applyMeta(indexSrc, { ...VIEW_META.home, type: "website" });
   await fs.writeFile(path.join(dist, "index.html"), indexHtml);
 
-  const STUBS = { "projects.html": "projects", "design.html": "design", "cv.html": "cv", "contact.html": "contact", "writing.html": "writing" };
+  const STUBS = { "projects.html": "projects", "design.html": "design", "cv.html": "cv", "contact.html": "contact" };
   for (const [file, view] of Object.entries(STUBS)) {
     const src = await fs.readFile(path.join(root, file), "utf8");
     await fs.writeFile(path.join(dist, file), applyMeta(src, { ...VIEW_META[view], type: "website" }));
   }
 
-  // 4 ── Static per-view pages (clean paths) + per-post pages ──
+  // 4 ── Static per-view pages (clean paths) ─────────────────
   // Each page boots the SPA (home.jsx reads the path) and carries per-view OG.
   for (const view of PATH_VIEWS) {
     const outDir = path.join(dist, view);
@@ -135,25 +133,10 @@ async function main() {
     );
   }
 
-  const manifest = JSON.parse(await fs.readFile(path.join(root, "posts", "manifest.json"), "utf8"));
-  for (const post of manifest) {
-    const url = `${SITE}/writing/${post.slug}/`;
-    const html = applyMeta(indexSrc, {
-      title: `${post.title} — ${AUTHOR}`,
-      desc: post.description || DEFAULT_DESC,
-      url,
-      type: "article",
-    });
-    const outDir = path.join(dist, "writing", post.slug);
-    await fs.mkdir(outDir, { recursive: true });
-    await fs.writeFile(path.join(outDir, "index.html"), html);
-  }
-
   // 5 ── sitemap.xml + robots.txt ─────────────────────────────
   const urls = [
     SITE + "/",
     ...Object.values(VIEW_META).filter((m) => m.url !== SITE + "/").map((m) => m.url),
-    ...manifest.map((p) => `${SITE}/writing/${p.slug}/`),
   ];
   const sitemap =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
@@ -166,7 +149,7 @@ async function main() {
     `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`
   );
 
-  console.log(`\n✓ Built ${manifest.length} post page(s) + ${Object.keys(VIEW_META).length} views → dist/`);
+  console.log(`\n✓ Built ${Object.keys(VIEW_META).length} views → dist/`);
 }
 
 main().catch((err) => {

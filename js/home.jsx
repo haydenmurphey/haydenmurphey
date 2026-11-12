@@ -1,6 +1,6 @@
 /* global React, ReactDOM */
 const { useState, useEffect, useRef } = React;
-const { useLang, useClock, useIsMobile, Nav, MobileMenu, LINKS } = window.PF;
+const { STRINGS, useClock, useIsMobile, Nav, MobileMenu, CursorDot, LINKS } = window.PF;
 
 function HeroBody({ t, showClock }) {
   const { time, tz } = useClock();
@@ -26,14 +26,14 @@ function HeroBody({ t, showClock }) {
   );
 }
 
-function AboutPanel({ t, isMobile, onCvClick, panelRef, visible }) {
+function AboutPanel({ t, onCvClick, visible }) {
   const handleCv = onCvClick ? (e) => { e.preventDefault(); onCvClick(); } : undefined;
   return (
-    <section ref={panelRef} className={`about-panel${visible ? ' about-panel--visible' : ''}`}>
+    <div className={`about-panel${visible ? ' about-panel--visible' : ''}`}>
       <div className="about__content">
         <p className="about__label">{t.about_label}</p>
         <h2 className="about__title">
-          {t.about_title_line1}<br />{t.about_title_line2}
+          {t.about_title_line1}
         </h2>
         <p className="about__bio">{t.about_bio}</p>
         <p className="about__skills">{t.about_skills}</p>
@@ -47,215 +47,238 @@ function AboutPanel({ t, isMobile, onCvClick, panelRef, visible }) {
           </a>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 
-function App({ showClock = true }) {
-  const { lang, setLang, t } = useLang();
-  const isMobile = useIsMobile();
-  const [menuOpen, setMenuOpen] = useState(false);
-  // Clean paths are canonical (/projects/, /writing/, /writing/<slug>/, …).
-  // The first path segment picks the view; legacy ?v= and the *.html stubs
-  // remain as fallbacks so old links keep working.
-  const VIEWS = ['projects', 'cv', 'contact', 'design', 'writing'];
+/* ── The deck ──────────────────────────────────────────────
+   The whole site is one vertical deck of full-screen panels:
+   name → about → projects → design → cv → contact. Scrolling
+   (wheel / swipe / arrow keys) first steps through a panel's own
+   items (projects, cv, mobile design carousel) and, at its edge,
+   slides to the next panel. The Nav sits above the deck and never
+   unmounts, so the header stays put while panels slide under it.
+   ────────────────────────────────────────────────────────── */
+const SECTIONS = ['home', 'about', 'projects', 'design', 'cv', 'contact'];
+// Sections with a canonical clean path; 'about' shares '/' with the hero.
+const PATHS = { home: '/', about: '/', projects: '/projects/', design: '/design/', cv: '/cv/', contact: '/contact/' };
+
+const SLIDE_MS = 720;        // matches the CSS transform transition
+const STEP_LOCK_MS = 450;    // pause after an in-panel step
+const GESTURE_GAP_MS = 150;  // wheel silence that marks a new gesture (tames trackpad momentum)
+const SWIPE_MIN = 40;
+
+function initialIndex() {
   const seg = window.location.pathname.replace(/^\/+|\/+$/g, '').split('/')[0];
   const urlParam = new URLSearchParams(window.location.search).get('v');
-  const initialView = VIEWS.includes(seg)
-    ? seg
-    : (VIEWS.includes(urlParam) ? urlParam : 'home');
-  const [view, setView] = useState(initialView);
-  const [contentPhase, setContentPhase] = useState("visible");
-  const [hasScrolled, setHasScrolled] = useState(false);
+  const i = SECTIONS.indexOf(seg) > 1 ? SECTIONS.indexOf(seg) : SECTIONS.indexOf(urlParam);
+  return i > 1 ? i : 0;
+}
+
+// Can this element scroll natively any further in direction dir (+1 down / -1 up)?
+function canScroll(el, dir) {
+  if (!el || el.scrollHeight <= el.clientHeight + 1) return false;
+  return dir > 0
+    ? el.scrollTop + el.clientHeight < el.scrollHeight - 1
+    : el.scrollTop > 0;
+}
+
+function App({ showClock = true }) {
+  const t = STRINGS;
+  const isMobile = useIsMobile();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [active, setActive] = useState(initialIndex);
+  const [prev, setPrev] = useState(null);        // panel sliding out (animates alongside the new one)
+  const [hasScrolled, setHasScrolled] = useState(active !== 0);
   const [cueVisible, setCueVisible] = useState(false);
-  const [aboutVisible, setAboutVisible] = useState(false);
-  const [activePanel, setActivePanel] = useState(0);
   const [heroReentering, setHeroReentering] = useState(false);
-  const transitioning = useRef(false);
-  const aboutPanelRef = useRef(null);
-  const panelsRef = useRef(null);
-  const activePanelRef = useRef(0);
-  const isTransitioning = useRef(false);
-  const touchStartY = useRef(null);
+
+  const activeRef = useRef(active);
+  const lockUntil = useRef(0);
+  const lastWheel = useRef(0);
+  const touchStart = useRef(null);
+  const deckRef = useRef(null);
+  const panelEls = useRef([]);
+  // Each stepping view registers fn(dir) → true if it handled the step internally.
+  const steps = useRef({});
 
   useEffect(() => { if (!isMobile && menuOpen) setMenuOpen(false); }, [isMobile, menuOpen]);
 
-  useEffect(() => { activePanelRef.current = activePanel; }, [activePanel]);
-
   useEffect(() => {
-    if (view === "home") {
-      setHasScrolled(false);
-      setCueVisible(false);
-      setAboutVisible(false);
-      setActivePanel(0);
-      setHeroReentering(false);
-      activePanelRef.current = 0;
-    }
-  }, [view]);
-
-  useEffect(() => {
-    if (view !== "home") return;
     const timer = setTimeout(() => setCueVisible(true), 1200);
     return () => clearTimeout(timer);
-  }, [view]);
+  }, []);
 
-  function goToPanel(index) {
-    if (isTransitioning.current || index === activePanelRef.current) return;
-    isTransitioning.current = true;
-
-    if (index === 1) {
-      setActivePanel(1);
-      setHasScrolled(true);
-      setAboutVisible(true);
-      setHeroReentering(false);
-    } else {
-      setActivePanel(0);
-      setAboutVisible(false);
-      setHeroReentering(false);
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => setHeroReentering(true))
-      );
-    }
-
-    setTimeout(() => { isTransitioning.current = false; }, 820);
+  function goTo(index) {
+    const next = Math.max(0, Math.min(SECTIONS.length - 1, index));
+    const cur = activeRef.current;
+    setMenuOpen(false);
+    if (next === cur) return;
+    activeRef.current = next;
+    lockUntil.current = performance.now() + SLIDE_MS + 30;
+    setPrev(cur);
+    setActive(next);
+    if (next !== 0) setHasScrolled(true);
+    window.history.replaceState({}, '', PATHS[SECTIONS[next]]);
+    // Replay the name reveal whenever we land back on the hero.
+    setHeroReentering(false);
+    if (next === 0) requestAnimationFrame(() => requestAnimationFrame(() => setHeroReentering(true)));
+    const content = panelEls.current[next];
+    if (content) content.scrollTop = 0;
   }
 
+  // One step in direction dir: in-panel first, then the next/previous panel.
+  function step(dir, { advance = true } = {}) {
+    const now = performance.now();
+    if (now < lockUntil.current) return;
+    const inner = steps.current[SECTIONS[activeRef.current]];
+    if (inner && inner(dir)) {
+      lockUntil.current = now + STEP_LOCK_MS;
+      return;
+    }
+    if (advance) goTo(activeRef.current + dir);
+  }
+
+  const stepRef = useRef(step);
+  stepRef.current = step;
+
+  // Single input controller for the whole deck.
   useEffect(() => {
-    const el = panelsRef.current;
-    if (!el || view !== 'home') return;
+    const deck = deckRef.current;
+    if (!deck) return;
+    const panel = () => panelEls.current[activeRef.current];
 
     const onWheel = (e) => {
-      e.preventDefault();
+      if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
       const dir = e.deltaY > 0 ? 1 : -1;
-      goToPanel(Math.max(0, Math.min(1, activePanelRef.current + dir)));
+      if (canScroll(panel(), dir)) return;        // let a tall panel scroll natively first
+      e.preventDefault();
+      const now = performance.now();
+      const gap = now - lastWheel.current;
+      lastWheel.current = now;
+      if (Math.abs(e.deltaY) < 4 || gap < GESTURE_GAP_MS) return;
+      stepRef.current(dir);
     };
 
-    const onTouchStart = (e) => { touchStartY.current = e.touches[0].clientY; };
+    const onTouchStart = (e) => {
+      touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, scrollTop: panel() ? panel().scrollTop : 0 };
+    };
     const onTouchEnd = (e) => {
-      if (touchStartY.current === null) return;
-      const delta = touchStartY.current - e.changedTouches[0].clientY;
-      touchStartY.current = null;
-      if (Math.abs(delta) < 40) return;
-      const dir = delta > 0 ? 1 : -1;
-      goToPanel(Math.max(0, Math.min(1, activePanelRef.current + dir)));
+      const s = touchStart.current;
+      touchStart.current = null;
+      if (!s) return;
+      const dx = s.x - e.changedTouches[0].clientX;
+      const dy = s.y - e.changedTouches[0].clientY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        stepRef.current(dx > 0 ? 1 : -1, { advance: false });   // horizontal: in-panel carousel only
+        return;
+      }
+      if (Math.abs(dy) < SWIPE_MIN) return;
+      const dir = dy > 0 ? 1 : -1;
+      // A tall panel must be scrolled to its edge (before this swipe began) to hand off.
+      const el = panel();
+      if (el && el.scrollHeight > el.clientHeight + 1) {
+        const atTop = s.scrollTop <= 0;
+        const atBottom = s.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+        if ((dir < 0 && !atTop) || (dir > 0 && !atBottom)) return;
+      }
+      stepRef.current(dir);
     };
 
-    el.addEventListener('wheel', onWheel, { passive: false });
-    el.addEventListener('touchstart', onTouchStart, { passive: true });
-    el.addEventListener('touchend', onTouchEnd, { passive: true });
+    const onKey = (e) => {
+      if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable]')) return;
+      const down = ['ArrowDown', 'PageDown', ' '].includes(e.key);
+      const up = ['ArrowUp', 'PageUp'].includes(e.key);
+      if (down || up) {
+        e.preventDefault();
+        stepRef.current(down ? 1 : -1);
+      } else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        stepRef.current(e.key === 'ArrowRight' ? 1 : -1, { advance: false });
+      }
+    };
+
+    deck.addEventListener('wheel', onWheel, { passive: false });
+    deck.addEventListener('touchstart', onTouchStart, { passive: true });
+    deck.addEventListener('touchend', onTouchEnd, { passive: true });
+    window.addEventListener('keydown', onKey);
     return () => {
-      el.removeEventListener('wheel', onWheel);
-      el.removeEventListener('touchstart', onTouchStart);
-      el.removeEventListener('touchend', onTouchEnd);
+      deck.removeEventListener('wheel', onWheel);
+      deck.removeEventListener('touchstart', onTouchStart);
+      deck.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('keydown', onKey);
     };
-  }, [view]);
+  }, []);
 
-  function transition(toView) {
-    if (transitioning.current) return;
-    transitioning.current = true;
-    setMenuOpen(false);
-    setContentPhase("exiting");
-    // Keep the URL in sync so a refresh restores the current view.
-    // Clean canonical paths (/projects/, /writing/, …); absolute so it's
-    // correct even from a /writing/<slug>/ post page.
-    window.history.replaceState({}, '', toView === 'home' ? '/' : '/' + toView + '/');
+  const { ProjectsView, CvView, ContactView, DesignView } = window.PF;
+  const go = (name) => () => goTo(SECTIONS.indexOf(name));
+  const register = (name) => (fn) => { steps.current[name] = fn; };
 
-    setTimeout(() => {
-      setView(toView);
-      setContentPhase("entering");
-      requestAnimationFrame(() => {
-        void document.body.offsetHeight;
-        setContentPhase("visible");
-        setTimeout(() => { transitioning.current = false; }, 400);
-      });
-    }, 300);
-  }
+  const panels = {
+    home: (
+      <section className={`hero${isMobile ? " hero--mobile" : ""}${heroReentering ? " hero--reentering" : ""}`}>
+        <HeroBody t={t} showClock={showClock} />
+        {!hasScrolled && (
+          <div className={`scroll-cue${cueVisible ? " scroll-cue--visible" : ""}`}>
+            <span className="scroll-cue__arrow">▾</span>
+            <span className="scroll-cue__label">{t.scroll}</span>
+          </div>
+        )}
+      </section>
+    ),
+    about:    <AboutPanel t={t} onCvClick={go('cv')} visible={active === 1} />,
+    projects: <ProjectsView isMobile={isMobile} registerStep={register('projects')} />,
+    design:   <DesignView isMobile={isMobile} registerStep={register('design')} />,
+    cv:       <CvView isMobile={isMobile} registerStep={register('cv')} />,
+    contact:  <ContactView isMobile={isMobile} />,
+  };
 
-  const { ProjectsView, CvView, ContactView, DesignView, WritingView } = window.PF;
+  const navTarget = SECTIONS[active];
+  const navHandlers = {
+    onProjectsClick: go('projects'),
+    onDesignClick:   go('design'),
+    onCvClick:       go('cv'),
+    onContactClick:  go('contact'),
+  };
 
   return (
-    <div className={`page${view === "home" ? " page--home" : ""}${view === "contact" ? " page--contact" : ""}${view === "design" ? " page--design" : ""}`}>
+    <div className="page page--home">
       <Nav
-        lang={lang}
-        setLang={setLang}
         t={t}
         isMobile={isMobile}
         onMenuToggle={() => setMenuOpen((v) => !v)}
-        activePage={view}
-        onProjectsClick={view !== "projects" ? () => transition("projects") : null}
-        onWritingClick={view !== "writing" ? () => transition("writing") : null}
-        onCvClick={view !== "cv" ? () => transition("cv") : null}
-        onContactClick={view !== "contact" ? () => transition("contact") : null}
-        onDesignClick={view !== "design" ? () => transition("design") : null}
-        onHomeClick={() => view !== "home" ? transition("home") : goToPanel(0)}
+        activePage={navTarget}
+        onHomeClick={go('home')}
+        {...navHandlers}
       />
 
-      {view === "home" && (
-        <div
-          ref={panelsRef}
-          className={`home-panels${activePanel === 1 ? ' home-panels--about' : ''}${contentPhase === "exiting" ? " view-exit" : ""}`}
-        >
-          <section className={`hero${isMobile ? " hero--mobile" : ""}${heroReentering ? " hero--reentering" : ""}`}>
-            <HeroBody t={t} showClock={showClock} />
-            {!hasScrolled && (
-              <div className={`scroll-cue${cueVisible ? " scroll-cue--visible" : ""}`}>
-                <span className="scroll-cue__arrow">▾</span>
-                <span className="scroll-cue__label">{t.scroll}</span>
-              </div>
-            )}
-          </section>
-          <AboutPanel
-            t={t}
-            isMobile={isMobile}
-            onCvClick={view !== "cv" ? () => transition("cv") : null}
-            panelRef={aboutPanelRef}
-            visible={aboutVisible}
-          />
-        </div>
-      )}
-
-      {view === "projects" && (
-        <ProjectsView
-          lang={lang}
-          isMobile={isMobile}
-          contentPhase={contentPhase}
-        />
-      )}
-
-      {view === "cv" && (
-        <CvView
-          lang={lang}
-          isMobile={isMobile}
-          contentPhase={contentPhase}
-        />
-      )}
-
-      {view === "contact" && (
-        <ContactView lang={lang} isMobile={isMobile} contentPhase={contentPhase} />
-      )}
-
-      {view === "design" && (
-        <DesignView lang={lang} isMobile={isMobile} contentPhase={contentPhase} />
-      )}
-
-      {view === "writing" && (
-        <WritingView lang={lang} isMobile={isMobile} contentPhase={contentPhase} />
-      )}
+      <div ref={deckRef} className="home-panels">
+        {SECTIONS.map((name, i) => {
+          const state = i === active ? 'current' : i < active ? 'past' : 'future';
+          const animating = i === active || i === prev;
+          return (
+            <div
+              key={name}
+              ref={(el) => { panelEls.current[i] = el; }}
+              className={`deck-panel deck-panel--${name}${animating ? ' deck-panel--animate' : ''}${state === 'current' ? ' deck-panel--current' : ''}`}
+              data-state={state}
+              aria-hidden={state !== 'current'}
+            >
+              {panels[name]}
+            </div>
+          );
+        })}
+      </div>
 
       {isMobile && menuOpen && (
         <MobileMenu
-          lang={lang}
-          setLang={setLang}
           t={t}
-          activePage={view}
+          activePage={navTarget}
           onClose={() => setMenuOpen(false)}
-          onProjectsClick={view !== "projects" ? () => { setMenuOpen(false); transition("projects"); } : null}
-          onWritingClick={view !== "writing" ? () => { setMenuOpen(false); transition("writing"); } : null}
-          onCvClick={view !== "cv" ? () => { setMenuOpen(false); transition("cv"); } : null}
-          onContactClick={view !== "contact" ? () => { setMenuOpen(false); transition("contact"); } : null}
-          onDesignClick={view !== "design" ? () => { setMenuOpen(false); transition("design"); } : null}
+          {...navHandlers}
         />
       )}
+
+      <CursorDot />
     </div>
   );
 }
