@@ -16,7 +16,6 @@ const LINKS = {
   cvPdf: "/hayden_murphey_2026.pdf",
   design: "/design/",
   contact: "/contact/",
-  labs: "https://murpheylabs.com",
   github: "https://github.com/haydenmurphey",
   linkedin: "https://linkedin.com/in/haydenmurphey",
   email: "mailto:hsmurphey@gmail.com",
@@ -29,14 +28,13 @@ const STRINGS = {
   cv: "CV",
   design: "Design",
   contact: "Contact",
-  labs: "murphey [labs]",
   menuOpen: "[ ≡ menu ]",
   menuClose: "[ × close ]",
   scroll: "scroll",
   swipe:  "swipe",
   about_label:      "About",
   about_title_line1: "Software Engineer",
-  about_bio:        "I debug and evaluate AI systems. Through contract work for frontier AI labs, I red-team model-generated code, test APIs and agent workflows, and trace failures to their root cause. Outside that, I run a self-hosted, monitored homelab and build developer tools at Murphey Labs.",
+  about_bio:        "I debug and evaluate AI systems. Through contract work for frontier AI labs, I red-team model-generated code, test APIs and agent workflows, and trace failures to their root cause. Outside that, I run a self-hosted, monitored homelab where I break and fix things to learn how they work.",
   about_skills:     "AI Systems · Debugging · Cloud · Security",
   about_cv:         "View CV",
   about_github:     "GitHub",
@@ -154,9 +152,6 @@ function Nav({ t, isMobile, onMenuToggle, activePage, onProjectsClick, onHomeCli
             onClick={handleCv}
           >{t.cv}</a>
           <a className={contactActive ? 'nav__link--active' : 'nav__link--primary'} href={LINKS.contact} onClick={handleContact}>{t.contact}</a>
-          {/* Murphey Labs pill — hidden for now; uncomment to restore.
-          <a className="nav__labs" href={LINKS.labs} target="_blank" rel="noreferrer">{t.labs}</a>
-          */}
         </nav>
       )}
     </div>
@@ -195,9 +190,6 @@ function MobileMenu({ t, onClose, onProjectsClick, onCvClick, onContactClick, on
         >{t.design}</a>
         <a className={activePage === 'cv' ? 'nav__link--active' : 'nav__link--primary'} href={LINKS.cv} onClick={handleCv}>{t.cv}</a>
         <a className={activePage === 'contact' ? 'nav__link--active' : 'nav__link--primary'} href={LINKS.contact} onClick={handleContact}>{t.contact}</a>
-        {/* Murphey Labs link — hidden for now; uncomment to restore.
-        <a className="overlay__labs" href={LINKS.labs} target="_blank" rel="noreferrer" onClick={onClose}>{t.labs}</a>
-        */}
       </nav>
       <div className="overlay__footer">
         <div className="overlay__social">

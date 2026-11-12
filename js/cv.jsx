@@ -24,11 +24,11 @@ const EDUCATION = {
 const EXPERIENCE = [
   {
     org:   'Mercor',
-    role:  'AI Code Evaluator · Frontier AI Labs (contract)',
+    role:  'AI Output Evaluator · Frontier AI Labs (contract)',
     meta:  'Remote · May 2026 – Present',
     points: [
-      'Evaluate and red-team model-generated code for frontier labs; trace each failure to its root cause (prompt, reasoning, tool use, or spec gap).',
-      'Write clear, reproducible failure reports that feed directly into model training.',
+      'Evaluate AI-generated outputs for frontier labs against task requirements, identifying errors and tracing them to their root cause.',
+      'Review and correct model work, fixing flawed code and responses so they meet spec, and document findings for model training.',
     ],
   },
   {
@@ -60,12 +60,12 @@ const CERTS = [
 ];
 
 const SKILLS = [
-  { group: 'Cloud & DevOps',        items: 'AWS (EC2, S3, IAM, Lambda, CloudWatch), Ansible, Docker, k3s, GitHub Actions' },
+  { group: 'Cloud & DevOps',        items: 'AWS (EC2, S3, IAM, Lambda, CloudWatch), Proxmox, Ansible, Docker, k3s, GitHub Actions' },
   { group: 'Networking & Security', items: 'Tailscale, Caddy, Pi-hole, Unbound, DNS, TLS, CrowdSec, encryption' },
   { group: 'Languages',             items: 'Python, JS / TS, Java, C, Rust, Ruby, Bash, SQL, Haskell' },
   { group: 'Frameworks & Web',      items: 'React, Next.js, Node.js, Vercel, Flutter / Dart, Nginx, HTML / CSS' },
-  { group: 'Monitoring & Alerting', items: 'Alertmanager, Uptime Kuma, Beszel' },
-  { group: 'AI / LLM Systems',      items: 'Prompt engineering, LLM output evaluation & red-teaming, agentic workflow testing, Claude Code, Cursor, local models (Whisper)' },
+  { group: 'Monitoring & Alerting', items: 'Alertmanager, Uptime Kuma, Beszel, ntfy' },
+  { group: 'AI / LLM Systems',      items: 'Prompt engineering, LLM output evaluation & red-teaming, agentic workflow testing, MCP, LiteLLM, Langfuse, Claude Code, Cursor, local models (Ollama, Whisper)' },
   { group: 'Testing & Debugging',   items: 'Postman, REST API testing, pytest, JUnit, root-cause analysis, log analysis (Docker logs), Docker repro environments' },
   { group: 'Data & Backend',        items: 'SQL, PostgreSQL, SQL Server, Supabase, REST APIs, NumPy, pandas' },
   { group: 'Tools & Practices',     items: 'Git, Linux / CLI, pytest, Agile / SCRUM, ROS2, OpenCV, Raspberry Pi' },

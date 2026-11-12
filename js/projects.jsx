@@ -3,10 +3,24 @@ const { useState, useEffect, useRef } = React;
 
 const PROJECTS = [
   {
+    title: "LLM Agent Security Eval Harness",
+    category: "AI Evaluation / Security",
+    summary: "Docker benchmark testing whether LLM agents can find and exploit an SSRF bug. An agent loop drives an MCP tool, traces every call in Langfuse, and labels each failure by root cause. Across 50 runs, no local model found it unaided.",
+    stack: ["Python", "Docker", "MCP", "LiteLLM", "Langfuse", "Ollama"],
+    github: "https://github.com/haydenmurphey/ssrf-eval",
+    art: `  agent ──▶ [ MCP: http_request ]
+  (LiteLLM)        │ allowlist
+     │             ▼
+     │      vulnerable-app ──SSRF──▶ internal
+     │        public-net           dashboard
+     ▼                              /admin/secrets
+  Langfuse trace ──▶ scorer ──▶ failure label`,
+  },
+  {
     title: "Proxmox Homelab Infrastructure",
     category: "Infrastructure / DevOps",
-    summary: "Single-node Proxmox homelab — Tailscale-only zero-inbound access, IaC-defined with SOPS-encrypted secrets, and backed up nightly. Monitored with Uptime Kuma, Beszel, and Alertmanager to catch and debug service failures.",
-    stack: ["Proxmox VE", "Tailscale", "Caddy", "Ansible", "Docker"],
+    summary: "Proxmox homelab defined as code (4 LXCs, 3 VMs, PBS) with no open inbound ports: Tailscale ACLs, split-horizon DNS, Caddy TLS, and CrowdSec. Alerting via Alertmanager, Uptime Kuma, and ntfy; local LLM inference on Ollama.",
+    stack: ["Proxmox VE", "Tailscale", "Caddy", "Docker", "CrowdSec", "Ollama"],
     github: "https://github.com/haydenmurphey/homelab-infra",
     art: `      ╭─[ tailnet · zero inbound ]─╮
       │                            │
@@ -30,18 +44,6 @@ const PROJECTS = [
                        Translater          Evaluator
                           │                   │
                        (text)              (runtime)`,
-  },
-  {
-    title: "Fixture Flow",
-    category: "Web App / Accessibility",
-    summary: "Accessibility-first web app for tracking favorite soccer teams — curated dashboards over information overload. WCAG-compliant, LocalStorage-persisted, no login required.",
-    stack: ["JavaScript", "REST APIs", "LocalStorage", "WCAG"],
-    github: "https://github.com/haydenmurphey/fixtureflow",
-    art: `┌─ favorites ─┐  ┌─ fixtures ──┐
-│  ◉ Arsenal  │  │  Sat 15:00  │
-│  ◉ Liverpool│→ │  Sun 11:30  │
-│  ◯ + add    │  │  Sun 16:00  │
-└─────────────┘  └─────────────┘`,
   },
   {
     title: "Autonomous Search & Rescue",

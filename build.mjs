@@ -32,7 +32,7 @@ const VIEW_META = {
   projects: { title: "Projects — Hayden Murphey",  desc: "Selected engineering projects — infrastructure, systems, security, and AI/robotics work.", url: SITE + "/projects/" },
   design:   { title: "Design — Hayden Murphey",    desc: "Selected visual and design work.", url: SITE + "/design/" },
   cv:       { title: "CV — Hayden Murphey",        desc: "Experience, education, certifications (AWS, ISC2), and technical skills.", url: SITE + "/cv/" },
-  contact:  { title: "Contact — Hayden Murphey",   desc: "Get in touch with Hayden Murphey — email, GitHub, LinkedIn, Murphey Labs.", url: SITE + "/contact/" },
+  contact:  { title: "Contact — Hayden Murphey",   desc: "Get in touch with Hayden Murphey — email, GitHub, LinkedIn.", url: SITE + "/contact/" },
 };
 
 // Views that get a clean static path (/projects/, /cv/, …).

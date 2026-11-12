@@ -8,7 +8,7 @@
   --cream: #f4f0e6;       /* page background */
   --ink: #1b1812;         /* primary text */
   --muted: #6a6354;       /* clock / secondary labels */
-  --terracotta: #c47a52;  /* labs CTA */
+  --terracotta: #c47a52;
   --ok: #5a7256;          /* availability green */
 
   --serif: "Cormorant Garamond", serif;
@@ -171,19 +171,6 @@ body {
 .nav__link--muted { opacity: 0.35; }
 .nav__link--muted:hover { opacity: 0.6; }
 
-.nav__labs {
-  color: var(--terracotta);
-  border: 1px solid var(--terracotta);
-  border-radius: 999px;
-  padding: 5px 13px;
-  letter-spacing: 0.06em;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-}
-.nav__labs:hover {
-  background: rgba(196, 122, 82, 0.12);
-  color: var(--ink);
-  border-color: rgba(196, 122, 82, 0.65);
-}
 
 /* Bottom block */
 .hero__bottom {
@@ -504,8 +491,6 @@ body {
 .overlay__nav a.nav__link--muted { opacity: 0.35; }
 .overlay__nav a.nav__link--muted:hover { opacity: 0.45; }
 .overlay__nav a.nav__link--primary:hover { opacity: 0.45; }
-.overlay__nav a.overlay__labs { color: var(--terracotta); }
-.overlay__nav a.overlay__labs:hover { opacity: 0.55; }
 
 .overlay__footer {
   margin-top: 36px;
