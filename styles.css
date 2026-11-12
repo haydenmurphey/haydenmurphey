@@ -22,6 +22,15 @@ html {
   scrollbar-gutter: stable;
 }
 
+/* Every route boots the same full-screen deck, so the document itself
+   never scrolls — panels slide instead. Without this, mobile browsers
+   let the page drift by the height of their collapsing toolbar. */
+html, body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 body {
   margin: 0;
   background: var(--cream);
@@ -69,6 +78,7 @@ body {
 .page--home {
   height: 100vh;
   height: 100dvh;
+  min-height: 0;   /* beat .page's 100vh, which is taller than a phone's visible area */
   overflow: hidden;
 }
 
@@ -218,7 +228,7 @@ body {
   font-family: var(--serif);
   font-weight: 600;
   text-transform: uppercase;
-  font-size: clamp(40px, min(6.2vw, 11vh), 100px);
+  font-size: clamp(40px, min(6.2vw, 11dvh), 100px);
   line-height: 0.86;
   letter-spacing: 0.012em;
   color: var(--ink);
@@ -423,7 +433,7 @@ body {
 }
 .hero--mobile .hero__bottom {
   animation: fadeUp 0.9s ease 0.15s both;
-  margin-bottom: clamp(36px, 8vh, 72px);
+  margin-bottom: clamp(36px, 8dvh, 72px);
 }
 .hero--mobile .tagline {
   font-size: clamp(19px, 5.2vw, 26px);
@@ -697,7 +707,7 @@ body {
     padding: 14px 24px 36px;
   }
   .about__content {
-    margin-bottom: clamp(36px, 8vh, 72px);
+    margin-bottom: clamp(36px, 8dvh, 72px);
   }
   .about__title {
     font-size: clamp(26px, 9vw, 44px);
@@ -781,8 +791,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(14px, 2vh, 28px);
-  padding: clamp(16px, 2vh, 28px) clamp(28px, 3.3vw, 52px);
+  gap: clamp(14px, 2dvh, 28px);
+  padding: clamp(16px, 2dvh, 28px) clamp(28px, 3.3vw, 52px);
   position: relative;
   align-self: stretch;
   overflow: hidden;
@@ -790,7 +800,7 @@ body {
 
 .projects-spa__heading {
   flex-shrink: 0;
-  padding: clamp(16px, 3vh, 32px) clamp(28px, 3.3vw, 52px) 0;
+  padding: clamp(16px, 3dvh, 32px) clamp(28px, 3.3vw, 52px) 0;
 }
 /* Desktop: split the free height evenly — header → title → content → bottom —
    instead of pinning the title up top with one big gap below it. */
@@ -804,7 +814,7 @@ body {
 .carousel {
   position: relative;
   width: 100%;
-  height: min(400px, 50vh);
+  height: min(400px, 50dvh);
   overflow: hidden;
   border-radius: 2px;
   box-shadow: 0 4px 32px rgba(27, 24, 18, 0.07);
@@ -838,7 +848,7 @@ body {
 /* Progress dots */
 .progress-dots {
   position: absolute;
-  bottom: clamp(24px, 3vh, 44px);
+  bottom: clamp(24px, 3dvh, 44px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -864,7 +874,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: clamp(16px, 2vh, 28px) clamp(28px, 3.3vw, 52px);
+  padding: clamp(16px, 2dvh, 28px) clamp(28px, 3.3vw, 52px);
   align-self: stretch;
 }
 
@@ -982,6 +992,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  justify-content: safe center;   /* if it ever overflows, clip the bottom, never the top */
   transition: opacity 0.35s cubic-bezier(.22,.75,.2,1),
               transform 0.35s cubic-bezier(.22,.75,.2,1);
 }
@@ -1105,7 +1116,8 @@ body {
   .cv-spa__main {
     flex-direction: column;
     align-items: flex-start;
-    padding: clamp(20px, 4vw, 32px) 24px;
+    /* bottom: clear the fixed swipe cue + position dots */
+    padding: clamp(20px, 4vw, 32px) 24px calc(env(safe-area-inset-bottom, 0px) + 72px);
     gap: 24px;
   }
   .cv-spa__left {
@@ -1132,39 +1144,60 @@ body {
     align-items: center;
   }
   .topbar .monogram { font-size: 20px; }
+  /* Mobile Projects: heading → carousel → details → footer, with the free
+     height split evenly around the carousel and details (space-evenly) so
+     nothing bunches up at the top or bottom. One gap token for rhythm. */
+  .projects-spa--mobile {
+    --m-gap: clamp(14px, 2.6dvh, 26px);
+  }
+  .projects-spa__heading {
+    padding: var(--m-gap) 24px 0;
+  }
   .projects-spa__main {
+    flex: 1;
+    min-height: 0;
     flex-direction: column;
     align-items: stretch;
+    justify-content: space-evenly;
+    gap: var(--m-gap);
+    padding: var(--m-gap) 0 0;
   }
   .projects-spa__left {
     flex: none;
-    padding: clamp(14px, 2.5vh, 24px) 24px 0;
-    gap: 10px;
+    padding: 0 24px;
+    gap: 0;
     overflow: visible;
     align-self: auto;
   }
-  .projects-spa__heading {
-    padding: 14px 24px 0;
-  }
   .projects-spa__right {
-    flex: 1;
+    flex: none;
     min-height: 0;
-    /* clear the fixed swipe cue + progress dots at the bottom */
-    padding: 14px 24px calc(env(safe-area-inset-bottom, 0px) + 72px);
+    padding: 0 24px;
     justify-content: center;
     align-self: auto;
-    overflow: hidden;
   }
   .carousel {
-    height: min(200px, 26vh);
+    height: clamp(130px, 24dvh, 220px);
   }
-  .progress-dots {
-    position: fixed;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 0;
-    z-index: 4;
+  .projects-spa__counter  { margin-bottom: 10px; }
+  .projects-spa__title    { font-size: clamp(22px, 6.4vw, 30px); margin-bottom: 8px; }
+  .projects-spa__category { margin-bottom: 14px; }
+  .projects-spa__summary  { font-size: 15px; line-height: 1.55; margin-bottom: 14px; }
+  .projects-spa__chips    { margin-bottom: 16px; }
+
+  /* Dots + swipe hint sit in flow at the bottom (no fixed overlap). */
+  .projects-spa__footer {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: var(--m-gap) 24px calc(env(safe-area-inset-bottom, 0px) + 16px);
+  }
+  .projects-spa__footer .swipe-cue,
+  .projects-spa__footer .progress-dots {
+    position: static;
+    transform: none;
   }
 }
 
@@ -1207,7 +1240,7 @@ body {
 .contact-item__lead {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: clamp(52px, min(9vw, 15vh), 160px);
+  font-size: clamp(52px, min(9vw, 15dvh), 160px);
   line-height: 0.88;
   letter-spacing: 0.012em;
   text-transform: uppercase;
@@ -1252,7 +1285,7 @@ body {
 
 /* ---- footer: status + clock ---- */
 .contact-page__foot {
-  margin-top: clamp(24px, 4vh, 44px);
+  margin-top: clamp(24px, 4dvh, 44px);
   padding-top: 16px;
   border-top: 1px solid rgba(27, 24, 18, 0.12);
   display: flex;
@@ -1331,7 +1364,7 @@ body {
     overscroll-behavior: contain;
   }
   .contact-page { padding: 0 24px 32px; }
-  .contact-index { gap: clamp(14px, 2.6vh, 24px); }
+  .contact-index { gap: clamp(14px, 2.6dvh, 24px); }
   /* No hover on touch: each word shows its address underneath. */
   .contact-item {
     flex-direction: column;
@@ -1368,7 +1401,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: clamp(16px, 3vh, 32px) clamp(28px, 3.3vw, 52px) clamp(12px, 2vh, 20px);
+  padding: clamp(16px, 3dvh, 32px) clamp(28px, 3.3vw, 52px) clamp(12px, 2dvh, 20px);
   flex-shrink: 0;
 }
 
@@ -1446,6 +1479,51 @@ body {
   margin: 0;
   white-space: nowrap;
   transition: transform 0.3s ease 0.05s;
+}
+
+/* ── Accordion (mid widths, where three even strips would crop) ──
+   One piece is featured at its true ratio; the others fold to slivers.
+   Widths are set inline by DesignView; this animates between them. */
+.design-gallery--accordion .design-strip {
+  transition:
+    flex-basis 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 0.4s ease;
+}
+.design-gallery--accordion .design-strip:focus-visible {
+  outline: 1px solid var(--terracotta);
+  outline-offset: 3px;
+}
+.design-strip--sliver { opacity: 0.5; }
+.design-strip--sliver:hover { opacity: 0.75; }
+.design-strip--featured .design-strip__overlay { opacity: 1; }
+.design-strip--sliver .design-strip__overlay { opacity: 0; }
+
+/* Vertical label on a folded sliver so it reads as a tab. */
+.design-strip__tab {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%) rotate(180deg);
+  writing-mode: vertical-rl;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--cream);
+  background: rgba(27, 24, 18, 0.55);
+  padding: 10px 4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.design-strip--sliver .design-strip__tab {
+  opacity: 1;
+  transition-delay: 0.25s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .design-gallery--accordion .design-strip { transition: opacity 0.2s ease; }
 }
 
 /* ── Mobile overrides (<768px) ─────────────────── */
@@ -1561,3 +1639,38 @@ body {
 .cv-spa--mobile .cv__job-org { font-size: 18px; }
 .cv-spa--mobile .cv__bullets { font-size: 13px; line-height: 1.45; margin-top: 6px; }
 .cv-spa--mobile .cv__job--secondary .cv__bullets { display: none; }
+
+/* Short phones (e.g. SE, or any phone with the browser toolbar showing):
+   tighten type and gaps so every panel still fits on one screen. */
+@media (max-width: 767px) and (max-height: 740px) {
+  .projects-spa--mobile { --m-gap: clamp(10px, 1.8dvh, 16px); }
+  .projects-spa__counter { display: none; }   /* the dots already show position */
+  .projects-spa__summary { font-size: 14px; line-height: 1.5; }
+  .projects-spa__category { margin-bottom: 10px; }
+  .projects-spa__chips { gap: 5px; margin-bottom: 12px; }
+  .projects-spa__chip { padding: 2px 7px; }
+  .carousel { height: clamp(110px, 20dvh, 170px); }
+  .carousel__art { font-size: 8px; }
+
+  .cv-spa__main { gap: 14px; padding-top: 14px; }
+  .cv-spa__left { gap: 6px 18px; }
+  .cv-spa--mobile .cv__experience { gap: 12px; }
+  .cv-spa--mobile .cv__bullets { font-size: 12.5px; line-height: 1.4; }
+
+  .contact-item__lead { font-size: clamp(40px, min(13vw, 9dvh), 64px); }
+}
+
+/* Very short phones (≈ iPhone SE with the toolbar showing): drop the
+   one-time swipe hint (the dots carry position) and trim the art box. */
+@media (max-width: 767px) and (max-height: 620px) {
+  .projects-spa__footer .swipe-cue { display: none; }
+  .carousel { height: clamp(90px, 17dvh, 130px); }
+  .carousel__art { font-size: 7px; padding: 10px; }
+  .projects-spa__title { font-size: 21px; }
+  .projects-spa__summary { font-size: 13.5px; line-height: 1.45; margin-bottom: 10px; }
+
+  .cv-spa .swipe-cue { display: none; }
+  .cv-spa__main { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 44px); }
+  .cv-spa--mobile .cv__bullets li + li { margin-top: 2px; }
+  .cv-spa--mobile .cv__job--secondary { display: none; }   /* oldest role; full CV PDF has it */
+}

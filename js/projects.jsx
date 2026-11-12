@@ -79,13 +79,17 @@ const VISIBLE_STYLE  = { opacity: 1, transform: "none",                         
 const HIDING_STYLE   = { opacity: 0, transform: "perspective(450px) rotateX(-18deg) translateY(-10px)",               transition: "opacity 0.2s ease, transform 0.2s ease"  };
 const INCOMING_STYLE = { opacity: 0, transform: "perspective(450px) rotateX(18deg) translateY(10px)",                 transition: "none"                                     };
 
-// Mobile: slide horizontally to match the carousel's left/right motion
-const HIDING_STYLE_M   = { opacity: 0, transform: "translateX(-24px)", transition: "opacity 0.2s ease, transform 0.2s ease" };
-const INCOMING_STYLE_M = { opacity: 0, transform: "translateX(24px)",  transition: "none"                                    };
+// Mobile: slide horizontally, the same way and on the same curve as the
+// carousel, so image and text read as one move.
+const EASE_M = "cubic-bezier(0.76, 0, 0.24, 1)";
+const HIDING_STYLE_M   = { opacity: 0, transform: "translateX(-40px)", transition: `opacity 0.2s ease, transform 0.23s ${EASE_M}` };
+const INCOMING_STYLE_M = { opacity: 0, transform: "translateX(40px)",  transition: "none" };
+const VISIBLE_STYLE_M  = { opacity: 1, transform: "none",              transition: `opacity 0.3s ease, transform 0.37s ${EASE_M}` };
 
 function ProjectsView({ isMobile, registerStep }) {
   const t = window.PF.STRINGS;
-  const [activeProject, setActiveProject] = useState(0);
+  const [activeProject, setActiveProject] = useState(0);   // text shown (swaps after the fade-out)
+  const [slideIdx, setSlideIdx] = useState(0);             // carousel position (moves immediately)
   const [textStyle, setTextStyle] = useState(VISIBLE_STYLE);
   const [hasNavigated, setHasNavigated] = useState(false);
   const animating = useRef(false);
@@ -93,6 +97,7 @@ function ProjectsView({ isMobile, registerStep }) {
 
   const hideStyle     = isMobile ? HIDING_STYLE_M   : HIDING_STYLE;
   const incomingStyle = isMobile ? INCOMING_STYLE_M : INCOMING_STYLE;
+  const visibleStyle  = isMobile ? VISIBLE_STYLE_M  : VISIBLE_STYLE;
 
   function changeProject(dir) {
     if (animating.current) return;
@@ -101,6 +106,7 @@ function ProjectsView({ isMobile, registerStep }) {
 
     setHasNavigated(true);
     animating.current = true;
+    setSlideIdx(next);          // image starts moving on the same frame as the text
     setTextStyle(hideStyle);
 
     setTimeout(() => {
@@ -109,7 +115,7 @@ function ProjectsView({ isMobile, registerStep }) {
       setTextStyle(incomingStyle);
       requestAnimationFrame(() => {
         void document.body.offsetHeight;
-        setTextStyle(VISIBLE_STYLE);
+        setTextStyle(visibleStyle);
         setTimeout(() => { animating.current = false; }, 400);
       });
     }, 230);
@@ -128,6 +134,21 @@ function ProjectsView({ isMobile, registerStep }) {
   const total = String(PROJECTS.length).padStart(2, "0");
   const num = String(activeProject + 1).padStart(2, "0");
 
+  const dots = (
+    <div className="progress-dots">
+      {PROJECTS.map((_, i) => (
+        <span
+          key={i}
+          className="progress-dot"
+          style={{
+            width: i === slideIdx ? "22px" : "6px",
+            background: i === slideIdx ? "var(--terracotta)" : "rgba(27,24,18,0.18)",
+          }}
+        />
+      ))}
+    </div>
+  );
+
   return (
     <div className={`projects-spa${isMobile ? " projects-spa--mobile" : ""}`}>
       <h1 className="projects-spa__heading section-title">Selected Projects</h1>
@@ -136,7 +157,7 @@ function ProjectsView({ isMobile, registerStep }) {
         <div className="projects-spa__left">
           <div className="carousel">
             {PROJECTS.map((p, i) => {
-              const offset = i === activeProject ? 0 : i < activeProject ? -100 : 100;
+              const offset = i === slideIdx ? 0 : i < slideIdx ? -100 : 100;
               return (
                 <div
                   key={i}
@@ -151,18 +172,7 @@ function ProjectsView({ isMobile, registerStep }) {
             })}
           </div>
 
-          <div className="progress-dots">
-            {PROJECTS.map((_, i) => (
-              <span
-                key={i}
-                className="progress-dot"
-                style={{
-                  width: i === activeProject ? "22px" : "6px",
-                  background: i === activeProject ? "var(--terracotta)" : "rgba(27,24,18,0.18)",
-                }}
-              />
-            ))}
-          </div>
+          {!isMobile && dots}
         </div>
 
         {/* RIGHT: animated project details */}
@@ -189,10 +199,13 @@ function ProjectsView({ isMobile, registerStep }) {
         </div>
       </div>
 
-      {isMobile && !hasNavigated && (
-        <div className="swipe-cue swipe-cue--visible">
-          <span className="swipe-cue__arrow">→</span>
-          <span className="swipe-cue__label">{t.swipe}</span>
+      {isMobile && (
+        <div className="projects-spa__footer">
+          <div className={`swipe-cue${hasNavigated ? "" : " swipe-cue--visible"}`}>
+            <span className="swipe-cue__arrow">→</span>
+            <span className="swipe-cue__label">{t.swipe}</span>
+          </div>
+          {dots}
         </div>
       )}
     </div>
