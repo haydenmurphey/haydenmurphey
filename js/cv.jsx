@@ -36,9 +36,9 @@ const EXPERIENCE = [
     role:  'Software Validation & AI Trainer (contract)',
     meta:  'Remote · May 2025 – Present',
     points: [
+      'Built cybersecurity testing harnesses to evaluate how AI models handle security tasks.',
       'Validated AI-generated code against technical specs across 500+ software-engineering and cybersecurity tasks, surfacing logic and edge-case failures.',
-      'Wrote Python scripts to test REST API integrations and agentic-workflow failure modes.',
-      'Reproduced bugs in disposable Docker environments to run regression checks across languages and frameworks.',
+      'Wrote Python scripts and disposable Docker environments to test API integrations, agentic workflows, and regressions across languages.',
     ],
   },
   {
